@@ -7,14 +7,9 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - ../site:/${COMPOSE_PROJECT_NAME}
-      - ./default.conf:/etc/nginx/conf.d/default.conf
-    links:
-      - php
-    volumes_from:
-      - php
-    depends_on:
-      - php
+      - ../site:/site
+      - ../assets:/assets
+      - ../config/dev/default.conf:/etc/nginx/conf.d/default.conf
 
   postgres:
       image: postgres:9.6
