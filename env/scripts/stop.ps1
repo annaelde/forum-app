@@ -1,7 +1,11 @@
 # Stop all project containers
 
+# Set the working directory
+$workingDirectory =  (Get-Item (Split-Path -Parent $MyInvocation.MyCommand.Path)).Parent.FullName
+Set-Location $workingDirectory
+
 # Get the environmental variable from the Docker .env file
-Get-Content ../.env | Foreach-Object{
+Get-Content .env | Foreach-Object{
     If (-NOT ($_ -eq "")){
         $var = $_.Split('=')
         New-Variable -Name $var[0] -Value $var[1]
@@ -11,5 +15,6 @@ Get-Content ../.env | Foreach-Object{
     }
 }
 
+# Stop containers
 docker container stop $project"_nginx"
 docker container stop $project"_postgres"
