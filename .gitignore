@@ -1,3 +1,7 @@
+<<<<<<< HEAD
 Lib/
 Scripts/
 Include/
+=======
+env/py
+>>>>>>> db19913... ignore python venv.
