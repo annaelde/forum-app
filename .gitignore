@@ -12,4 +12,7 @@ yarn-error.log
 *.sln
 
 # Virtual environment
-env/py
+env/py/
+
+# Django
+__pycache__/
