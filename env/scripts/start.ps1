@@ -5,7 +5,7 @@ $workingDirectory =  (Get-Item (Split-Path -Parent $MyInvocation.MyCommand.Path)
 Set-Location $workingDirectory
 
 # Get the environmental variable from the Docker .env file
-Get-Content .env | Foreach-Object{
+Get-Content ./env/.env | Foreach-Object{
     If (-NOT ($_ -eq "")){
         $var = $_.Split('=')
         New-Variable -Name $var[0] -Value $var[1]
@@ -18,4 +18,7 @@ Get-Content .env | Foreach-Object{
 Invoke-Expression "./env/py/Scripts/Activate.ps1"
 docker container start $project"_postgres"
 docker container start $project"_nginx"
-python site/manage.py runserver
+
+# Move Working Directoy to Site
+Set-Location ./site
+waitress-serve --listen=0.0.0.0:8080 ($project).wsgi:application
