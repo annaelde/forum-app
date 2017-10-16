@@ -16,6 +16,15 @@ Get-Content ./env/.env | Foreach-Object{
     }
 }
 
+# Add IP address environment variable (necessary for Docker containers to contact host machine)
+$address =  (Get-NetAdapter Wi-Fi | Get-NetIPAddress -AddressFamily IPv4 | Select IPAddress).IPAddress
+# Try Ethernet network if Wi-Fi didn't work
+if (-Not $address) {
+    $address = (Get-NetAdapter Ethernet | Get-NetIPAddress -AddressFamily IPv4 | Select IPAddress).IPAddress
+}
+Write-Host "The following IP address was automatically detected: $address."
+Add-Content ./env/.env "`nADDRESS=$address"
+
 # Create Python virtual env
 Write-Host "Creating virtual environment."
 python -m venv ./env/py
@@ -37,6 +46,12 @@ New-Item ./assets/static -Type directory
 Write-Host "Initializing Django."
 django-admin startproject $project ./site
 
+# Add settings for media and static files
+Add-Content ./site/$project/settings.py "`nMEDIA_ROOT = "
+Add-Content ./site/$project/settings.py "`nSTATIC_ROOT = "
+Add-Content ./site/$project/settings.py "`nMEDIA_URL = '/media/'"
+Add-Content ./site/$project/settings.py "`nSTATIC_URL = '/static/'"
+
 # Move into the env folder
 Set-Location ./env
 
@@ -48,12 +63,31 @@ Set-Location $workingDirectory
 
 # See if the user wants Vue/Webpack
 Write-Host "Would you like to set up Vue and Webpack?"
-$response = Read-Host(" ( y / n ) ")
-Switch($response)
+$installVue = Read-Host(" ( y / n ) ")
+Switch($installVue)
 {
     Y {
-        # Initialize Webpack and Vue
-        vue init webpack-simple .
+        # Make sure Vue-Cli is installed
+        $vueCLI = npm list --global | sls vue-cli
+        if (-Not $vueCLI) {
+            Write-Host "Vue-cli is not installed. Install now?"
+            $installCli = Read-Host(" ( y / n ) ")
+            Switch ($installCli)
+            {
+                Y{
+                    npm install --global vue-cli
+                    # Initialize Webpack and Vue
+                    vue init webpack-simple .
+                }
+                N{
+                    Write-Host "Skipping Vue and Webpack setup..."
+                }
+            }
+        }
+        else {
+            # Initialize Webpack and Vue
+            vue init webpack-simple .
+        }
     }
     N {
         Write-Host "Skipping..."
@@ -64,5 +98,6 @@ Switch($response)
 }
 
 # Activate app server
-Write-Host "Your project is now configured. Starting up the dev server..."
-python ./site/manage.py runserver
+Write-Host "Your project is now configured. Starting up the WSGI server..."
+Set-Location ./site
+Invoke-Expression "waitress-serve --listen=0.0.0.0:8080 $project.wsgi:application"
