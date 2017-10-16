@@ -47,10 +47,10 @@ Write-Host "Initializing Django."
 django-admin startproject $project ./site
 
 # Add settings for media and static files
-Add-Content ./site/$project/settings.py "`nMEDIA_ROOT = "
-Add-Content ./site/$project/settings.py "`nSTATIC_ROOT = "
 Add-Content ./site/$project/settings.py "`nMEDIA_URL = '/media/'"
-Add-Content ./site/$project/settings.py "`nSTATIC_URL = '/static/'"
+Add-Content ./site/$project/settings.py "`nBASE_DIR = os.path.dirname(os.path.dirname(__file__))"
+Add-Content ./site/$project/settings.py "`nMEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'assets', 'media')"
+Add-Content ./site/$project/settings.py "`nSTATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'assets', 'static')"
 
 # Move into the env folder
 Set-Location ./env
