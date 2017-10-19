@@ -16,3 +16,4 @@ env/py/
 
 # Django
 __pycache__/
+assets/static/admin
