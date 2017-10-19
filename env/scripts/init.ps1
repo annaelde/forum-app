@@ -1,4 +1,10 @@
 # Script to initialize Django development environment
+function findReplace([String] $Path, [String] $Find, [String] $Replace)
+{
+    $content = Get-Content $Path
+    $content = $content.replace($Find, $Replace)
+    Set-Content -Path $Path -Value $content
+}
 
 $workingDirectory =  (Get-Item (Split-Path -Parent $MyInvocation.MyCommand.Path)).Parent.Parent.FullName
 
@@ -6,13 +12,12 @@ $workingDirectory =  (Get-Item (Split-Path -Parent $MyInvocation.MyCommand.Path)
 Set-Location $workingDirectory
 
 # Get the environmental variable from the Docker .env file
+$env = @{}
 Get-Content ./env/.env | Foreach-Object{
     If (-NOT ($_ -eq "")){
         $var = $_.Split('=')
         New-Variable -Name $var[0] -Value $var[1]
-        If ($var[0] -eq "COMPOSE_PROJECT_NAME"){
-            $project = $var[1]
-        }
+        $env.Add($var[0], $var[1])
     }
 }
 
@@ -44,13 +49,16 @@ New-Item ./assets/static -Type directory
 
 # Start a Django project
 Write-Host "Initializing Django."
-django-admin startproject $project ./site
+django-admin startproject $($env.Get_Item("COMPOSE_PROJECT_NAME")) ./site
 
 # Add settings for media and static files
-Add-Content ./site/$project/settings.py "`nMEDIA_URL = '/media/'"
-Add-Content ./site/$project/settings.py "`nBASE_DIR = os.path.dirname(os.path.dirname(__file__))"
-Add-Content ./site/$project/settings.py "`nMEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'assets', 'media')"
-Add-Content ./site/$project/settings.py "`nSTATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'assets', 'static')"
+Add-Content ./site/$($env.Get_Item("COMPOSE_PROJECT_NAME"))/settings.py "`nMEDIA_URL = '/media/'"
+Add-Content ./site/$($env.Get_Item("COMPOSE_PROJECT_NAME"))/settings.py "`nBASE_DIR = os.path.dirname(os.path.dirname(__file__))"
+Add-Content ./site/$($env.Get_Item("COMPOSE_PROJECT_NAME"))/settings.py "`nMEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'assets', 'media')"
+Add-Content ./site/$($env.Get_Item("COMPOSE_PROJECT_NAME"))/settings.py "`nSTATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'assets', 'static')"
+
+# Add database settings
+
 
 # Move into the env folder
 Set-Location ./env
@@ -100,4 +108,4 @@ Switch($installVue)
 # Activate app server
 Write-Host "Your project is now configured. Starting up the WSGI server..."
 Set-Location ./site
-Invoke-Expression "waitress-serve --listen=0.0.0.0:8080 $project.wsgi:application"
+Invoke-Expression "waitress-serve --listen=0.0.0.0:8080 $($env.Get_Item("COMPOSE_PROJECT_NAME")).wsgi:application"
