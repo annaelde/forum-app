@@ -58,7 +58,13 @@ Add-Content ./site/$($env.Get_Item("COMPOSE_PROJECT_NAME"))/settings.py "`nMEDIA
 Add-Content ./site/$($env.Get_Item("COMPOSE_PROJECT_NAME"))/settings.py "`nSTATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'assets', 'static')"
 
 # Add database settings
+findReplace -Path "./site/$($env.Get_Item("COMPOSE_PROJECT_NAME"))/settings.py" `
+-Find "'django.db.backends.sqlite3'" `
+-Replace "'django.db.backends.postgresql'"
 
+findReplace -Path "./site/$($env.Get_Item("COMPOSE_PROJECT_NAME"))/settings.py" `
+-Find "os.path.join(BASE_DIR, 'db.sqlite3')," `
+-Replace "'$($env.Get_Item("DB_NAME"))',`n        'USER' : '$($env.Get_Item("DB_USER"))',`n        'PASSWORD' : '$($env.Get_Item("DB_PASS"))'"
 
 # Move into the env folder
 Set-Location ./env

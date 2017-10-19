@@ -17,23 +17,11 @@ The set-up script creates a Python virtual environment and installs a list of pa
 
 1. In the ````./env```` folder, open ````.env```` and set the variables to the values you want. A short name (~3 letters) is recommended for ````$COMPOSE_PROJECT_NAME````, used for the Django project and prefixing the Docker containers.
 2. Run ````init.ps1````, located in ````./env/scripts````. Allow the installation to fully complete, answering any prompts that appear.
-3. In ````./site/$COMPOSE_PROJECT_NAME/settings.py````, update the database configuration. Below is an example using the default values:
-````
-DATABASES = {
-    'default': {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "default",
-        "USER": "default",
-        "PASSWORD": "default",
-        "HOST": "localhost"
-    }
-}
-````
-4. Run the following command while in the ````./site```` folder to ensure the database connection is working:
+3. Run the following command while in the ````./site```` folder to ensure the database connection is working:
 ````
 python manage.py makemigrations
 ````
-5. You can access your development website on ````localhost:8000````. Happy coding!
+4. You can access your development website on ````localhost:8000````. Happy coding!
 
 ## FAQ
 
