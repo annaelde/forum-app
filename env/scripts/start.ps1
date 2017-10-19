@@ -21,4 +21,4 @@ docker container start $project"_nginx"
 
 # Move Working Directoy to Site
 Set-Location ./site
-waitress-serve --listen=0.0.0.0:8080 ($project).wsgi:application
+Invoke-Expression "waitress-serve --listen=0.0.0.0:8080 $project.wsgi:application"
