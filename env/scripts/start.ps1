@@ -19,6 +19,9 @@ Invoke-Expression "./env/py/Scripts/Activate.ps1"
 docker container start $project"_postgres"
 docker container start $project"_nginx"
 
-# Move Working Directoy to Site
+# Move Working Directory to Site
 Set-Location ./site
-Invoke-Expression "waitress-serve --listen=0.0.0.0:8080 $project.wsgi:application"
+
+# Starting up server and reloader.
+Write-Host "Starting WatchDog. Reload a file to start up the server!"
+Invoke-Expression "watchmedo shell-command --recursive --command=`'waitress-serve --listen=0.0.0.0:8080 $project.wsgi:application`' ." | Out-Null
