@@ -22,6 +22,5 @@ docker container start $project"_nginx"
 # Move Working Directory to Site
 Set-Location ./site
 
-# Starting up server and reloader.
-Write-Host "Starting WatchDog. Reload a file to start up the server!"
-Invoke-Expression "watchmedo shell-command --recursive --command=`'waitress-serve --listen=0.0.0.0:8080 $project.wsgi:application`' ." | Out-Null
+# Starting up dev server
+Invoke-Expression "python manage.py runserver 0.0.0.0:8080"
