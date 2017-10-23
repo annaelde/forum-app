@@ -1,8 +1,8 @@
 import Vue from 'vue'
-import Threads from './Threads.vue'
+import App from './App.vue'
 import axois from 'axios'
 
 new Vue({
   el: '#app',
-  render: h => h(Threads),
+  render: h => h(App),
 })
