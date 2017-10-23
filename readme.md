@@ -8,4 +8,16 @@ A work-in-progress I'm using to learn:
 - Axios
 - Bulma
 
-Additionally, a way to test my django-kit's configuration. 
+Additionally, this is a way to test my django-kit's configuration.
+
+# To-Do List
+
+- Add comments to forum posts
+- Add user authentication
+- Add support for POST/UPDATE/DELETE
+
+# Screenshot
+
+A little preview of my progress so far:
+
+![forum-app screenshot, showing a post list.](/screenshot.png)
