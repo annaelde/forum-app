@@ -1,14 +1,14 @@
 <template>
-    <board></board>
+    <div class="container">
+        <board></board>
+    </div>
 </template>
 
 <script>
-import axios from 'axios'
 import Board from './components/board.vue'
 
 export default {
     name: 'app',
-    el: '#app',
     components: { Board }
 }
 </script>
@@ -20,4 +20,10 @@ export default {
 $family-primary: Raleway, sans-serif
 
 @import "~bulma/bulma"
+</style>
+
+<style lang="scss">
+$fa-font-path: "~font-awesome/fonts";
+@import "~font-awesome/scss/font-awesome";
+
 </style>

@@ -1,5 +1,5 @@
 <template>
-        <div class="thread">
+    <div class="thread">
         <h1 class="title">{{ thread.title }}</h1>
         <h2 class="subtitle">Posted by {{ thread.author }} on {{ thread.created }}</h2>
         <p>{{ thread.content }}</p>
@@ -8,16 +8,19 @@
 
 <script>
 import axios from 'axios'
-export default {
-    name: 'threads',
-    data () {
+import Vue from 'vue'
+
+export default Vue.component('thread', {
+    name: 'thread',
+    data() {
         return {
-            thread : {},
-            error : {}
+            thread: {},
+            error: {}
         }
     },
-    created(){
-        axios.get('/api/threads/')
+    created() {
+        axios
+        .get('/api/threads/')
         .then(response => {
             this.thread = response.data
         })
@@ -25,14 +28,11 @@ export default {
             this.error.push(e)
         })
     }
-}
+})
+
 </script>
 
-// Styles that go across the app
+
 <style lang="sass">
-@import "~bulma/sass/utilities/initial-variables"
 
-$family-primary: Raleway, sans-serif
-
-@import "~bulma/bulma"
 </style>
