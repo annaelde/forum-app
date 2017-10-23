@@ -11,10 +11,12 @@
   "dependencies": {
     "axios": "^0.17.0",
     "bulma": "^0.6.0",
+    "font-awesome": "^4.7.0",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1"
   },
   "devDependencies": {
+    "url-loader": "^0.6.2",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.0",
