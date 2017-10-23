@@ -1,5 +1,14 @@
 <template>
     <div class="thread" v-if="thread">
+        <nav class="level">
+        <router-link to="/" class="button">
+            <span class="icon">
+                <i class="fa fa-arrow-left">
+                </i>
+            </span>
+            <span>Back to Board</span>
+        </router-link>
+        </nav>
         <h1 class="title">{{ thread.title }}</h1>
         <h2 class="subtitle">Posted by {{ thread.author }} on {{ thread.created }}</h2>
         <p>{{ thread.content }}</p>
@@ -31,7 +40,7 @@ export default Vue.component('thread', {
             this.error = e
             console.log(e)
         })
-    }
+    },
 })
 
 </script>
