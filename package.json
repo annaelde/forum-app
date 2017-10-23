@@ -5,11 +5,14 @@
   "author": "annaelde <elde.av@gmail.com>",
   "private": true,
   "scripts": {
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
+    "dev": "cross-env NODE_ENV=development webpack --watch --hot",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "dependencies": {
-    "vue": "^2.4.4"
+    "axios": "^0.17.0",
+    "bulma": "^0.6.0",
+    "vue": "^2.5.2",
+    "vue-router": "^3.0.1"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
