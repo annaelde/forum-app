@@ -14,4 +14,6 @@ class post_list(ListAPIView):
     permission_classes = (AllowAny,)
 
 class post_detail(RetrieveAPIView):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
     model = Post
