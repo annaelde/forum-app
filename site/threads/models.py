@@ -11,4 +11,11 @@ class Post(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     title = models.CharField(max_length=128, blank=True, default='')
     content = models.TextField(max_length=1024, blank=True, default='')
-    author = models.ForeignKey(User, on_delete=models.SET(get_null_user))
+    author = models.ForeignKey(User, related_name='posts', on_delete=models.SET(get_null_user))
+
+    def __str__(self):
+        if self.title is not None:
+            return self.title
+        else:
+            return "New Post"
+        
