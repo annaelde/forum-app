@@ -1,15 +1,12 @@
 <template>
     <div class="container">
-        <board></board>
+        <router-view></router-view>
     </div>
 </template>
 
 <script>
-import Board from './components/board.vue'
-
 export default {
     name: 'app',
-    components: { Board }
 }
 </script>
 
@@ -20,6 +17,9 @@ export default {
 $family-primary: Raleway, sans-serif
 
 @import "~bulma/bulma"
+
+.is-accessible
+    font-size: 0
 </style>
 
 <style lang="scss">

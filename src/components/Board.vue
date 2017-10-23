@@ -16,8 +16,8 @@ export default Vue.component('board', {
     name: 'board',
     data() {
         return {
-            threads: {},
-            error: {},
+            threads: null,
+            error: null,
             collapsed: true,
         }
     },
@@ -28,7 +28,7 @@ export default Vue.component('board', {
                 this.threads = response.data
             })
             .catch(e => {
-                this.error.push(e)
+                this.error = e
             })
     },
     methods: {
