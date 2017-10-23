@@ -32,7 +32,7 @@ export default Vue.component('thread', {
     },
     created() {
         axios
-        .get('/api/threads/' + this.$route.params.id + '/' + this.$route.params.slug)
+        .get('/api/threads/' + this.$route.params.id + '/' + this.$route.params.slug + '/')
         .then(response => {
             this.thread = response.data
         })

@@ -9,7 +9,7 @@ Vue.use(Router)
 const routes = [
     { path: '/', component: Board },
     { 
-        path: '/thread/:id/:slug',
+        path: '/thread/:id/:slug/',
         component: Thread
     }
 ]
