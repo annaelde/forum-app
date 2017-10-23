@@ -20,4 +20,4 @@ Additionally, this is a way to test my django-kit's configuration.
 
 A little preview of my progress so far:
 
-![forum-app screenshot, showing a post list.](/screenshot.png)
+![forum-app screenshot, showing a post list.](https://raw.githubusercontent.com/annaelde/forum-app/master/screenshot.PNG)
