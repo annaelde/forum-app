@@ -3,9 +3,9 @@
         <div class="columns">
             <div class="column is-three-quarters">
                 <router-link :to="'/thread/' + thread.id + '/' + thread.slug + '/'">
-                    <h1 class="title">{{ thread.title }}</h1>
+                    <h2 class="title">{{ thread.title }}</h2>
                 </router-link>
-                <h2 class="subtitle">Posted by {{ thread.author }} on {{ thread.created }}</h2>
+                <h3 class="subtitle">Posted by {{ thread.author }} on {{ thread.created }}</h3>
             </div>
             <div class="column is-clearfix">
                 <div class="is-pulled-right">
