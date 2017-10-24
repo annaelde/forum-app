@@ -18,16 +18,12 @@ export default {
 }
 </script>
 
-// Styles that go across the app
+// Global styles
 <style lang="sass">
-@import "~bulma/sass/utilities/initial-variables"
-
-$family-primary: Raleway, sans-serif
-
+@import "~bulmaswatch/darkly/_variables.scss"
 @import "~bulma/bulma"
-
-.is-accessible
-    font-size: 0
+@import "~bulmaswatch/darkly/_overrides.scss"
+@import "styles/main"
 </style>
 
 <style lang="scss">
