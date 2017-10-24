@@ -13,7 +13,7 @@
                     <span>Login</span>
                 </button>
             </div>
-            <button v-bind:class="{'is-active' : open}" class="button navbar-burger is-large is-white has-text-grey-darker" @click="open = !open" data-target="navMenu">
+            <button v-bind:class="{'is-active' : openDrawer}" class="button navbar-burger is-large is-white has-text-grey-darker" @click="openDrawer = !openDrawer" data-target="navMenu">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -21,18 +21,20 @@
             </button>
 
         </div>
-        <div class="navbar-menu" v-bind:class="{'is-active' : open}">
-            <div class="navbar-start">
-                <a @click="showLoginModal = !showLoginModal" v-if="!auth" class="navbar-item is-primary is-hidden-tablet">Login</a>
-                <a class="navbar-item">Trending</a>
-                <a class="navbar-item">Browse</a>
+        <transition name="slide-down">
+            <div class="navbar-menu is-active" v-show="openDrawer">
+                <div class="navbar-start">
+                    <a @click="showLoginModal = !showLoginModal" v-if="!auth" class="navbar-item is-primary is-hidden-tablet">Login</a>
+                    <a class="navbar-item">Trending</a>
+                    <a class="navbar-item">Browse</a>
+                </div>
+                <div v-if="auth" class="navbar-end">
+                    <a class="navbar-item">Profile</a>
+                    <a class="navbar-item">Bookmarks</a>
+                    <a class="navbar-item">Logout</a>
+                </div>
             </div>
-            <div v-if="auth" class="navbar-end">
-                <a class="navbar-item">Profile</a>
-                <a class="navbar-item">Bookmarks</a>
-                <a class="navbar-item">Logout</a>
-            </div>
-        </div>
+        </transition>
         <transition name="fade">
             <login-modal v-if="showLoginModal" @close="showLoginModal = false"></login-modal>
         </transition>
@@ -47,7 +49,7 @@ export default Vue.component('navbar', {
     name: 'navbar',
     data() {
         return {
-            open: false,
+            openDrawer: false,
             showLoginModal: false
         }
     },
@@ -55,11 +57,6 @@ export default Vue.component('navbar', {
         auth: {
             type: Boolean,
             required: true
-        }
-    },
-    methods: {
-        showModal: function(){
-
         }
     }
 })
@@ -90,16 +87,7 @@ export default Vue.component('navbar', {
     margin-left: 0
 
 .navbar-burger
+    height: 2em
     margin-top: .4rem
     margin-right: 1rem
 </style>
-
-<style lang="css">
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .5s
-}
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-  opacity: 0
-}
-</style>
-
