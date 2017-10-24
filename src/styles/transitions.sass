@@ -1,0 +1,18 @@
+.fade-enter-active, .fade-leave-active 
+    transition: opacity .5s
+
+.fade-enter, .fade-leave-to
+    opacity: 0
+
+.slide-down-enter-active, .slide-down-leave-active
+    transition: all .3s cubic-bezier(0.19, 1, 0.22, 1)
+
+.slide-down-enter-to, .slide-down-leave
+    max-height: 200px
+
+.slide-down-enter, .slide-down-leave-to
+    transform: translateY(-10px)
+    opacity: 0
+    overflow-y: hidden
+    max-height: 0
+    padding: 0
