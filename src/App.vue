@@ -1,12 +1,20 @@
 <template>
-    <div class="container">
-        <router-view></router-view>
+    <div>
+        <navbar v-bind:auth="auth"></navbar>
+        <router-view class="section"></router-view>
     </div>
 </template>
 
 <script>
+import Navbar from './components/Navbar.vue'
+
 export default {
     name: 'app',
+    data() {
+        return {
+            auth: true
+        }
+    }
 }
 </script>
 
@@ -23,7 +31,6 @@ $family-primary: Raleway, sans-serif
 </style>
 
 <style lang="scss">
-$fa-font-path: "~font-awesome/fonts";
-@import "~font-awesome/scss/font-awesome";
-
+$fa-font-path: '~font-awesome/fonts';
+@import '~font-awesome/scss/font-awesome';
 </style>
