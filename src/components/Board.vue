@@ -30,11 +30,6 @@ export default Vue.component('board', {
             .catch(e => {
                 this.error = e
             })
-    },
-    methods: {
-        openThread: function() { 
-        
-        }
     }
 })
 </script>
