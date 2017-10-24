@@ -11,7 +11,7 @@
                 <label for="username" class="label">Username</label>
                 <div class="field">
                     <div class="control has-icons-left">
-                        <input class="input" type="text" value="">
+                        <input class="input" id="username" type="text" value="">
                         <span class="icon is-small is-left">
                         <i class="fa fa-user"></i>
                         </span>
@@ -20,7 +20,7 @@
                 <div class="field">
                     <label for="password" class="label">Password</label>
                     <div class="control has-icons-left">
-                        <input class="input" type="password" value="">
+                        <input class="input" id="password" type="password" value="">
                         <span class="icon is-small is-left">
                         <i class="fa fa-key"></i>
                         </span>
@@ -28,9 +28,9 @@
                 </div>
             </section>
             <footer class="modal-card-foot">
-                <button class="button is-success">Login</button>
+                <button @click="login" class="button is-success">Login</button>
                 <div class="register">
-                    <span>Don't have an account yet?</span>
+                    <span class="is-hidden-mobile">Don't have an account yet?</span>
                     <button class="button">Register</button>
                 </div>
             </footer>
@@ -41,17 +41,31 @@
 
 <script>
 import Vue from 'vue'
+import axios from 'axios'
 
 export default Vue.component('login-modal', {
     name: 'login-modal',
     data() {
         return {
             auth: false,
+            token: '',
+            username: ''
         }
     },
     methods: {
         login: function() {
-            this.$emit('user-authenticated', this.user)
+            var username = document.getElementById('username').value
+            var password = document.getElementById('password').value
+            axios
+            .post('/api/auth/token/create/', {'username' : username, 'password' : password })
+            .then(response => {
+                this.username = username
+                this.auth = true
+                this.token = response.data.token
+            })
+            .catch(error => {
+                console.log(error)
+            })
         }
     }
 })
@@ -70,5 +84,4 @@ export default Vue.component('login-modal', {
 
 .login.modal .register button
     margin-left: 1rem
-
 </style>
