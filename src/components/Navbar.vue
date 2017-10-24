@@ -8,7 +8,7 @@
                <h1 class="title">Forum</h1>
            </div>
             <div v-if="!auth" class="navbar-item is-hidden-mobile">
-                <button class="button is-primary is-medium">
+                <button @click="showLoginModal = !showLoginModal" class="button is-primary is-medium">
                     <span class="icon"><i class="fa fa-sign-in"></i></span>
                     <span>Login</span>
                 </button>
@@ -23,7 +23,7 @@
         </div>
         <div class="navbar-menu" v-bind:class="{'is-active' : open}">
             <div class="navbar-start">
-                <a v-if="!auth" class="navbar-item is-primary is-hidden-tablet">Login</a>
+                <a @click="showLoginModal = !showLoginModal" v-if="!auth" class="navbar-item is-primary is-hidden-tablet">Login</a>
                 <a class="navbar-item">Trending</a>
                 <a class="navbar-item">Browse</a>
             </div>
@@ -33,23 +33,33 @@
                 <a class="navbar-item">Logout</a>
             </div>
         </div>
+        <transition name="fade">
+            <login-modal v-if="showLoginModal" @close="showLoginModal = false"></login-modal>
+        </transition>
     </nav>
 </template>
 
 <script>
 import Vue from 'vue'
+import LoginModal from './LoginModal.vue'
 
 export default Vue.component('navbar', {
     name: 'navbar',
     data() {
         return {
-            open: false
+            open: false,
+            showLoginModal: false
         }
     },
     props: {
         auth: {
             type: Boolean,
             required: true
+        }
+    },
+    methods: {
+        showModal: function(){
+
         }
     }
 })
@@ -83,3 +93,13 @@ export default Vue.component('navbar', {
     margin-top: .4rem
     margin-right: 1rem
 </style>
+
+<style lang="css">
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0
+}
+</style>
+
