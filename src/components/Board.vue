@@ -8,9 +8,8 @@
 </template>
 
 <script>
-import Vue from 'vue'
 import ThreadPreview from './ThreadPreview.vue'
-import axios from 'axios'
+import axios from '../plugins/axios'
 
 export default Vue.component('board', {
     name: 'board',

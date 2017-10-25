@@ -35,6 +35,18 @@
                 </div>
             </div>
         </transition>
+            <div class="navbar-menu" v-show="!openDrawer">
+                <div class="navbar-start">
+                    <a @click="showLoginModal = !showLoginModal" v-if="!auth" class="navbar-item is-primary is-hidden-tablet">Login</a>
+                    <a class="navbar-item">Trending</a>
+                    <a class="navbar-item">Browse</a>
+                </div>
+                <div v-if="auth" class="navbar-end">
+                    <a class="navbar-item">Profile</a>
+                    <a class="navbar-item">Bookmarks</a>
+                    <a class="navbar-item">Logout</a>
+                </div>
+            </div>
         <transition name="fade">
             <login-modal v-if="showLoginModal" @close="showLoginModal = false"></login-modal>
         </transition>
@@ -42,7 +54,6 @@
 </template>
 
 <script>
-import Vue from 'vue'
 import LoginModal from './LoginModal.vue'
 
 export default Vue.component('navbar', {

@@ -19,8 +19,7 @@
 </template>
 
 <script>
-import axios from 'axios'
-import Vue from 'vue'
+import axios from '../plugins/axios'
 
 export default Vue.component('thread', {
     name: 'thread',

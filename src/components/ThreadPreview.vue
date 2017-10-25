@@ -34,15 +34,15 @@
                 </div>
             </div>
         </div>
-        <div v-bind:class="{'is-hidden' : !open}" class="content">
-            <p>{{ thread.content }}</p>
-        </div>
+        <transition name="slide-down">
+            <div v-show="open" class="content">
+                <p>{{ thread.content }}</p>
+            </div>
+        </transition>
     </div>
 </template>
 
 <script>
-import Vue from 'vue'
-
 export default Vue.component('thread-preview', {
     name: 'thread-preview',
     data() {
