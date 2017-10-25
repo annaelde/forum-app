@@ -1,9 +1,9 @@
-import Vue from 'vue'
 import Router from 'vue-router'
 import App from './App.vue'
 import Board from './components/Board.vue'
 import Thread from './components/Thread.vue'
 
+// Router Config
 Vue.use(Router)
 
 const routes = [
@@ -18,8 +18,8 @@ const router = new Router({
     routes
 })
 
-var view = new Vue({
+// App Config
+var app = new Vue({
     router,
-    template: '<App/>',
-    components: { App }
+    render: createEle => createEle(App)
 }).$mount('#app')
