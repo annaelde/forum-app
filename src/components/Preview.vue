@@ -2,7 +2,7 @@
     <div class="box">
         <div class="columns">
             <div class="column is-three-quarters">
-                <router-link :to="'/thread/' + thread.id + '/' + thread.slug + '/'">
+                <router-link :to="`/thread/${thread.id}/${thread.slug}/`">
                     <h2 class="title">{{ thread.title }}</h2>
                 </router-link>
                 <h3 class="subtitle">Posted by {{ thread.author }} {{ thread.created | timeElapsed }}</h3>
