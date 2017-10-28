@@ -22,5 +22,13 @@ docker container start $project"_nginx"
 # Move Working Directory to Site
 Set-Location ./site
 
-# Starting up dev server
-Invoke-Expression "python manage.py runserver 0.0.0.0:8080"
+try
+{
+    # Starting up dev server
+    Invoke-Expression "python manage.py runserver 0.0.0.0:8080"
+}
+finally
+{
+    # Return to root directory after CTRL + Break
+    Set-Location $workingDirectory
+}
