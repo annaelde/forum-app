@@ -2,6 +2,7 @@ import axios from 'axios'
 
 export default axios.create({
     /// #if DEVELOPMENT
-    baseURL: "https://localhost:8000/api/"
+    baseURL: "http://localhost:8000/api/",
+    withCredentials: true
     /// #endif
 })
