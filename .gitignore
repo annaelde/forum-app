@@ -18,3 +18,4 @@ env/py/
 # Django
 __pycache__/
 assets/static/admin
+assets/static/rest_framework
