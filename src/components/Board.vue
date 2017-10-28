@@ -1,6 +1,6 @@
 <template>
   <div v-if="threads" class="threads">
-    <thread-preview v-for="thread of threads" v-bind:thread="thread" v-bind:key="thread.id"></thread-preview>
+    <preview v-for="thread of threads" v-bind:thread="thread" v-bind:key="thread.id"></preview>
   </div>
   <div v-else-if="error" class="threads">
     <p>{{ error.message }}</p> 
@@ -8,28 +8,24 @@
 </template>
 
 <script>
-import ThreadPreview from './ThreadPreview.vue'
-import axios from '../plugins/axios'
+import Preview from './Preview.vue'
+import { mapState } from 'vuex'
 
 export default Vue.component('board', {
     name: 'board',
     data() {
         return {
-            threads: null,
-            error: null,
             collapsed: true,
         }
     },
     created() {
-        axios
-            .get('/api/threads/')
-            .then(response => {
-                this.threads = response.data
-            })
-            .catch(e => {
-                this.error = e
-            })
-    }
+        this.$store.dispatch('loadBoard', '')
+        this.$store.dispatch('loadThreads')
+    },
+    computed: mapState({
+        threads: state => state.board.threads,
+        error: state => state.board.error
+    })
 })
 </script>
 

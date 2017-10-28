@@ -4,10 +4,12 @@
         <div @click="$emit('close')" class="modal-background"></div>
         <div class="modal-card">
             <header class="modal-card-head">
-                <p class="modal-card-title">Log into Forum</p>
+                <p v-if="!auth" class="modal-card-title">Log into Forum</p>
+                <p v-else class="modal-card-title">Welcome back!</p>
                 <button class="delete" aria-label="close" @click="$emit('close')"></button>
             </header>
-            <section class="modal-card-body">
+            <section v-show="!auth" class="modal-card-body">
+                <p v-show="error">{{ error }}</p>
                 <label for="username" class="label">Username</label>
                 <div class="field">
                     <div class="control has-icons-left">
@@ -27,9 +29,15 @@
                     </div>
                 </div>
             </section>
+            <transition name="fade">
+                <section v-show="auth && !error" class="modal-card-body">
+                    <p>Good to see you again, {{ user.username }} 😊</p>
+                </section>
+            </transition>
             <footer class="modal-card-foot">
-                <button @click="login" class="button is-success">Login</button>
-                <div class="register">
+                <button v-show="!auth" @click="login" class="button is-success">Login</button>
+                <button v-show="auth && !error" @click="$emit('close')" class="button is-success">Start Posting</button>
+                <div v-show="!auth" class="register">
                     <span class="is-hidden-mobile">Don't have an account yet?</span>
                     <button class="button">Register</button>
                 </div>
@@ -40,30 +48,22 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import axios from '../plugins/axios'
 
 export default Vue.component('login', {
     name: 'login',
-    data() {
-        return {
-            auth: false,
-            token: '',
-            username: ''
-        }
-    },
+    computed: mapState({
+        auth: state => state.user.token,
+        user: state => state.user.data,
+        error: state => state.user.error
+    }),
     methods: {
         login: function() {
-            var username = document.getElementById('username').value
-            var password = document.getElementById('password').value
-            axios
-            .post('auth/token/create/', {'username' : username, 'password' : password })
-            .then(response => {
-                this.username = username
-                this.auth = true
-                this.token = response.data.token
-            })
-            .catch(error => {
-                console.log(error)
+            // Authenticate and get the user
+            this.$store.dispatch('authenticateUser', {
+                username: document.getElementById('username').value,
+                password: document.getElementById('password').value
             })
         }
     }

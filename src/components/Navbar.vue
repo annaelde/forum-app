@@ -31,7 +31,7 @@
                 <div v-if="auth" class="navbar-end">
                     <a class="navbar-item">Profile</a>
                     <a class="navbar-item">Bookmarks</a>
-                    <a class="navbar-item">Logout</a>
+                    <a class="navbar-item" @click="logout">Logout</a>
                 </div>
             </div>
         </transition>
@@ -44,7 +44,7 @@
                 <div v-if="auth" class="navbar-end">
                     <a class="navbar-item">Profile</a>
                     <a class="navbar-item">Bookmarks</a>
-                    <a class="navbar-item">Logout</a>
+                    <a class="navbar-item" @click="logout">Logout</a>
                 </div>
             </div>
         <transition name="fade">
@@ -54,6 +54,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import Login from './Login.vue'
 
 export default Vue.component('navbar', {
@@ -64,10 +65,14 @@ export default Vue.component('navbar', {
             showLogin: false
         }
     },
-    props: {
-        auth: {
-            type: Boolean,
-            required: true
+    computed: mapState({
+       auth: state => state.user.token,
+       user: state => state.user.data
+    }),
+    methods: {
+        logout: function() {
+            // Destroy the token
+            this.$store.dispatch('deauthenticateUser')
         }
     }
 })
