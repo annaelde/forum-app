@@ -8,7 +8,7 @@
                <h1 class="title">Forum</h1>
            </div>
             <div v-if="!auth" class="navbar-item is-hidden-mobile">
-                <button @click="showLoginModal = !showLoginModal" class="button is-primary is-medium">
+                <button @click="showLogin = !showLogin" class="button is-primary is-medium">
                     <span class="icon"><i class="fa fa-sign-in"></i></span>
                     <span>Login</span>
                 </button>
@@ -24,7 +24,7 @@
         <transition name="slide-down">
             <div class="navbar-menu is-active" v-show="openDrawer">
                 <div class="navbar-start">
-                    <a @click="showLoginModal = !showLoginModal" v-if="!auth" class="navbar-item is-primary is-hidden-tablet">Login</a>
+                    <a @click="showLogin = !showLogin" v-if="!auth" class="navbar-item is-primary is-hidden-tablet">Login</a>
                     <a class="navbar-item">Trending</a>
                     <a class="navbar-item">Browse</a>
                 </div>
@@ -37,7 +37,7 @@
         </transition>
             <div class="navbar-menu" v-show="!openDrawer">
                 <div class="navbar-start">
-                    <a @click="showLoginModal = !showLoginModal" v-if="!auth" class="navbar-item is-primary is-hidden-tablet">Login</a>
+                    <a @click="showLogin = !showLogin" v-if="!auth" class="navbar-item is-primary is-hidden-tablet">Login</a>
                     <a class="navbar-item">Trending</a>
                     <a class="navbar-item">Browse</a>
                 </div>
@@ -48,20 +48,20 @@
                 </div>
             </div>
         <transition name="fade">
-            <login-modal v-if="showLoginModal" @close="showLoginModal = false"></login-modal>
+            <login v-if="showLogin" @close="showLogin = false"></login>
         </transition>
     </nav>
 </template>
 
 <script>
-import LoginModal from './LoginModal.vue'
+import Login from './Login.vue'
 
 export default Vue.component('navbar', {
     name: 'navbar',
     data() {
         return {
             openDrawer: false,
-            showLoginModal: false
+            showLogin: false
         }
     },
     props: {

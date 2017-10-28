@@ -42,8 +42,8 @@
 <script>
 import axios from '../plugins/axios'
 
-export default Vue.component('login-modal', {
-    name: 'login-modal',
+export default Vue.component('login', {
+    name: 'login',
     data() {
         return {
             auth: false,
@@ -56,7 +56,7 @@ export default Vue.component('login-modal', {
             var username = document.getElementById('username').value
             var password = document.getElementById('password').value
             axios
-            .post('/api/auth/token/create/', {'username' : username, 'password' : password })
+            .post('auth/token/create/', {'username' : username, 'password' : password })
             .then(response => {
                 this.username = username
                 this.auth = true
