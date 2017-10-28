@@ -19,3 +19,4 @@ env/py/
 __pycache__/
 assets/static/admin
 assets/static/rest_framework
+requests.http
