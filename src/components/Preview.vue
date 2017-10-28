@@ -5,7 +5,7 @@
                 <router-link :to="'/thread/' + thread.id + '/' + thread.slug + '/'">
                     <h2 class="title">{{ thread.title }}</h2>
                 </router-link>
-                <h3 class="subtitle">Posted by {{ thread.author }} on {{ thread.created }}</h3>
+                <h3 class="subtitle">Posted by {{ thread.author }} {{ thread.created | timeElapsed }}</h3>
             </div>
             <div class="column is-clearfix">
                 <div class="is-pulled-right">
@@ -43,8 +43,8 @@
 </template>
 
 <script>
-export default Vue.component('thread-preview', {
-    name: 'thread-preview',
+export default Vue.component('preview', {
+    name: 'preview',
     data() {
         return {
             open: false
