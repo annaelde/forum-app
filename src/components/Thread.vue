@@ -1,47 +1,55 @@
 <template>
-    <div class="thread" v-if="thread">
-        <nav class="level">
-        <router-link to="/" class="button">
-            <span class="icon">
-                <i class="fa fa-arrow-left">
-                </i>
-            </span>
-            <span>Back to Board</span>
-        </router-link>
+    <div>
+        <nav>
+            <div class="container">
+                <router-link to="/" class="button">
+                    <span class="icon">
+                        <i class="fa fa-arrow-left">
+                        </i>
+                    </span>
+                    <span>Back to Board</span>
+                </router-link>
+            </div>
         </nav>
-        <h1 class="title">{{ thread.title }}</h1>
-        <h2 class="subtitle">Posted by {{ thread.author }} on {{ thread.created }}</h2>
-        <p>{{ thread.content }}</p>
-    </div>
-    <div v-else-if="error" class="threads">
-        <p>{{ error.message }}</p> 
+        <article v-if="loading" class="section thread skeleton">
+            <span class="icon is-large"><i  class="fa fa-spinner fa-spin fa-3x"></i></span>
+        </article>
+        <article v-else-if="!loading && thread">
+            <section class="hero is-info is-bold">
+                <div class="hero-body">
+                    <div class="container">
+                        <h1 class="title">{{ thread.title }}</h1>
+                        <h2 class="subtitle">Posted by {{ thread.author }} on {{ thread.created | timeElapsed }}</h2>
+                    </div>
+                </div>
+            </section>
+            <section class="section">
+                <div class="container">
+                    {{ thread.content }}
+                </div>
+            </section>
+        </article>
+        <article v-else-if="error">
+            <p>{{ error.message }}</p> 
+        </article>
     </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import axios from '../plugins/axios'
 
 export default Vue.component('thread', {
     name: 'thread',
-    data() {
-        return {
-            thread: null,
-            error: null
-        }
-    },
+    computed: mapState({
+        thread: state => state.thread.data,
+        error: state => state.thread.error,
+        loading: state => state.thread.loading
+    }),
     created() {
-        axios
-        .get('/api/threads/' + this.$route.params.id + '/' + this.$route.params.slug + '/')
-        .then(response => {
-            this.thread = response.data
-        })
-        .catch(e => {
-            this.error = e
-            console.log(e)
-        })
-    },
+        this.$store.dispatch('loadThread', { id: this.$route.params.id, slug: this.$route.params.slug })
+    }
 })
-
 </script>
 
 
