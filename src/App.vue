@@ -1,20 +1,19 @@
 <template>
     <div>
         <navbar v-bind:auth="auth"></navbar>
-        <router-view class="section"></router-view>
+        <router-view></router-view>
     </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import Navbar from './components/Navbar.vue'
 
 export default {
     name: 'app',
-    data() {
-        return {
-            auth: true
-        }
-    }
+    computed: mapState({
+        auth: 'token'
+    })
 }
 </script>
 
