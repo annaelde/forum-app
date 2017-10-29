@@ -2,8 +2,11 @@ function StateMachine() {
     return {
         state: 'idle',
         do: function(action) {
-            if (this.behavior[this.state][action]) this.state = this.behavior[this.state][action]
-            else throw 'Action cannot be performed with this state.'
+            try {
+                this.state = this.behavior[this.state][action]
+            } catch (error) {
+                throw 'Action cannot be performed with this state.'
+            }
         },
         behavior: {
             idle: {
