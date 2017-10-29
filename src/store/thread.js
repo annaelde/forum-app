@@ -1,7 +1,8 @@
 import Vuex from 'vuex'
 import axios from '../plugins/axios'
 
-const thread = { 
+const thread = {
+    namespaced: true,
     state: {
         data: {},
         comments: [],
@@ -13,7 +14,7 @@ const thread = {
             commit('setLoading', true)
             await axios.get(`threads/${id}/${slug}/`)
             .then(response => commit('setThread', response.data))
-            .catch(error => commit('setError', error.response.message))
+            .catch(error => commit('setError', error.response))
             setTimeout(() => commit('setLoading', false), 4000)
         },
     },

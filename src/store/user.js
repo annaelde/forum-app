@@ -1,47 +1,80 @@
 import Vuex from 'vuex'
+import StateMachine from './machine'
 import axios from '../plugins/axios'
 
 const user = {
+    namespaced: true,
     state: {
         token: '',
         data: {},
+        machine: new StateMachine(),
         error: ''
     },
     actions: {
-        async authenticateUser({ dispatch, commit }, credentials) {
+        async authenticate({ dispatch, commit, rootState }, credentials) {
+            var resolved = true
+            commit('updateState', 'request')
+
             await axios
-            .post('auth/token/create/', credentials)
-            .then(({ data }) => commit('setToken', data['auth_token']))
-            .catch(error => commit('setError', error))
-            dispatch('loadUser')
+                .post('auth/token/create/', credentials)
+                .then(({ data }) => commit('setToken', data['auth_token']))
+                .catch(error => {
+                    commit('setError', error.response)
+                    commit('updateState', 'reject')
+                    resolved = false
+                })
+
+            if (resolved) {
+                commit('updateState', 'resolve')
+                dispatch('load')
+            }
         },
-        async loadUser({ commit }) {
+        async load({ commit }) {
+            var resolved = true
+            commit('updateState', 'request')
+            
             await axios
-            .get('auth/me/')
-            .then(({ data })  => commit('setUser', data))
-            .catch(error => commit('setError', error))
+                .get('auth/me/')
+                .then(({ data }) => commit('setData', data))
+                .catch(error => {
+                    commit('setError', error.response)
+                    commit('updateState', 'reject')
+                    resolved = false
+                })
+            
+            if (resolved) commit('updateState', 'resolve')
         },
-        async deauthenticateUser({ commit }){
+        async deauthenticate({ commit }) {
+            var resolved = true
+            commit('updateState', 'request')
+            
             await axios
-            .post('auth/token/destroy/')
-            .then(({ data }) => commit('setToken', ''))
-            .then( commit('setUser', {}) )
-            .catch(error => commit('setError', error))
+                .post('auth/token/destroy/')
+                .then(({ data }) => commit('setToken', ''))
+                .then(commit('setData', {}))
+                .catch(error => {
+                    commit('setError', error.response)
+                    commit('updateState', 'reject')
+                    resolved = false
+                })
+
+            if (resolved) commit('updateState', 'resolve')
         }
     },
     mutations: {
         setToken(state, token) {
             state.token = token
-            if (token !== '')
-                axios.defaults.headers.common['Authorization'] = 'Token ' + token
-            else
-                delete axios.defaults.headers.common['Authorization']
+            if (token !== '') axios.defaults.headers.common['Authorization'] = 'Token ' + token
+            else delete axios.defaults.headers.common['Authorization']
         },
-        setUser(state, user) {
-            state.data = user
+        setData(state, data) {
+            state.data = data
         },
-        setError(state, message){
+        setError(state, message) {
             state.error = message
+        },
+        updateState(state, action){
+            state.machine.do(action)
         }
     }
 }
