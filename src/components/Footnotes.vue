@@ -1,0 +1,25 @@
+<template>
+    <footer class="footer">
+        <div class="container">
+            <div class="content has-text-centered">
+                <p>&copy; Copyright 2017.</p>
+            </div>
+        </div>
+    </footer>
+</template>
+
+<script>
+import { mapState } from 'vuex'
+
+export default Vue.component('footnotes', {
+    name: 'footnotes',
+    computed: mapState({
+        board: state => state.board.data
+    })
+})
+</script>
+
+
+<style lang="sass">
+
+</style>
