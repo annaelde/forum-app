@@ -1,21 +1,21 @@
 <template>
     <div>
         <navigation></navigation>
-        <div v-if="current === 'idle'" class="columns">
+        <div v-show="current === 'idle'" class="columns">
             <router-view name="main"></router-view>
             <router-view name="sidebar"></router-view>
         </div>
         <transition name="fade">
-            <main v-if="current === 'loading'">
+            <div v-if="current === 'loading'">
                 <div class="overlay">
                     <span class="icon is-large"><i  class="fa fa-circle-o-notch fa-spin fa-3x"></i></span>
                 </div>
-            </main>
+            </div>
         </transition>
         <transition name="balloon">
-            <main v-if="current === 'handling'" class="section">
+            <div v-if="current === 'handling'" class="section">
                 <error :response="error"></error>
-            </main>
+            </div>
         </transition>
         <footnotes></footnotes>
     </div>
