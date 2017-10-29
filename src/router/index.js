@@ -1,5 +1,6 @@
 import Router from 'vue-router'
 import Board from '../components/Board.vue'
+import Sidebar from '../components/Sidebar.vue'
 import Thread from '../components/Thread.vue'
 
 Vue.use(Router)
@@ -7,16 +8,25 @@ Vue.use(Router)
 const routes = [
     { 
         path: '/', 
-        component: Board 
+        components: {
+            main: Board,
+            sidebar: Sidebar
+        }
     },
     { 
         path: '/thread/:id/:slug/',
-        component: Thread
+        components: {
+            main: Thread,
+            sidebar: Sidebar
+        }
     }
 ]
 
 const router = new Router({
-    routes
+    routes,
+    scrollBehavior (to, from, savedPosition) {
+        return savedPosition ? savedPosition : { x: 0, y: 0}
+    }
 })
 
 export default router
