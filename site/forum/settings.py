@@ -37,8 +37,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'djoser',
+    'boards',
     'threads',
-    'profiles'
+    'users'
 ]
 
 MIDDLEWARE = [
@@ -144,6 +145,8 @@ DJOSER = {
     'ACTIVATION_URL': '#/activate/{uid}/{token}',
     'SEND_ACTIVATION_EMAIL': True,
     'SERIALIZERS': {
-        'user' : 'profiles.serializers.UserSerializer'
+        'user' : 'users.serializers.UserSerializer'
     },
 }
+
+AUTH_USER_MODEL = 'users.User'
