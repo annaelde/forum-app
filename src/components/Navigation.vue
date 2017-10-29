@@ -57,8 +57,8 @@
 import { mapState } from 'vuex'
 import Login from './Login.vue'
 
-export default Vue.component('navbar', {
-    name: 'navbar',
+export default Vue.component('navigation', {
+    name: 'navigation',
     data() {
         return {
             openDrawer: false,
@@ -71,8 +71,7 @@ export default Vue.component('navbar', {
     }),
     methods: {
         logout: function() {
-            // Destroy the token
-            this.$store.dispatch('deauthenticateUser')
+            this.$store.dispatch('user/deauthenticate')
         }
     }
 })
