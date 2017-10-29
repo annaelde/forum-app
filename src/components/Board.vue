@@ -6,7 +6,6 @@
 
 <script>
 import Preview from './Preview.vue'
-import Error from './Error.vue'
 import { mapState } from 'vuex'
 
 export default Vue.component('board', {
