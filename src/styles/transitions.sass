@@ -16,3 +16,10 @@
     overflow-y: hidden
     max-height: 0
     padding: 0
+
+.balloon-enter-active, .balloon-leave-active
+    transform-origin: center;
+    transition: transform .5s ease-out
+
+.balloon-enter, .balloon-leave-to
+    transform: scale(0)
