@@ -4,11 +4,10 @@
         <div @click="$emit('close')" class="modal-background"></div>
         <div class="modal-card">
             <header class="modal-card-head">
-                <p v-if="!auth" class="modal-card-title">Log into Forum</p>
-                <p v-else class="modal-card-title">Welcome back!</p>
+                <p class="modal-card-title">Log into Forum</p>
                 <button class="delete" aria-label="close" @click="$emit('close')"></button>
             </header>
-            <section v-show="!auth" class="modal-card-body">
+            <section class="modal-card-body">
                 <transition name="balloon">
                     <error v-if="error" :response="error"></error>
                 </transition>
@@ -31,15 +30,9 @@
                     </div>
                 </div>
             </section>
-            <transition name="balloon">
-                <section v-show="auth && !error" class="modal-card-body">
-                    <p>Good to see you again, {{ user.username }} 😊</p>
-                </section>
-            </transition>
             <footer class="modal-card-foot">
-                <button v-show="!auth" @click="login" class="button is-success">Login</button>
-                <button v-show="auth && !error" @click="$emit('close')" class="button is-success">Start Posting</button>
-                <div v-show="!auth" class="register">
+                <button @click="login" class="button is-success">Login</button>
+                <div class="register">
                     <span class="is-hidden-mobile">Don't have an account yet?</span>
                     <button class="button">Register</button>
                 </div>

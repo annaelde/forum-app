@@ -48,7 +48,7 @@
                 </div>
             </div>
         <transition name="fade">
-            <login v-if="showLogin" @close="showLogin = false"></login>
+            <login v-if="showLogin && !auth" @close="showLogin = false"></login>
         </transition>
     </nav>
 </template>
