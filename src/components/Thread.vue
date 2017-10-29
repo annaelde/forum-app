@@ -1,6 +1,6 @@
 <template>
     <div>
-        <nav>
+        <nav class="section">
             <div class="container">
                 <router-link to="/" class="button">
                     <span class="icon">
@@ -28,9 +28,6 @@
                     {{ thread.content }}
                 </div>
             </section>
-        </article>
-        <article v-else-if="error">
-            <p>{{ error.message }}</p> 
         </article>
     </div>
 </template>
