@@ -9,10 +9,12 @@
                 <button class="delete" aria-label="close" @click="$emit('close')"></button>
             </header>
             <section v-show="!auth" class="modal-card-body">
-                <p v-show="error">{{ error }}</p>
+                <transition name="balloon">
+                    <error v-if="error" :response="error"></error>
+                </transition>
                 <label for="username" class="label">Username</label>
                 <div class="field">
-                    <div class="control has-icons-left">
+                    <div class="control has-icons-left" :class="{'is-loading' : (state === 'loading')}">
                         <input class="input" id="username" type="text" value="">
                         <span class="icon is-small is-left">
                         <i class="fa fa-user"></i>
@@ -21,7 +23,7 @@
                 </div>
                 <div class="field">
                     <label for="password" class="label">Password</label>
-                    <div class="control has-icons-left">
+                    <div class="control has-icons-left" :class="{'is-loading' : (state === 'loading')}">
                         <input class="input" id="password" type="password" value="">
                         <span class="icon is-small is-left">
                         <i class="fa fa-key"></i>
@@ -29,7 +31,7 @@
                     </div>
                 </div>
             </section>
-            <transition name="fade">
+            <transition name="balloon">
                 <section v-show="auth && !error" class="modal-card-body">
                     <p>Good to see you again, {{ user.username }} 😊</p>
                 </section>
@@ -49,19 +51,20 @@
 
 <script>
 import { mapState } from 'vuex'
+import Error from './Error.vue'
 import axios from '../plugins/axios'
 
 export default Vue.component('login', {
     name: 'login',
     computed: mapState({
         auth: state => state.user.token,
+        state: state => state.user.machine.state,
         user: state => state.user.data,
         error: state => state.user.error
     }),
     methods: {
         login: function() {
-            // Authenticate and get the user
-            this.$store.dispatch('authenticateUser', {
+            this.$store.dispatch('user/authenticate', {
                 username: document.getElementById('username').value,
                 password: document.getElementById('password').value
             })
