@@ -1,12 +1,12 @@
 <template>
     <nav class="navbar" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
-           <div class="navbar-item">
+           <router-link to='/' class="navbar-item">
                <span class="icon is-large">
                    <i class="fa fa-hourglass-o fa-2x"></i>
                 </span>
                <h1 class="title">Forum</h1>
-           </div>
+           </router-link>
             <div v-if="!auth" class="navbar-item is-hidden-mobile">
                 <button @click="showLogin = !showLogin" class="button is-primary is-medium">
                     <span class="icon"><i class="fa fa-sign-in"></i></span>
@@ -48,7 +48,7 @@
                 </div>
             </div>
         <transition name="fade">
-            <login v-if="showLogin && !auth" @close="showLogin = false"></login>
+            <login v-if="showLogin" @close="showLogin = false"></login>
         </transition>
     </nav>
 </template>
