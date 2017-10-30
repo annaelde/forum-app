@@ -8,7 +8,9 @@
         <transition name="fade">
             <div v-if="current === 'loading'">
                 <div class="overlay">
-                    <span class="icon is-large"><i  class="fa fa-circle-o-notch fa-spin fa-3x"></i></span>
+                    <span class="icon is-large">
+                        <i class="fa fa-circle-o-notch fa-spin fa-3x"></i>
+                    </span>
                 </div>
             </div>
         </transition>
