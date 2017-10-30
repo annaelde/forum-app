@@ -1,6 +1,9 @@
 Django==1.11.6
 psycopg2==2.7.3
-django-debug-toolbar==1.8
 djangorestframework==3.7
 django-filter==2.0.0.dev1
+python-slugify==1.2.4
+nltk==3.2.5
+
 pylint-django==0.7.2
+django-debug-toolbar==1.8
