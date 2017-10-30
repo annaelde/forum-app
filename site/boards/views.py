@@ -14,5 +14,6 @@ class board_list(ListAPIView):
 class board_detail(RetrieveAPIView):
     queryset = Board.objects.all()
     serializer_class = BoardSerializer
-    lookup_field = 'name'
+    permission_classes = (AllowAny,)
+    lookup_field = 'slug'
     model = Board
