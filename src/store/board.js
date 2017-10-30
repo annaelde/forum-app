@@ -9,8 +9,28 @@ const board = {
         error: ''
     },
     actions: {
-        async loadBoard({ commit }, slug) {
-            commit('setBoard', { name: '' })
+        async loadBoard({ commit, dispatch }, { board }) {
+            // Track if the promise was resolved or rejected
+            var resolved = true
+
+            // Notify components that we're requesting something
+            commit('updateState', 'request', { root: true })
+
+            await axios
+                .get(`boards/${board}/`)
+                .then(response => commit('setBoard', response.data))
+                .catch(error => {
+                    // Supply error and set state machine to handle
+                    commit('setError', error.response, { root: true })
+                    commit('updateState', 'handle', { root: true })
+                    resolved = false
+                })
+
+            // Only set the state machine back to idle on success
+            if (resolved) {
+                commit('updateState', 'resolve', { root: true })
+                dispatch('loadThreads')
+            }
         },
         async loadThreads({ state, commit, rootState }) {
             // Track if the promise was resolved or rejected
@@ -20,15 +40,15 @@ const board = {
             commit('updateState', 'request', { root: true })
 
             await axios
-                .get('threads/' + (state.data.name ? `${state.data.name}/` : ''))
+                .get(`boards/${state.data.slug}/threads/`)
                 .then(response => commit('setThreads', response.data))
-                .catch(error => { 
+                .catch(error => {
                     // Supply error and set state machine to handle
                     commit('setError', error.response, { root: true })
                     commit('updateState', 'handle', { root: true })
                     resolved = false
                 })
-            
+
             // Only set the state machine back to idle on success
             if (resolved) commit('updateState', 'resolve', { root: true })
         }
