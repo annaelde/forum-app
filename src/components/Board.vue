@@ -1,6 +1,6 @@
 <template>
   <main class="section column">
-    <preview v-for="thread of threads" :thread="thread" :key="thread.id"></preview>
+    <preview v-for="thread of threads" :board="board.slug" :thread="thread" :key="thread.id"></preview>
   </main>
 </template>
 
@@ -16,11 +16,11 @@ export default Vue.component('board', {
         }
     },
     created() {
-        this.$store.dispatch('board/loadBoard', '')
-        this.$store.dispatch('board/loadThreads')
+        this.$store.dispatch('board/loadBoard', { board: this.$route.params.board })
     },
     computed: mapState({
-        threads: state => state.board.threads,
+        board: state => state.board.data,
+        threads: state => state.board.threads
     })
 })
 </script>
