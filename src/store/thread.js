@@ -1,4 +1,5 @@
 import Vuex from 'vuex'
+import StateMachine from './machine'
 import axios from '../plugins/axios'
 
 const thread = {
@@ -6,27 +7,40 @@ const thread = {
     state: {
         data: {},
         comments: [],
-        loading: false,
+        machine: new StateMachine(),
         error: ''
     },
     actions: {
-        async loadThread({ commit }, { id, slug }){
-            commit('setLoading', true)
-            await axios.get(`threads/${id}/${slug}/`)
-            .then(response => commit('setThread', response.data))
-            .catch(error => commit('setError', error.response))
-            setTimeout(() => commit('setLoading', false), 4000)
-        },
+        async loadThread({ commit, rootState, dispatch }, { board, key, slug }) {
+            // Refresh board information
+            if (rootState.board.data.slug != board) {
+                await dispatch('board/loadBoard', { board: board }, { root: true })
+            }
+
+            var resolved = true
+            commit('updateState', 'request')
+
+            await axios
+                .get(`boards/${board}/threads/${key}/${slug}/`)
+                .then(response => commit('setThread', response.data))
+                .catch(error => {
+                    commit('setError', error.response)
+                    commit('updateState', 'reject')
+                    resolved = false
+                })
+
+            if (resolved) commit('updateState', 'resolve')
+        }
     },
     mutations: {
-        setThread(state, thread){
+        setThread(state, thread) {
             state.data = thread
         },
-        setError(state, message){
+        setError(state, message) {
             state.error = message
         },
-        setLoading(state, loading){
-            state.loading = loading
+        updateState(state, action) {
+            state.machine.do(action)
         }
     }
 }
