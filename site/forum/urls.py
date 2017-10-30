@@ -19,7 +19,7 @@ from django.contrib import admin
 app_patterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    url(r'^threads/', include('threads.urls')),
+    url(r'^boards/', include('boards.urls')),
     url(r'^auth/', include('djoser.urls')),
     url(r'^auth/', include('djoser.urls.authtoken'))
 ]
