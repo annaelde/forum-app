@@ -1,6 +1,7 @@
 import Vuex from 'vuex'
 import StateMachine from './machine'
 import axios from '../plugins/axios'
+import forum from './forum'
 import user from './user'
 import board from './board'
 import thread from './thread'
@@ -21,6 +22,7 @@ const store = new Vuex.Store({
         }
     },
     modules: {
+        forum,
         user,
         board,
         thread
