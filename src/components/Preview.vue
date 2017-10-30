@@ -2,7 +2,7 @@
     <div class="container box">
         <div class="columns">
             <div class="column is-three-quarters">
-                <router-link :to="`/thread/${thread.id}/${thread.slug}/`">
+                <router-link :to="`/~${board}/${thread.key}/${thread.slug}/`">
                     <h2 class="title">{{ thread.title }}</h2>
                 </router-link>
                 <h3 class="subtitle">Posted by {{ thread.author }} {{ thread.created | timeElapsed }}</h3>
@@ -51,6 +51,10 @@ export default Vue.component('preview', {
         }
     },
     props: {
+        board: {
+            type: String,
+            required: true
+        },
         thread: {
             type: Object,
             required: true
