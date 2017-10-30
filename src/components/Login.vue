@@ -62,6 +62,11 @@ export default Vue.component('login', {
                 password: document.getElementById('password').value
             })
         }
+    },
+    watch: {
+        auth: function(){
+            if (this.auth) this.$emit('close')
+        }
     }
 })
 </script>
