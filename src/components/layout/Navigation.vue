@@ -55,7 +55,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import Login from './Login.vue'
+import Login from '../parts/Login.vue'
 
 export default Vue.component('navigation', {
     name: 'navigation',

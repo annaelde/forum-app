@@ -1,31 +1,34 @@
 import Router from 'vue-router'
-import Forum from '../components/Forum.vue'
-import Board from '../components/Board.vue'
-import Sidebar from '../components/Sidebar.vue'
-import Thread from '../components/Thread.vue'
+
+import Forum from '../components/views/Forum.vue'
+import Board from '../components/views/Board.vue'
+import Thread from '../components/views/Thread.vue'
+
+import ForumSidebar from '../components/sidebars/Forum.vue'
+import BoardSidebar from '../components/sidebars/Board.vue'
 
 Vue.use(Router)
 
 const routes = [
-    { 
-        path: '/', 
+    {
+        path: '/',
         components: {
             main: Forum,
-            sidebar: Sidebar
+            sidebar: ForumSidebar
         }
     },
     {
         path: '/~:board/',
         components: {
             main: Board,
-            sidebar: Sidebar
+            sidebar: BoardSidebar
         }
     },
-    { 
+    {
         path: '/~:board/:key/:slug/',
         components: {
             main: Thread,
-            sidebar: Sidebar
+            sidebar: BoardSidebar
         }
     }
 ]
@@ -33,8 +36,8 @@ const routes = [
 const router = new Router({
     mode: 'history',
     routes,
-    scrollBehavior (to, from, savedPosition) {
-        return savedPosition ? savedPosition : { x: 0, y: 0}
+    scrollBehavior(to, from, savedPosition) {
+        return savedPosition ? savedPosition : { x: 0, y: 0 }
     }
 })
 

@@ -8,7 +8,7 @@
                     </p>
                     <a href="#" class="card-header-icon" aria-label="more options">
                         <span class="icon">
-                            <i class="fa fa-angle-down" aria-hidden="true"></i>
+                            <i class="fa fa-times" aria-hidden="true"></i>
                         </span>
                     </a>
                 </header>
@@ -18,9 +18,18 @@
                     </div>
                 </div>
                 <footer class="card-footer">
-                    <router-link to="" class="card-footer-item">Star</router-link>
-                    <router-link :to="`~${board.slug}`" class="card-footer-item">Visit</router-link>
-                    <router-link to="" class="card-footer-item">Ditch</router-link>
+                    <router-link to="" class="card-footer-item">
+                        <span class="icon">
+                            <i class="fa fa-thumb-tack" aria-hidden="true"></i>
+                        </span>
+                        <span>Pin</span>
+                    </router-link>
+                    <router-link :to="`~${board.slug}`" class="card-footer-item">
+                        <span class="icon">
+                            <i class="fa fa-sign-in" aria-hidden="true"></i>
+                        </span>
+                        <span>Visit</span>
+                    </router-link>
                 </footer>
             </div>
         </div>
@@ -28,7 +37,7 @@
 </template>
 
 <script>
-import Preview from './Preview.vue'
+import Preview from '../parts/Preview.vue'
 import { mapState } from 'vuex'
 
 export default Vue.component('forum', {

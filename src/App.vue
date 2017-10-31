@@ -25,8 +25,8 @@
 
 <script>
 import { mapState } from 'vuex'
-import Navigation from './components/Navigation.vue'
-import Footnotes from './components/Footnotes.vue'
+import Navigation from './components/layout/Navigation.vue'
+import Footnotes from './components/layout/Footnotes.vue'
 
 export default {
     name: 'app',

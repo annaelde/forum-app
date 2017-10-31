@@ -1,11 +1,11 @@
 <template>
-  <main class="section column">
+  <main v-if="threads" class="section column">
     <preview v-for="thread of threads" :board="board.slug" :thread="thread" :key="thread.id"></preview>
   </main>
 </template>
 
 <script>
-import Preview from './Preview.vue'
+import Preview from '../parts/Preview.vue'
 import { mapState } from 'vuex'
 
 export default Vue.component('board', {
