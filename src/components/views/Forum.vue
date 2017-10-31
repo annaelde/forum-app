@@ -51,7 +51,8 @@ export default Vue.component('forum', {
         this.$store.dispatch('forum/loadBoards')
     },
     computed: mapState({
-        boards: state => state.forum.boards
+        boards: state => state.forum.boards,
+        error: state => state.error
     })
 })
 </script>
