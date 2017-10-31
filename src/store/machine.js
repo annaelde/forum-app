@@ -5,7 +5,7 @@ function StateMachine() {
             try {
                 this.state = this.behavior[this.state][action]
             } catch (error) {
-                throw 'Action cannot be performed with this state.'
+                throw `StateMachine Error: Tried to perform ${action} during ${this.state} state.`
             }
         },
         behavior: {
