@@ -32,7 +32,7 @@ def get_key(post: object) -> str:
 def slugify_thread_title(title: str) -> str:
     stopwords = set(nltk_stopwords.words('english'))
     slug = slugify(title, max_length=64,
-                   stopwords=self.stopwords,
+                   stopwords=stopwords,
                    word_boundary=True, save_order=True)
     if not slug:  # Case if *only* stopwords are used
         slug = slugify(title, max_length=64,
