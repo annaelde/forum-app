@@ -5,11 +5,10 @@ const board = {
     namespaced: true,
     state: {
         data: {},
-        threads: [],
-        error: ''
+        threads: []
     },
     actions: {
-        async loadBoard({ commit, dispatch }, { board }) {
+        async loadBoard({ commit, dispatch }, { board, context }) {
             // Track if the promise was resolved or rejected
             var resolved = true
 
@@ -29,7 +28,7 @@ const board = {
             // Only set the state machine back to idle on success
             if (resolved) {
                 commit('updateState', 'resolve', { root: true })
-                dispatch('loadThreads')
+                if (context === 'board') await dispatch('loadThreads')
             }
         },
         async loadThreads({ state, commit, rootState }) {
