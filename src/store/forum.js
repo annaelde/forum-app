@@ -7,54 +7,49 @@ const forum = {
     state: {
         data: {},
         stats: {},
-        boards: [],
-        machine: new StateMachine(),
-        error: ''
+        boards: []
     },
     actions: {
-        async loadBoards({ commit }) {
+        async loadBoards({ commit, dispatch }) {
             var resolved = true
-            commit('updateState', 'request')
+            commit('updateState', 'request', { root: true })
 
             await axios
                 .get(`boards/`)
                 .then(response => commit('setBoards', response.data))
                 .catch(error => {
-                    commit('setError', error.response)
-                    commit('updateState', 'reject')
+                    commit('setError', error.response, { root: true })
+                    commit('updateState', 'reject', { root: true })
                     resolved = false
                 })
 
-            if (resolved) commit('updateState', 'resolve')
+            if (resolved) {
+                commit('updateState', 'resolve', { root: true })
+                dispatch('loadStats')
+            }
         },
-        async loadStats({commit}){
+        async loadStats({ commit }) {
             var resolved = true
-            commit('setStats', 'request')
+            commit('updateState', 'request', { root: true })
 
             await axios
                 .get(`forum/`)
                 .then(response => commit('setStats', response.data))
                 .catch(error => {
-                    commit('setError', error.response)
-                    commit('updateState', 'reject')
+                    commit('setError', error.response, { root: true })
+                    commit('updateState', 'reject', { root: true })
                     resolved = false
                 })
 
-            if (resolved) commit('updateState', 'resolve')
+            if (resolved) commit('updateState', 'resolve', { root: true })
         }
     },
     mutations: {
         setBoards(state, boards) {
             state.boards = boards
         },
-        setError(state, message) {
-            state.error = message
-        },
-        setStats(state, stats){
+        setStats(state, stats) {
             state.stats = stats
-        },
-        updateState(state, action) {
-            state.machine.do(action)
         }
     }
 }
