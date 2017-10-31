@@ -7,8 +7,8 @@ from .views import board_detail, board_list
 urlpatterns = [
     # ex: /api/boards/
     url(r'^$', board_list.as_view()),
-    # ex: /api/boards/{slug}/
-    url(r'^(?P<slug>[a-zA-Z0-9]+?)/$', board_detail.as_view()),
-    # ex: /api/boards/{slug}/threads/
-    url(r'^(?P<slug>[a-zA-Z0-9]+?)/threads/', include(thread_patterns))
+    # ex: /api/boards/{board}/
+    url(r'^(?P<board>[a-zA-Z0-9]+?)/$', board_detail.as_view()),
+    # ex: /api/boards/{board}/threads/
+    url(r'^(?P<board>[a-zA-Z0-9]+?)/threads/', include(thread_patterns))
 ]
