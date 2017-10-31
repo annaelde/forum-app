@@ -16,4 +16,5 @@ class board_detail(RetrieveAPIView):
     serializer_class = BoardSerializer
     permission_classes = (AllowAny,)
     lookup_field = 'slug'
+    lookup_url_kwarg = 'board'
     model = Board
