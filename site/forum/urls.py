@@ -15,11 +15,17 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from .views import forum_stats
+
+forum_patterns = [
+    url(r'^$', forum_stats)
+]
 
 app_patterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^boards/', include('boards.urls')),
+    url(r'^forum/', include(forum_patterns)),
     url(r'^auth/', include('djoser.urls')),
     url(r'^auth/', include('djoser.urls.authtoken'))
 ]
