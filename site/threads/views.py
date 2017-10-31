@@ -20,5 +20,6 @@ class thread_detail(MultipleFieldLookupMixin, RetrieveAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
     permission_classes = (AllowAny,)
-    lookup_fields = ('board', 'key', 'thread')
+    lookup_fields = ['board__slug', 'key', 'slug']
+    lookup_url_kwargs = ['board', 'key', 'thread']
     model = Post
