@@ -1,5 +1,5 @@
 <template>
-    <div class="container box">
+    <div class="box">
         <div class="columns">
             <div class="column is-three-quarters">
                 <router-link :to="`/~${board}/${thread.key}/${thread.slug}/`">
