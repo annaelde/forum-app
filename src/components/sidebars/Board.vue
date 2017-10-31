@@ -1,6 +1,7 @@
 <template>
   <section class="section column">
-      <h1>{{ board.name }}</h1>
+      <h1 class="title">{{ board.name }}</h1>
+      <h2 class="subtitle">{{ board.description }}</h2>
   </section>
 </template>
 
