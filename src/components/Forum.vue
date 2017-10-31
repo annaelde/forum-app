@@ -50,14 +50,19 @@ export default Vue.component('forum', {
 
 <style lang="sass">
 .grid
-    width: 100%
     display: flex
     flex-flow: row wrap
-
+    width: 100%
+    
 .grid .card
+    display: flex
     flex: 1 1 15em
-    max-width: 50%
+    flex-direction: column
     margin: 1em
+    max-width: 50%
+    
+.grid .card-content
+    flex: 1 1 auto
 
 @supports(display: grid)
     .grid
@@ -66,13 +71,6 @@ export default Vue.component('forum', {
         grid-gap: 1em
 
     .grid .card
-        max-width: none
         margin: 0
-
-.card
-    display: flex
-    flex-direction: column
-
-.card-content
-    flex: 1 1 auto
+        max-width: none
 </style>
