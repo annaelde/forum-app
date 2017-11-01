@@ -11,8 +11,8 @@
                 <transition name="balloon">
                     <error v-if="error" :response="error"></error>
                 </transition>
-                <label for="username" class="label">Username</label>
                 <div class="field">
+                    <label for="username" class="label">Username</label>
                     <div class="control has-icons-left" :class="{'is-loading' : (state === 'loading')}">
                         <input class="input" id="username" type="text" value="">
                         <span class="icon is-small is-left">
