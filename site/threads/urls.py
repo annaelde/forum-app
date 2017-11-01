@@ -1,9 +1,11 @@
 from django.conf.urls import url
-from .views import thread_detail, thread_list
+from .views import ThreadDetail, ThreadList, ThreadCreate
 
 urlpatterns = [
     # ex: /api/board/{board}/threads/
-    url(r'^$', thread_list.as_view()),
+    url(r'^$', ThreadList.as_view()),
+    # ex: /api/board/{board}/threads/create
+    url(r'^create/$', ThreadCreate.as_view()),
     # ex: /api/board/{board}/threads/{key}/{thread}
-    url(r'(?P<key>[a-zA-Z0-9]{4,4})/(?P<thread>[-\w]+?)/$', thread_detail.as_view())
+    url(r'(?P<key>[a-zA-Z0-9]{4,4})/(?P<thread>[-\w]+?)/$', ThreadDetail.as_view())
 ]
