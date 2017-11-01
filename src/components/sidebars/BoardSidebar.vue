@@ -6,30 +6,26 @@
             <span class="icon">
                 <i class="fa fa-plus"></i>
             </span>
-            <span @click="showCompose = true">Post a Thread</span>
+            <span @click="showPostModal = true">Post a Thread</span>
         </button>
-        <compose v-if="showCompose" @close="showCompose = false" :board="board"></compose>
+        <post-modal v-if="showPostModal" @close="showPostModal = false" :board="board"></post-modal>
     </section>
 </template>
 
 <script>
 import { mapState } from 'vuex'
-import Compose from '../parts/Compose.vue'
+import PostModal from '../parts/PostModal.vue'
 
 export default Vue.component('board-sidebar', {
-    name: 'board-sidebar',
+    data: function() {
+        return {
+            showPostModal: false
+        }
+    },
     computed: mapState({
         board: state => state.board.data,
         error: state => state.board.error
-    }),
-    data: function(){
-        return {
-            showCompose: false
-        }
-    },
-    methods: {
-
-    }
+    })
 })
 </script>
 

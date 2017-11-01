@@ -14,8 +14,7 @@
 <script>
 import { mapState } from 'vuex'
 
-export default Vue.component('error', {
-    name: 'error',
+export default Vue.component('error-message', {
     props: [
         'response'
     ],

@@ -1,29 +1,32 @@
 <template>
     <div>
-        <navigation></navigation>
+        <the-header></the-header>
         <div class="progress-container">
             <transition name="fade-out">
                 <progress v-show="progress != 100" class="progress is-info is-small is-radiusless" :value="progress" max="100"></progress>
             </transition>
         </div>
-        <div v-show="current === 'idle'" class="columns">
-            <router-view name="main"></router-view>
-            <router-view name="sidebar"></router-view>
-        </div>
+        <transition name="fade">
+            <div v-show="current === 'idle'" class="columns">
+                <router-view name="main"></router-view>
+                <router-view name="sidebar"></router-view>
+            </div>
+        </transition>
         <transition name="balloon">
             <div v-if="current === 'handling'" class="section">
                 <error :response="error"></error>
             </div>
         </transition>
-        <footnotes></footnotes>
+        <the-footer></the-footer>
     </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
-import Navigation from './components/layout/Navigation.vue'
-import Footnotes from './components/layout/Footnotes.vue'
+import TheHeader from './components/layout/TheHeader.vue'
+import TheFooter from './components/layout/TheFooter.vue'
 import { tweenState } from './libs/tween'
+import { loginToken } from './libs/cookie'
 
 export default {
     name: 'app',
@@ -39,6 +42,11 @@ export default {
     watch: {
         current: function(newState, oldState) {
             tweenState(newState, oldState, this)
+        }
+    },
+    created() {
+        if (loginToken) {
+            this.$store.dispatch('user/reauthenticate', loginToken)
         }
     }
 }

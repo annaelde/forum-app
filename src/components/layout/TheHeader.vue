@@ -1,15 +1,17 @@
 <template>
     <nav class="navbar is-radiusless" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
-           <router-link to='/' class="navbar-item">
-               <span class="icon is-large">
-                   <i class="fa fa-hourglass-o fa-2x has-text-light"></i>
+            <router-link to='/' class="navbar-item">
+                <span class="icon is-large">
+                    <i class="fa fa-hourglass-o fa-2x has-text-light"></i>
                 </span>
-               <h1 class="title has-text-light">Forum</h1>
-           </router-link>
+                <h1 class="title has-text-light">Forum</h1>
+            </router-link>
             <div v-if="!auth" class="navbar-item is-hidden-mobile">
                 <button @click="showLogin = !showLogin" class="button is-primary is-medium">
-                    <span class="icon"><i class="fa fa-sign-in"></i></span>
+                    <span class="icon">
+                        <i class="fa fa-sign-in"></i>
+                    </span>
                     <span>Login</span>
                 </button>
             </div>
@@ -35,30 +37,29 @@
                 </div>
             </div>
         </transition>
-            <div class="navbar-menu" v-show="!openDrawer">
-                <div class="navbar-start">
-                    <a @click="showLogin = !showLogin" v-if="!auth" class="navbar-item is-primary is-hidden-tablet">Login</a>
-                    <a class="navbar-item">Trending</a>
-                    <a class="navbar-item">Browse</a>
-                </div>
-                <div v-if="auth" class="navbar-end">
-                    <a class="navbar-item">Profile</a>
-                    <a class="navbar-item">Bookmarks</a>
-                    <a class="navbar-item" @click="logout">Logout</a>
-                </div>
+        <div class="navbar-menu" v-show="!openDrawer">
+            <div class="navbar-start">
+                <a @click="showLogin = !showLogin" v-if="!auth" class="navbar-item is-primary is-hidden-tablet">Login</a>
+                <a class="navbar-item">Trending</a>
+                <a class="navbar-item">Browse</a>
             </div>
+            <div v-if="auth" class="navbar-end">
+                <a class="navbar-item">Profile</a>
+                <a class="navbar-item">Bookmarks</a>
+                <a class="navbar-item" @click="logout">Logout</a>
+            </div>
+        </div>
         <transition name="fade">
-            <login v-if="showLogin" @close="showLogin = false"></login>
+            <login-modal v-if="showLogin" @close="showLogin = false"></login-modal>
         </transition>
     </nav>
 </template>
 
 <script>
 import { mapState } from 'vuex'
-import Login from '../parts/Login.vue'
+import LoginModal from '../parts/LoginModal.vue'
 
-export default Vue.component('navigation', {
-    name: 'navigation',
+export default Vue.component('the-header', {
     data() {
         return {
             openDrawer: false,
@@ -66,8 +67,8 @@ export default Vue.component('navigation', {
         }
     },
     computed: mapState({
-       auth: state => state.user.token,
-       user: state => state.user.data
+        auth: state => state.user.token,
+        user: state => state.user.data
     }),
     methods: {
         logout: function() {

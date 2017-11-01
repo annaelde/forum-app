@@ -43,13 +43,7 @@
 </template>
 
 <script>
-export default Vue.component('preview', {
-    name: 'preview',
-    data() {
-        return {
-            open: false
-        }
-    },
+export default Vue.component('thread-preview', {
     props: {
         board: {
             type: String,
@@ -58,6 +52,11 @@ export default Vue.component('preview', {
         thread: {
             type: Object,
             required: true
+        }
+    },
+    data() {
+        return {
+            open: false
         }
     }
 })

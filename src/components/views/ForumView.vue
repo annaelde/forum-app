@@ -37,23 +37,21 @@
 </template>
 
 <script>
-import Preview from '../parts/Preview.vue'
 import { mapState } from 'vuex'
 
 export default Vue.component('forum', {
-    name: 'forum',
     data() {
         return {
             collapsed: true
         }
     },
-    created() {
-        this.$store.dispatch('forum/loadBoards')
-    },
     computed: mapState({
         boards: state => state.forum.boards,
         error: state => state.error
-    })
+    }),
+    created() {
+        this.$store.dispatch('forum/loadBoards')
+    }
 })
 </script>
 

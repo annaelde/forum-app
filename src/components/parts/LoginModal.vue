@@ -9,7 +9,7 @@
             </header>
             <section class="modal-card-body">
                 <transition name="balloon">
-                    <error v-if="error" :response="error"></error>
+                    <error-message v-if="error" :response="error"></error-message>
                 </transition>
                 <div class="field">
                     <label for="username" class="label">Username</label>
@@ -44,11 +44,10 @@
 
 <script>
 import { mapState } from 'vuex'
-import Error from './Error.vue'
+import ErrorMessage from './ErrorMessage.vue'
 import axios from '../../libs/axios'
 
-export default Vue.component('login', {
-    name: 'login',
+export default Vue.component('login-modal', {
     computed: mapState({
         auth: state => state.user.token,
         state: state => state.user.machine.state,

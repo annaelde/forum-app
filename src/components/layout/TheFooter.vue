@@ -11,8 +11,7 @@
 <script>
 import { mapState } from 'vuex'
 
-export default Vue.component('footnotes', {
-    name: 'footnotes',
+export default Vue.component('the-footer', {
     computed: mapState({
         board: state => state.board.data
     })

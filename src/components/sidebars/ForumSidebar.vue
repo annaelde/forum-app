@@ -41,7 +41,6 @@
 import { mapState } from 'vuex'
 
 export default Vue.component('forum-sidebar', {
-    name: 'forum-sidebar',
     computed: mapState({
         stats: state => state.forum.stats,
         error: state => state.forum.error

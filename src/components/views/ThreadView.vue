@@ -19,7 +19,6 @@ import { mapState } from 'vuex'
 import axios from '../../libs/axios'
 
 export default Vue.component('thread', {
-    name: 'thread',
     computed: mapState({
         board: state => state.board.data,
         thread: state => state.thread.data,

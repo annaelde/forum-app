@@ -9,7 +9,7 @@
                 </header>
                 <section class="modal-card-body">
                     <transition name="balloon">
-                        <error v-if="error" :response="error"></error>
+                        <error-message v-if="error" :response="error"></error-message>
                     </transition>
                     <div class="field">
                         <label for="title" class="label">Title</label>
@@ -39,11 +39,10 @@
 
 <script>
 import { mapState } from 'vuex'
-import Error from './Error.vue'
+import ErrorMessage from './ErrorMessage.vue'
 import axios from '../../libs/axios'
 
-export default Vue.component('compose', {
-    name: 'compose',
+export default Vue.component('post-modal', {
     computed: mapState({
         state: state => state.thread.machine.state,
         error: state => state.thread.error
