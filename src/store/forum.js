@@ -1,6 +1,6 @@
 import Vuex from 'vuex'
-import StateMachine from './machine'
-import axios from '../plugins/axios'
+import StateMachine from '../utils/machine'
+import axios from '../libs/axios'
 
 const forum = {
     namespaced: true,

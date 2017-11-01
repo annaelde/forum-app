@@ -1,5 +1,5 @@
 import Vuex from 'vuex'
-import axios from '../plugins/axios'
+import axios from '../libs/axios'
 
 const board = {
     namespaced: true,

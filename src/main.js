@@ -1,7 +1,7 @@
 import App from './App.vue'
 import store from './store'
 import router from './router'
-import filters from './plugins/filters'
+import filters from './utils/filters'
 
 var app = new Vue({
     router,
