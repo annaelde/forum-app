@@ -23,10 +23,12 @@
 
 <script>
 import { mapState } from 'vuex'
+
+import { tweenState } from './libs/tween'
+import { retrieveToken } from './libs/store'
+
 import TheHeader from './components/layout/TheHeader.vue'
 import TheFooter from './components/layout/TheFooter.vue'
-import { tweenState } from './libs/tween'
-import { loginToken } from './libs/cookie'
 
 export default {
     name: 'app',
@@ -45,14 +47,11 @@ export default {
         }
     },
     created() {
-        if (loginToken) {
-            this.$store.dispatch('user/reauthenticate', loginToken)
-        }
+        this.$store.dispatch('user/reauthenticate', retrieveToken())
     }
 }
 </script>
 
-// Global styles
 <style lang="sass">
 @import "~bulmaswatch/united/_variables.scss"
 @import "~bulma/bulma"
