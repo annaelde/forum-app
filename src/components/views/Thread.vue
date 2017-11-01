@@ -16,7 +16,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import axios from '../../plugins/axios'
+import axios from '../../libs/axios'
 
 export default Vue.component('thread', {
     name: 'thread',

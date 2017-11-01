@@ -40,7 +40,7 @@
 <script>
 import { mapState } from 'vuex'
 import Error from './Error.vue'
-import axios from '../../plugins/axios'
+import axios from '../../libs/axios'
 
 export default Vue.component('compose', {
     name: 'compose',
