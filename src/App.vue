@@ -23,7 +23,7 @@
 import { mapState } from 'vuex'
 import Navigation from './components/layout/Navigation.vue'
 import Footnotes from './components/layout/Footnotes.vue'
-import TWEEN from '@tweenjs/tween.js'
+import { tweenState } from './libs/tween'
 
 export default {
     name: 'app',
@@ -38,36 +38,7 @@ export default {
     }),
     watch: {
         current: function(newState, oldState) {
-            var newValue
-            var oldValue
-
-            if (oldState === 'idle') {
-                oldValue = 0
-                newValue = 50
-            } else if (oldState === 'loading') {
-                oldValue = 50
-                newValue = 100
-            } else if (!oldState) {
-                oldValue = 0
-                newValue = 0
-            }
-
-            var view = this
-
-            function animate() {
-                if (TWEEN.update()) {
-                    requestAnimationFrame(animate)
-                }
-            }
-
-            new TWEEN.Tween({ x: oldValue })
-                .easing(TWEEN.Easing.Quadratic.Out)
-                .to({ x: newValue }, 500)
-                .onUpdate(function(object) {
-                    view.progress = object.x.toFixed(0)
-                })
-                .start()
-            animate()
+            tweenState(newState, oldState, this)
         }
     }
 }
@@ -75,9 +46,9 @@ export default {
 
 // Global styles
 <style lang="sass">
-@import "~bulmaswatch/darkly/_variables.scss"
+@import "~bulmaswatch/united/_variables.scss"
 @import "~bulma/bulma"
-@import "~bulmaswatch/darkly/_overrides.scss"
+@import "~bulmaswatch/united/_overrides.scss"
 @import "styles/main"
 
 .progress-container
