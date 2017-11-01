@@ -25,10 +25,14 @@ const board = {
                     resolved = false
                 })
 
-            // Only set the state machine back to idle on success
+            // Load threads if loading the board view
             if (resolved) {
-                commit('updateState', 'resolve', { root: true })
-                if (context === 'board') await dispatch('loadThreads')
+                if (context === 'board') {
+                    commit('updateState', 'update', { root: true })
+                    await dispatch('loadThreads')
+                } else {
+                    commit('updateState', 'resolve', { root: true })
+                }
             }
         },
         async loadThreads({ state, commit, rootState }) {
