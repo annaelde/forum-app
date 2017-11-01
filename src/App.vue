@@ -6,12 +6,15 @@
                 <progress v-show="progress != 100" class="progress is-info is-small is-radiusless" :value="progress" max="100"></progress>
             </transition>
         </div>
-        <transition name="fade">
-            <div v-show="current === 'idle'" class="columns">
-                <router-view name="main"></router-view>
-                <router-view name="sidebar"></router-view>
-            </div>
-        </transition>
+
+        <div class="view columns">
+            <transition name="fade" mode="out-in" appear>
+                <router-view name="main" :key="this.$route.fullPath"></router-view>
+            </transition>
+            <transition name="fade" mode="out-in" appear>
+                <router-view name="sidebar" :key="this.$route.fullPath"></router-view>
+            </transition>
+        </div>
         <transition name="balloon">
             <div v-if="current === 'handling'" class="section">
                 <error :response="error"></error>
@@ -60,6 +63,9 @@ export default {
 
 .progress-container
     min-height: calc(0.85em + 1.5rem)
+
+.view
+    min-height: 100vh
 </style>
 
 <style lang="scss">
