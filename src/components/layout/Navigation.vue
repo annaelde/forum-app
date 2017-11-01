@@ -3,9 +3,9 @@
         <div class="navbar-brand">
            <router-link to='/' class="navbar-item">
                <span class="icon is-large">
-                   <i class="fa fa-hourglass-o fa-2x"></i>
+                   <i class="fa fa-hourglass-o fa-2x has-text-light"></i>
                 </span>
-               <h1 class="title">Forum</h1>
+               <h1 class="title has-text-light">Forum</h1>
            </router-link>
             <div v-if="!auth" class="navbar-item is-hidden-mobile">
                 <button @click="showLogin = !showLogin" class="button is-primary is-medium">
