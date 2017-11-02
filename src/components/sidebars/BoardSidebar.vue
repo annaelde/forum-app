@@ -2,7 +2,7 @@
     <section class="section column">
         <h1 class="title">{{ board.name }}</h1>
         <h2 class="subtitle">{{ board.description }}</h2>
-        <button class="button is-primary is-medium">
+        <button v-if="authenticated" class="button is-primary is-medium">
             <span class="icon">
                 <i class="fa fa-plus"></i>
             </span>
@@ -23,6 +23,7 @@ export default Vue.component('board-sidebar', {
         }
     },
     computed: mapState({
+        authenticated: state => state.user.token,
         board: state => state.board.data,
         error: state => state.board.error
     })

@@ -50,7 +50,7 @@ export default Vue.component('forum', {
         error: state => state.error
     }),
     created() {
-        this.$store.dispatch('forum/loadBoards')
+        this.$store.dispatch('forum/initialize')
     }
 })
 </script>

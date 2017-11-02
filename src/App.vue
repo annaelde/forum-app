@@ -1,13 +1,14 @@
 <template>
     <div>
         <the-header></the-header>
+
         <div class="progress-container">
             <transition name="fade-out">
                 <progress v-show="progress != 100" class="progress is-info is-small is-radiusless" :value="progress" max="100"></progress>
             </transition>
         </div>
 
-        <div class="view columns">
+        <div v-if="!this.handling" class="view columns">
             <transition name="fade" mode="out-in" appear>
                 <router-view name="main" :key="this.$route.fullPath"></router-view>
             </transition>
@@ -16,10 +17,11 @@
             </transition>
         </div>
         <transition name="balloon">
-            <div v-if="current === 'handling'" class="section">
-                <error :response="error"></error>
+            <div v-if="this.handling" class="view section">
+                <error-message :response="error"></error-message>
             </div>
         </transition>
+
         <the-footer></the-footer>
     </div>
 </template>
@@ -28,10 +30,11 @@
 import { mapState } from 'vuex'
 
 import { tweenState } from './libs/tween'
-import { retrieveToken } from './libs/store'
+import { getToken } from './libs/store'
 
 import TheHeader from './components/layout/TheHeader.vue'
 import TheFooter from './components/layout/TheFooter.vue'
+import ErrorMessage from './components/parts/ErrorMessage.vue'
 
 export default {
     name: 'app',
@@ -40,17 +43,22 @@ export default {
             progress: 0
         }
     },
-    computed: mapState({
-        error: state => state.error,
-        current: state => state.machine.state
-    }),
+    computed: {
+        handling: function() {
+            return this.state === 'handling'
+        },
+        ...mapState({
+            error: state => state.error,
+            state: state => state.machine.state
+        })
+    },
     watch: {
-        current: function(newState, oldState) {
+        state: function(newState, oldState) {
             tweenState(newState, oldState, this)
         }
     },
     created() {
-        this.$store.dispatch('user/reauthenticate', retrieveToken())
+        this.$store.dispatch('user/restore', getToken())
     }
 }
 </script>
@@ -66,6 +74,10 @@ export default {
 
 .view
     min-height: 100vh
+
+input:-webkit-autofill 
+    -webkit-box-shadow: 0 0 0px 1000px white inset
+
 </style>
 
 <style lang="scss">

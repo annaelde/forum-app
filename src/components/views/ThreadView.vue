@@ -25,7 +25,7 @@ export default Vue.component('thread', {
         error: state => state.error
     }),
     created() {
-        this.$store.dispatch('thread/loadThread', {
+        this.$store.dispatch('thread/getThread', {
             board: this.$route.params.board,
             key: this.$route.params.key,
             slug: this.$route.params.slug

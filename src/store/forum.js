@@ -1,6 +1,5 @@
 import Vuex from 'vuex'
-import StateMachine from '../utils/machine'
-import axios from '../libs/axios'
+import { request } from '../libs/axios'
 
 const forum = {
     namespaced: true,
@@ -10,45 +9,32 @@ const forum = {
         boards: []
     },
     actions: {
-        async loadBoards({ commit, dispatch }) {
-            var resolved = true
-            commit('updateState', 'request', { root: true })
+        async initialize(context) {
+            // Get boards
+            await request({
+                context,
+                method: 'get',
+                url: 'boards/',
+                mutations: ['SET_BOARDS'],
+                root: true,
+                chain: true
+            })
 
-            await axios
-                .get(`boards/`)
-                .then(response => commit('setBoards', response.data))
-                .catch(error => {
-                    commit('setError', error.response, { root: true })
-                    commit('updateState', 'reject', { root: true })
-                    resolved = false
-                })
-
-            if (resolved) {
-                commit('updateState', 'resolve', { root: true })
-                dispatch('loadStats')
-            }
-        },
-        async loadStats({ commit }) {
-            var resolved = true
-            commit('updateState', 'request', { root: true })
-
-            await axios
-                .get(`forum/`)
-                .then(response => commit('setStats', response.data))
-                .catch(error => {
-                    commit('setError', error.response, { root: true })
-                    commit('updateState', 'reject', { root: true })
-                    resolved = false
-                })
-
-            if (resolved) commit('updateState', 'resolve', { root: true })
+            // Get forum stats
+            await request({
+                context,
+                method: 'get',
+                url: 'forum/',
+                mutations: ['SET_STATS'],
+                root: true
+            })
         }
     },
     mutations: {
-        setBoards(state, boards) {
+        SET_BOARDS(state, boards) {
             state.boards = boards
         },
-        setStats(state, stats) {
+        SET_STATS(state, stats) {
             state.stats = stats
         }
     }

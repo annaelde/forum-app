@@ -1,9 +1,13 @@
 import store from 'store'
 
-export function retrieveToken() {
+export function getToken() {
     return store.get('token')
 }
 
-export function storeToken(payload) {
+export function setToken(payload) {
     store.set('token', payload)
+}
+
+export function removeToken(payload){
+    store.remove('token')
 }

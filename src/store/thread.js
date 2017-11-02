@@ -1,6 +1,6 @@
 import Vuex from 'vuex'
 import StateMachine from '../utils/machine'
-import axios from '../libs/axios'
+import { request } from '../libs/axios'
 
 const thread = {
     namespaced: true,
@@ -11,50 +11,50 @@ const thread = {
         error: ''
     },
     actions: {
-        async loadThread({ commit, rootState, dispatch }, { board, key, slug }) {
+        async getThread(context, { board, key, slug }) {
             // Refresh board information
-            if (rootState.board.data.slug != board) {
-                await dispatch('board/loadBoard', { board: board, context: 'thread' }, { root: true })
+            if (context.rootState.board.data.slug != board) {
+                await context.dispatch(
+                    'board/initialize',
+                    {
+                        board: board,
+                        sidebarOnly: true
+                    },
+                    { root: true }
+                )
             }
 
-            var resolved = true
-            commit('updateState', 'request', { root: true })
-
-            await axios
-                .get(`boards/${board}/threads/${key}/${slug}/`)
-                .then(response => commit('setThread', response.data))
-                .catch(error => {
-                    commit('setError', error.response, { root: true })
-                    commit('updateState', 'reject', { root: true })
-                    resolved = false
-                })
-
-            if (resolved) commit('updateState', 'resolve', { root: true })
+            // Get thread
+            await request({
+                context,
+                method: 'get',
+                url: `boards/${board}/threads/${key}/${slug}/`,
+                mutations: ['SET_THREAD'],
+                root: true
+            })
         },
-        async postThread({commit, rootState }, { board, title, content }){
-            var resolved = true
-            commit('updateState', 'request')
+        async postThread(context, { board, title, content }) {
+            // Post thread
+            await request({
+                context,
+                method: 'post',
+                url: `boards/${board}/threads/create/`,
+                payload: { author: context.rootState.user.data.username, board: board, title: title, content: content },
+                mutations: ['SET_THREAD']
+            })
 
-            await axios
-                .post(`boards/${board}/threads/create/`, { author: rootState.user.data.username, board: board, title: title, content: content })
-                .then(response => commit('setThread', response.data))
-                .catch(error => {
-                    commit('setError', error.response)
-                    commit('updateState', 'reject')
-                    resolved = false
-                })
-
-            if (resolved) commit('updateState', 'resolve')
+            // Refresh the board
+            await context.dispatch('board/getThreads', null, { root: true })
         }
     },
     mutations: {
-        setThread(state, thread) {
+        SET_THREAD(state, thread) {
             state.data = thread
         },
-        setError(state, message) {
+        SET_ERROR(state, message) {
             state.error = message
         },
-        updateState(state, action){
+        SET_STATE(state, action) {
             state.machine.do(action)
         }
     }

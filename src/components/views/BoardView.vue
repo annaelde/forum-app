@@ -20,11 +20,11 @@ export default Vue.component('board', {
         error: state => state.error
     }),
     created() {
-        this.$store.dispatch('board/loadBoard', { board: this.$route.params.board, context: 'board' })
+        this.$store.dispatch('board/initialize', { board: this.$route.params.board })
     },
     destroyed() {
-        this.$store.commit('board/setBoard', {})
-        this.$store.commit('board/setThreads', [])
+        this.$store.commit('board/SET_BOARD', {})
+        this.$store.commit('board/SET_THREADS', [])
     }
 })
 </script>

@@ -1,6 +1,5 @@
 import Vuex from 'vuex'
 import StateMachine from '../utils/machine'
-import axios from '../libs/axios'
 import forum from './forum'
 import user from './user'
 import board from './board'
@@ -14,10 +13,10 @@ const store = new Vuex.Store({
         machine: new StateMachine()
     },
     mutations: {
-        updateState(state, action){
+        SET_STATE(state, action){
             state.machine.do(action)
         },
-        setError(state, message) {
+        SET_ERROR(state, message) {
             state.error = message
         }
     },

@@ -1,5 +1,5 @@
 import Vuex from 'vuex'
-import axios from '../libs/axios'
+import { request } from '../libs/axios'
 
 const board = {
     namespaced: true,
@@ -8,69 +8,43 @@ const board = {
         threads: []
     },
     actions: {
-        async loadBoard({ commit, dispatch }, { board, context }) {
-            // Track if the promise was resolved or rejected
-            var resolved = true
+        async initialize(context, { board, sidebarOnly }) {
+            // Get board data displayed in sidebar
+            await request({
+                context,
+                method: 'get',
+                url: `boards/${board}/`,
+                mutations: ['SET_BOARD'],
+                root: true,
+                chain: sidebarOnly ? true : false
+            })
 
-            // Notify components that we're requesting something
-            commit('updateState', 'request', { root: true })
-
-            await axios
-                .get(`boards/${board}/`)
-                .then(response => commit('setBoard', response.data))
-                .catch(error => {
-                    // Supply error and set state machine to handle
-                    commit('setError', error.response, { root: true })
-                    commit('updateState', 'handle', { root: true })
-                    resolved = false
-                })
-
-            // Load threads if loading the board view
-            if (resolved) {
-                if (context === 'board') {
-                    commit('updateState', 'update', { root: true })
-                    await dispatch('loadThreads')
-                } else {
-                    commit('updateState', 'resolve', { root: true })
-                }
+            // Get list of threads (only for board view)
+            if (!sidebarOnly) {
+                await context.dispatch('getThreads')
             }
         },
-        async loadThreads({ state, commit, rootState }) {
-            // Track if the promise was resolved or rejected
-            var resolved = true
-
-            // Notify components that we're requesting something
-            commit('updateState', 'request', { root: true })
-
-            await axios
-                .get(`boards/${state.data.slug}/threads/`)
-                .then(response => commit('setThreads', response.data))
-                .catch(error => {
-                    // Supply error and set state machine to handle
-                    commit('setError', error.response, { root: true })
-                    commit('updateState', 'handle', { root: true })
-                    resolved = false
-                })
-
-            // Only set the state machine back to idle on success
-            if (resolved) commit('updateState', 'resolve', { root: true })
+        async getThreads(context, params) {
+            await request({
+                context,
+                method: 'get',
+                url: `boards/${context.state.data.slug}/threads/${params ? params : ''}`,
+                mutations: ['SET_THREADS'],
+                root: true
+            })
         }
     },
     mutations: {
-        setBoard(state, board) {
+        SET_BOARD(state, board) {
             state.data = board
         },
-        setThreads(state, threads) {
+        SET_THREADS(state, threads) {
             state.threads = threads
-        },
-        setError(state, message) {
-            state.error = message
         }
     },
     getters: {
-        getThreadByDate: state => {
-            return state.threads.sort((a, b) => new Date(b.date) - new Date(a.date))
-        }
+        board: state => state.board,
+        threads: state => state.threads
     }
 }
 

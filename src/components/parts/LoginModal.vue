@@ -13,7 +13,7 @@
                     </transition>
                     <div class="field">
                         <label for="username" class="label">Username</label>
-                        <div class="control has-icons-left" :class="{'is-loading' : (state === 'loading')}">
+                        <div class="control has-icons-left" :class="{'is-loading' : loading}">
                             <input class="input" id="username" v-model="username" type="text" value="">
                             <span class="icon is-small is-left">
                                 <i class="fa fa-user"></i>
@@ -22,7 +22,7 @@
                     </div>
                     <div class="field">
                         <label for="password" class="label">Password</label>
-                        <div class="control has-icons-left" :class="{'is-loading' : (state === 'loading')}">
+                        <div class="control has-icons-left" :class="{'is-loading' : loading}">
                             <input class="input" id="password" v-model="password" type="password" value="">
                             <span class="icon is-small is-left">
                                 <i class="fa fa-key"></i>
@@ -33,7 +33,7 @@
                 <footer class="modal-card-foot">
                     <button @click="login" class="button is-success">Login</button>
                     <div class="register">
-                        <span class="is-hidden-mobile">Don't have an account yet?</span>
+                        <span class="is-hidden-mobile has-text-dark">Don't have an account yet?</span>
                         <button class="button">Register</button>
                     </div>
                 </footer>
@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapMutations, mapActions } from 'vuex'
 import ErrorMessage from './ErrorMessage.vue'
 import axios from '../../libs/axios'
 
@@ -54,24 +54,39 @@ export default Vue.component('login-modal', {
             password: ''
         }
     },
-    computed: mapState({
-        auth: state => state.user.token,
-        state: state => state.user.machine.state,
-        user: state => state.user.data,
-        error: state => state.user.error
-    }),
-    watch: {
-        auth: function() {
-            if (this.auth) this.$emit('close')
-        }
+    computed: {
+        loading: function() {
+            return this.state === 'loading' || this.state === 'updating'
+        },
+        handling: function(){
+            return this.state === 'handling'
+        },
+        ...mapState({
+            authenticated: state => state.user.token,
+            state: state => state.user.machine.state,
+            error: state => state.user.error
+        })
     },
     methods: {
-        login: function() {
-            this.$store.dispatch('user/authenticate', { 
-                username: this.username, 
-                password: this.password 
-            })
+        ...mapMutations('user', [
+            'SET_STATE',
+            'SET_ERROR'
+        ]),
+        ...mapActions('user', [
+            'authenticate'
+        ]),
+        login: async function() {
+            await this.authenticate({username: this.username, password: this.password})
+
+            if (!this.handling){
+                this.$emit('close')
+            } else {
+                this.SET_STATE('throw')                
+            }
         }
+    },
+    destroyed(){
+        this.SET_ERROR('')
     }
 })
 </script>

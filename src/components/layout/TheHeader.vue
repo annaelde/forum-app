@@ -8,7 +8,7 @@
                 <h1 class="title has-text-light">Forum</h1>
             </router-link>
             <div v-if="!auth" class="navbar-item is-hidden-mobile">
-                <button @click="showLogin = !showLogin" class="button is-primary is-medium">
+                <button @click="showLogin = !showLogin" class="button is-info">
                     <span class="icon">
                         <i class="fa fa-sign-in"></i>
                     </span>

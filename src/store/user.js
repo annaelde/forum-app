@@ -1,91 +1,75 @@
 import Vuex from 'vuex'
 import StateMachine from '../utils/machine'
-import axios from '../libs/axios'
-import { storeToken } from '../libs/store'
+import { request, setHeader } from '../libs/axios'
+import { setToken, removeToken } from '../libs/store'
 
 const user = {
     namespaced: true,
     state: {
         token: '',
-        data: {},
+        data: null,
         machine: new StateMachine(),
         error: ''
     },
     actions: {
-        async authenticate({ dispatch, commit, rootState }, credentials) {
-            var resolved = true
-            commit('updateState', 'request')
+        async authenticate(context, credentials) {
+            // Request token from server
+            await request({
+                context,
+                method: 'post',
+                url: `auth/token/create/`,
+                payload: credentials,
+                mutations: ['SET_TOKEN']
+            })
 
-            await axios
-                .post('auth/token/create/', credentials)
-                .then(({ data }) => commit('setToken', data['auth_token']))
-                .catch(error => {
-                    commit('setError', error.response)
-                    commit('updateState', 'reject')
-                    resolved = false
-                })
-
-            if (resolved) {
-                commit('updateState', 'resolve')
-                dispatch('load')
+            if (!context.state.data){
+                await context.dispatch('initialize')
             }
         },
-        async reauthenticate({ dispatch, commit, rootState }, token){
-            // Attempt reauthentication
+        async restore(context, token) {
+            // Restore token from local storage
             if (token) {
-                commit('setToken', token)
-                await dispatch('load')
+                context.commit('SET_TOKEN', { auth_token: token })
+                await context.dispatch('initialize')
             }
         },
-        async load({ commit }) {
-            var resolved = true
-            commit('updateState', 'request')
-            
-            await axios
-                .get('auth/me/')
-                .then(({ data }) => commit('setData', data))
-                .catch(error => {
-                    commit('setError', error.response)
-                    commit('updateState', 'reject')
-                    resolved = false
-                })
-            
-            if (resolved) commit('updateState', 'resolve')
+        async initialize(context) {
+            // Request user data
+            await request({
+                context,
+                method: 'get',
+                url: 'auth/me/',
+                mutations: ['SET_DATA']
+            })
         },
-        async deauthenticate({ commit }) {
-            var resolved = true
-            commit('updateState', 'request')
-            
-            await axios
-                .post('auth/token/destroy/')
-                .then(({ data }) => commit('setToken', ''))
-                .then(commit('setData', {}))
-                .catch(error => {
-                    commit('setError', error.response)
-                    commit('updateState', 'reject')
-                    resolved = false
-                })
-
-            if (resolved) commit('updateState', 'resolve')
+        async deauthenticate(context) {
+            // Destroy token
+            await request({
+                context,
+                method: 'post',
+                url: 'auth/token/destroy/',
+                mutations: ['REMOVE_TOKEN']
+            })
         }
     },
     mutations: {
-        setToken(state, token) {
-            // Store token in data store and persistent local storage
-            state.token = token
-            storeToken(token)
-
-            // Add token to HTTP headers
-            if (token !== '') axios.defaults.headers.common['Authorization'] = 'Token ' + token
-            else delete axios.defaults.headers.common['Authorization']
+        SET_TOKEN(state, { auth_token }) {
+            state.token = auth_token
+            setToken(auth_token)
+            setHeader('Authorization', `Token ${auth_token}`)
         },
-        setData(state, data) {
+        REMOVE_TOKEN(state){
+            state.token = ''
+            removeToken()
+            removeHeader('Authorization')
+        },
+        SET_DATA(state, data) {
             state.data = data
         },
-        setError(state, message) {
+        SET_ERROR(state, message) {
             state.error = message
         },
-        updateState(state, action){
+        SET_STATE(state, action) {
             state.machine.do(action)
         }
     }
