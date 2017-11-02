@@ -31,7 +31,10 @@ export default Vue.component('error-message', {
                     break
                 case 503: 
                     message = `The server is overloaded. Try connecting again.`
-                    break                    
+                    break
+                case 400:
+                    message = `The server could not read the information you submitted.`
+                    break                
                 case 403: 
                     message = `You don't have permission to access this. Are you logged in?`
                     break                    
