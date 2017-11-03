@@ -1,6 +1,6 @@
 import Vuex from 'vuex'
 import StateMachine from '../utils/machine'
-import { request, setHeader } from '../libs/axios'
+import { request, setHeader, removeHeader } from '../libs/axios'
 import { setToken, removeToken } from '../libs/store'
 
 const user = {
