@@ -2,7 +2,7 @@
     <div class="hero box is-danger is-bold">
         <div class="hero-body">
             <h1 class="title">
-                {{ response.status }} {{ response.statusText }}
+                {{ response.status }} Error: {{ response.statusText }}
             </h1>
             <h2 class="subtitle">
                 {{ customMessage() }}
@@ -33,8 +33,11 @@ export default Vue.component('error-message', {
                     message = `The server is overloaded. Try connecting again.`
                     break
                 case 400:
-                    message = `The server could not read the information you submitted.`
-                    break                
+                    message = `The server did not understand the request.`
+                    break
+                case 401:
+                    message = `This information you entered was not correct.`
+                    break                      
                 case 403: 
                     message = `You don't have permission to access this. Are you logged in?`
                     break                    
