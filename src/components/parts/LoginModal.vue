@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations, mapActions } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import ErrorMessage from './ErrorMessage.vue'
 import axios from '../../libs/axios'
 
@@ -58,35 +58,20 @@ export default Vue.component('login-modal', {
         loading: function() {
             return this.state === 'loading' || this.state === 'updating'
         },
-        handling: function(){
+        handling: function() {
             return this.state === 'handling'
         },
-        ...mapState({
-            authenticated: state => state.user.token,
-            state: state => state.user.machine.state,
-            error: state => state.user.error
+        ...mapGetters('user', {
+            state: 'GET_STATE',
+            error: 'GET_ERROR'
         })
     },
     methods: {
-        ...mapMutations('user', [
-            'SET_STATE',
-            'SET_ERROR'
-        ]),
-        ...mapActions('user', [
-            'authenticate'
-        ]),
+        ...mapActions('user', ['authenticate']),
         login: async function() {
-            await this.authenticate({username: this.username, password: this.password})
-
-            if (!this.handling){
-                this.$emit('close')
-            } else {
-                this.SET_STATE('throw')                
-            }
+            await this.authenticate({ username: this.username, password: this.password })
+            if (!this.handling) this.$emit('close')
         }
-    },
-    destroyed(){
-        this.SET_ERROR('')
     }
 })
 </script>
