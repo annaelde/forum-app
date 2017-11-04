@@ -8,11 +8,11 @@ export const http = axios.create({
     /// #endif
 })
 
-export function setHeader(key, value){
+export function setHeader(key, value) {
     http.defaults.headers.common[key] = value
 }
 
-export function removeHeader(key){
+export function removeHeader(key) {
     delete http.defaults.headers.common[key]
 }
 
@@ -52,5 +52,10 @@ export async function request({ context, method, url, payload, mutations, root, 
         context.commit('SET_STATE', 'update', { root })
     } else if (resolved) {
         context.commit('SET_STATE', 'resolve', { root })
+    }
+
+    // If an error was previously raised, remove it
+    if (resolved && context.getters.GET_ERROR) {
+        context.commit('SET_ERROR', '', { root })
     }
 }
