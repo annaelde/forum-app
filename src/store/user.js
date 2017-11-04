@@ -19,10 +19,11 @@ const user = {
                 method: 'post',
                 url: `auth/token/create/`,
                 payload: credentials,
-                mutations: ['SET_TOKEN']
+                mutations: ['SET_TOKEN'],
+                chain: true
             })
 
-            if (!context.state.data){
+            if (context.getters.GET_STATE !== 'handling'){
                 await context.dispatch('initialize')
             }
         },
@@ -51,6 +52,11 @@ const user = {
                 mutations: ['REMOVE_TOKEN']
             })
         }
+    },
+    getters: {
+        GET_STATE: state => state.machine.state,
+        GET_ERROR: state => state.error,
+        GET_USERNAME : state => state.data.username
     },
     mutations: {
         SET_TOKEN(state, { auth_token }) {
