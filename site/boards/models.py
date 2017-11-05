@@ -20,5 +20,5 @@ class Board(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify_board_name(slug)
+            self.slug = slugify_board_name(self.name)
         super(Board, self).save(*args, **kwargs)
