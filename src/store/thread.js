@@ -46,6 +46,9 @@ const thread = {
             })
         }
     },
+    getters: {
+        GET_STATE: state => state.machine.state
+    },
     mutations: {
         SET_THREAD(state, thread) {
             state.data = thread
