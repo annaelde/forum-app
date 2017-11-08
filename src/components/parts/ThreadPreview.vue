@@ -32,6 +32,29 @@
                         </span>
                     </button>
                 </div>
+                <div v-if="thread.author === username" class="is-pulled-right">
+                    <button class="button">
+                        <span class="icon">
+                            <i class="fa fa-pencil">
+                                <span class="is-accessible">Edit</span>
+                            </i>
+                        </span>
+                    </button>
+                    <button class="button">
+                        <span class="icon">
+                            <i class="fa fa-archive">
+                                <span class="is-accessible">Archive</span>
+                            </i>
+                        </span>
+                    </button>
+                    <button class="button">
+                        <span class="icon">
+                            <i class="fa fa-trash">
+                                <span class="is-accessible">Delete</span>
+                            </i>
+                        </span>
+                    </button>
+                </div>
             </div>
         </div>
         <transition name="slide-down">
@@ -43,6 +66,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default Vue.component('thread-preview', {
     props: {
         board: {
@@ -57,6 +82,14 @@ export default Vue.component('thread-preview', {
     data() {
         return {
             open: false
+        }
+    },
+    computed: mapGetters('user', {
+        username: 'GET_USERNAME'
+    }),
+    methods: {
+        delete(){
+            this.$store.dispatch('thread/delete')
         }
     }
 })
