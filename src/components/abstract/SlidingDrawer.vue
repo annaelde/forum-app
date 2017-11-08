@@ -53,10 +53,10 @@ export default Vue.component('sliding-drawer', {
         maxHeight: function() {
             var el = this.$refs.drawer
             el.style.display = ''
-            el.className = this.open
+            el.className = this.openedStyle
             el.style.setProperty('--slide-down-height', el.clientHeight + 'px')
             el.style.display = 'none'
-            el.className = this.close
+            el.className = this.closedStyle
         }
     }
 })
