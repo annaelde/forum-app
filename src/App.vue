@@ -8,14 +8,17 @@
             </transition>
         </div>
 
-        <div v-if="!this.handling" class="view columns">
-            <transition name="fade" mode="out-in" appear>
-                <router-view name="main" :key="this.$route.fullPath"></router-view>
-            </transition>
-            <transition name="fade" mode="out-in" appear>
-                <router-view name="sidebar" :key="this.$route.fullPath"></router-view>
-            </transition>
+        <div v-if="!this.handling" class="view section">
+            <div class="columns">
+                <transition name="fade" mode="out-in" appear>
+                    <router-view name="main" :key="this.$route.fullPath"></router-view>
+                </transition>
+                <transition name="fade" mode="out-in" appear>
+                    <router-view name="sidebar" :key="this.$route.fullPath"></router-view>
+                </transition>
+            </div>
         </div>
+
         <transition name="balloon">
             <div v-if="this.handling" class="view section">
                 <error-message :response="error"></error-message>
