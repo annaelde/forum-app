@@ -24,8 +24,9 @@ export default Vue.component('thread', {
         thread: state => state.thread.data,
         error: state => state.error
     }),
-    created() {
-        this.$store.dispatch('thread/getThread', {
+    async created() {
+        await this.$store.dispatch('board/loadBoard', { board: this.$route.params.board })
+        await this.$store.dispatch('thread/loadThread', {
             board: this.$route.params.board,
             key: this.$route.params.key,
             slug: this.$route.params.slug
@@ -35,6 +36,6 @@ export default Vue.component('thread', {
 </script>
 
 
-<style lang="sass">
+<style lang="sass"
 
 </style>
