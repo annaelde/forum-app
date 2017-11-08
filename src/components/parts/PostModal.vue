@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 import ErrorMessage from './ErrorMessage.vue'
 import axios from '../../libs/axios'
 
@@ -51,20 +51,23 @@ export default Vue.component('post-modal', {
     },
     computed: {
         handling: state => state === 'handling',
-        ...mapState({
-            state: state => state.thread.machine.state,
-            error: state => state.thread.error
+        ...mapGetters({
+            state: 'GET_STATE',
+            error: 'GET_ERROR'
         })
     },
     methods: {
         post: async function() {
-            await this.$store.dispatch('thread/postThread', {
+            await this.$store.dispatch('thread/createThread', {
                 board: this.board.slug,
                 title: this.title,
                 content: this.content
             })
 
-            if (!this.handling) this.$emit('close')
+            if (!this.handling) {
+                this.$emit('close')
+                await this.$store.dispatch('board/loadThreads')
+            }
         }
     },
     props: ['board'],
