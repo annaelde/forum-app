@@ -9,7 +9,7 @@ const forum = {
         boards: []
     },
     actions: {
-        async initialize(context) {
+        async loadBoards(context) {
             // Get boards
             await request({
                 context,
@@ -19,7 +19,8 @@ const forum = {
                 root: true,
                 chain: true
             })
-
+        },
+        async loadStats(context) {
             // Get forum stats
             await request({
                 context,
@@ -29,6 +30,10 @@ const forum = {
                 root: true
             })
         }
+    },
+    getters: {
+        GET_BOARDS: state => state.boards,
+        GET_STATS: state => state.stats
     },
     mutations: {
         SET_BOARDS(state, boards) {

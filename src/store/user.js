@@ -23,18 +23,20 @@ const user = {
                 chain: true
             })
 
-            if (context.getters.GET_STATE !== 'handling'){
-                await context.dispatch('initialize')
+            // You'll always want to load user data after
+            // authenticating, so this is called here.
+            if (context.getters.GET_STATE !== 'handling') {
+                await context.dispatch('load')
             }
         },
         async restore(context, token) {
             // Restore token from local storage
             if (token) {
                 context.commit('SET_TOKEN', { auth_token: token })
-                await context.dispatch('initialize')
+                await context.dispatch('load')
             }
         },
-        async initialize(context) {
+        async load(context) {
             // Request user data
             await request({
                 context,
@@ -56,7 +58,13 @@ const user = {
     getters: {
         GET_STATE: state => state.machine.state,
         GET_ERROR: state => state.error,
-        GET_USERNAME : state => state.data.username
+        GET_USERNAME: state => {
+            if (state.data) {
+                return state.data.username
+            } else {
+                return ''
+            }
+        }
     },
     mutations: {
         SET_TOKEN(state, { auth_token }) {
@@ -64,7 +72,7 @@ const user = {
             setToken(auth_token)
             setHeader('Authorization', `Token ${auth_token}`)
         },
-        REMOVE_TOKEN(state){
+        REMOVE_TOKEN(state) {
             state.token = ''
             removeToken()
             removeHeader('Authorization')

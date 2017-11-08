@@ -11,19 +11,7 @@ const thread = {
         error: ''
     },
     actions: {
-        async getThread(context, { board, key, slug }) {
-            // Refresh board information
-            if (context.rootState.board.data.slug != board) {
-                await context.dispatch(
-                    'board/initialize',
-                    {
-                        board: board,
-                        sidebarOnly: true
-                    },
-                    { root: true }
-                )
-            }
-
+        async loadThread(context, { board, key, slug }) {
             // Get thread
             await request({
                 context,
@@ -33,18 +21,29 @@ const thread = {
                 root: true
             })
         },
-        async postThread(context, { board, title, content }) {
+        async createThread(context, { board, title, content }) {
             // Post thread
             await request({
                 context,
                 method: 'post',
                 url: `boards/${board}/threads/create/`,
-                payload: { author: context.rootState.user.data.username, board: board, title: title, content: content },
+                payload: {
+                    author: context.rootState.user.data.username,
+                    board: board,
+                    title: title,
+                    content: content
+                },
                 mutations: ['SET_THREAD']
             })
-
-            // Refresh the board
-            await context.dispatch('board/getThreads', null, { root: true })
+        },
+        async deleteThread(context, { board, key, slug }) {
+            // Delete thread
+            await request({
+                context,
+                method: 'delete',
+                url: `boards/${board}/threads/${key}/${slug}/`,
+                mutations: ['SET_THREAD']
+            })
         }
     },
     mutations: {

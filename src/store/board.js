@@ -8,43 +8,40 @@ const board = {
         threads: []
     },
     actions: {
-        async initialize(context, { board, sidebarOnly }) {
+        async loadBoard(context, { board, chain = false }) {
             // Get board data displayed in sidebar
             await request({
                 context,
                 method: 'get',
                 url: `boards/${board}/`,
-                mutations: ['SET_BOARD'],
+                mutations: ['SET_DATA'],
                 root: true,
-                chain: sidebarOnly ? true : false
+                chain
             })
-
-            // Get list of threads (only for board view)
-            if (!sidebarOnly) {
-                await context.dispatch('getThreads')
-            }
         },
-        async getThreads(context, params) {
+        async loadThreads(context, { params = false, chain = false } = {}) {
             await request({
                 context,
                 method: 'get',
-                url: `boards/${context.state.data.slug}/threads/${params ? params : ''}`,
+                url: `boards/${context.getters.GET_SLUG}/threads/${params ? params : ''}`,
                 mutations: ['SET_THREADS'],
-                root: true
+                root: true,
+                chain
             })
         }
     },
     mutations: {
-        SET_BOARD(state, board) {
-            state.data = board
+        SET_DATA(state, data) {
+            state.data = data
         },
         SET_THREADS(state, threads) {
             state.threads = threads
         }
     },
     getters: {
-        board: state => state.board,
-        threads: state => state.threads
+        GET_DATA: state => state.data,
+        GET_SLUG: state => state.data.slug,
+        GET_THREADS: state => state.threads
     }
 }
 
