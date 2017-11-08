@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default Vue.component('forum', {
     data() {
@@ -45,12 +45,13 @@ export default Vue.component('forum', {
             collapsed: true
         }
     },
-    computed: mapState({
-        boards: state => state.forum.boards,
-        error: state => state.error
+    computed: mapGetters({
+        boards: 'forum/GET_BOARDS',
+        error: 'GET_ERROR'
     }),
-    created() {
-        this.$store.dispatch('forum/initialize')
+    async created() {
+        await this.$store.dispatch('forum/loadBoards')
+        await this.$store.dispatch('forum/loadStats')
     }
 })
 </script>
