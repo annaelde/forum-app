@@ -19,12 +19,9 @@ export default Vue.component('board', {
         threads: state => state.board.threads,
         error: state => state.error
     }),
-    created() {
-        this.$store.dispatch('board/initialize', { board: this.$route.params.board })
-    },
-    destroyed() {
-        this.$store.commit('board/SET_BOARD', {})
-        this.$store.commit('board/SET_THREADS', [])
+    async created() {
+        await this.$store.dispatch('board/loadBoard', { board: this.$route.params.board, chain: true })
+        await this.$store.dispatch('board/loadThreads')
     }
 })
 </script>
