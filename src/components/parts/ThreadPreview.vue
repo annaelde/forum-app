@@ -57,16 +57,15 @@
                 </div>
             </div>
         </div>
-        <transition name="slide-down">
-            <div v-show="open" class="content">
-                <p>{{ thread.content }}</p>
-            </div>
-        </transition>
+        <sliding-drawer :drawer-open="open" classes="content">
+            <p>{{ thread.content }}</p>
+        </sliding-drawer>
     </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
+import SlidingDrawer from '../abstract/SlidingDrawer.vue'
 
 export default Vue.component('thread-preview', {
     props: {

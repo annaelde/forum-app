@@ -23,20 +23,18 @@
             </button>
 
         </div>
-        <transition name="slide-down">
-            <div ref="drawer" class="navbar-menu is-active" v-show="openDrawer">
-                <div class="navbar-start">
-                    <a @click="showLogin = !showLogin" v-if="!auth" class="navbar-item is-primary is-hidden-tablet">Login</a>
-                    <a class="navbar-item">Trending</a>
-                    <a class="navbar-item">Browse</a>
-                </div>
-                <div v-if="auth" class="navbar-end">
-                    <a class="navbar-item">Profile</a>
-                    <a class="navbar-item">Bookmarks</a>
-                    <a class="navbar-item" @click="logout">Logout</a>
-                </div>
+        <sliding-drawer :drawer-open="openDrawer" classes="navbar-menu is-active">
+            <div class="navbar-start">
+                <a @click="showLogin = !showLogin" v-if="!auth" class="navbar-item is-primary is-hidden-tablet">Login</a>
+                <a class="navbar-item">Trending</a>
+                <a class="navbar-item">Browse</a>
             </div>
-        </transition>
+            <div v-if="auth" class="navbar-end">
+                <a class="navbar-item">Profile</a>
+                <a class="navbar-item">Bookmarks</a>
+                <a class="navbar-item" @click="logout">Logout</a>
+            </div>
+        </sliding-drawer>
         <div class="navbar-menu" v-show="!openDrawer">
             <div class="navbar-start">
                 <a @click="showLogin = !showLogin" v-if="!auth" class="navbar-item is-primary is-hidden-tablet">Login</a>
@@ -58,6 +56,7 @@
 <script>
 import { mapState } from 'vuex'
 import LoginModal from '../parts/LoginModal.vue'
+import SlidingDrawer from '../abstract/SlidingDrawer.vue'
 import { forEach, has } from 'lodash'
 
 export default Vue.component('the-header', {
@@ -74,34 +73,7 @@ export default Vue.component('the-header', {
     methods: {
         logout: function() {
             this.$store.dispatch('user/deauthenticate')
-        },
-        maxHeight: function() {
-            var el = this.$refs.drawer
-            el.style.display = ''
-            var children = el.querySelectorAll('div')
-            var scrollHeight = 0
-            var paddingHeight = 0
-
-            forEach(children, function(child) {
-                scrollHeight += child.scrollHeight
-                var padding = window.getComputedStyle(child).getPropertyValue('padding-top')
-                if (padding) {
-                    paddingHeight += 2 * Number.parseInt(padding)
-                }
-            })
-
-            el.style.display = 'none'
-
-            var padding = window.getComputedStyle(el).getPropertyValue('padding-top')
-            if (padding) {
-                paddingHeight += 2 * Number.parseInt(padding)
-            }
-            
-            el.style.setProperty('--slide-down-height', scrollHeight + paddingHeight + 'px')
         }
-    },
-    mounted() {
-        this.maxHeight()
     }
 })
 </script>
