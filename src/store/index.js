@@ -12,6 +12,10 @@ const store = new Vuex.Store({
         error: '',
         machine: new StateMachine()
     },
+    getters: {
+        GET_STATE: state => state.machine.state,
+        GET_ERROR: state => state.error
+    },
     mutations: {
         SET_STATE(state, action){
             state.machine.do(action)
