@@ -1,4 +1,4 @@
-from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveAPIView
+from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 
 from utils.mixins import MultipleFieldLookupMixin
@@ -16,7 +16,7 @@ class ThreadList(ListAPIView):
         return Post.objects.filter(board__slug=board)
 
 
-class ThreadDetail(MultipleFieldLookupMixin, RetrieveAPIView):
+class ThreadDetail(MultipleFieldLookupMixin, RetrieveUpdateDestroyAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
