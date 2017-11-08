@@ -47,7 +47,7 @@
                             </i>
                         </span>
                     </button>
-                    <button class="button">
+                    <button @click="deleteThread" class="button">
                         <span class="icon">
                             <i class="fa fa-trash">
                                 <span class="is-accessible">Delete</span>
@@ -83,12 +83,27 @@ export default Vue.component('thread-preview', {
             open: false
         }
     },
-    computed: mapGetters('user', {
-        username: 'GET_USERNAME'
-    }),
+    computed: {
+        handling: state => state === 'handling',
+        ...mapGetters({
+            username: 'user/GET_USERNAME',
+            state: 'thread/GET_STATE'
+        })
+    },
     methods: {
-        delete(){
-            this.$store.dispatch('thread/delete')
+        deleteThread: async function() {
+            if (confirm(`Are you sure you want to delete ${this.thread.title}?`)) {
+                await this.$store.dispatch('thread/deleteThread', {
+                    board: this.board,
+                    key: this.thread.key,
+                    slug: this.thread.slug
+                })
+
+                if (!this.handling) {
+                    this.$emit('close')
+                    await this.$store.dispatch('board/loadThreads')
+                }
+            }
         }
     }
 })
