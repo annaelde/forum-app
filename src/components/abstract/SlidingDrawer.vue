@@ -48,6 +48,9 @@ export default Vue.component('sliding-drawer', {
         this.maxHeight()
         window.addEventListener('resize', this.maxHeight)
     },
+    destroyed() {
+        window.removeEventListener('resize', this.maxHeight)
+    },
     methods: {
         maxHeight: function() {
             var el = this.$refs.drawer
