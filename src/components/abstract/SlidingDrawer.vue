@@ -7,8 +7,6 @@
 </template>
 
 <script>
-import { forEach } from 'lodash'
-
 export default Vue.component('sliding-drawer', {
     props: {
         drawerOpen: {
@@ -52,27 +50,38 @@ export default Vue.component('sliding-drawer', {
     methods: {
         maxHeight: function() {
             var el = this.$refs.drawer
-            el.style.display = ''
-            el.className = this.openedStyle
+
+            if (!this.drawerOpen) {
+                el.style.display = ''
+                el.className = this.openedStyle
+            }
+
             el.style.setProperty('--slide-down-height', el.clientHeight + 'px')
-            el.style.display = 'none'
-            el.className = this.closedStyle
+
+            if (!this.drawerOpen) {
+                el.style.display = 'none'
+                el.className = this.closedStyle
+            }
         }
     }
 })
 </script>
 
 <style lang="sass">
-.slide-down-enter-active, .slide-down-leave-active
-    transition: all .5s cubic-bezier(0.19, 1, 0.22, 1)
+.slide-down-enter-active, 
+.slide-down-leave-active
+    overflow-y: hidden
+    transition: all .3s cubic-bezier(0.15, 0, 0.20, 1)
 
-.slide-down-leave, .slide-down-enter-to
+.slide-down-leave, 
+.slide-down-enter-to
     max-height: var(--slide-down-height)
 
-.slide-down-enter, .slide-down-leave-to
+.slide-down-enter, 
+.slide-down-leave-to
     transform: translateY(-10px)
     opacity: 0
-    overflow-y: hidden
     max-height: 0
-    padding: 0
+    padding-top: 0
+    padding-bottom: 0
 </style>
