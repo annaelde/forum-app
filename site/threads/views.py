@@ -1,6 +1,6 @@
 from rest_framework.generics import (ListCreateAPIView,
                                      RetrieveUpdateDestroyAPIView)
-from rest_framework.permissions import (IsAuthenticated,
+from rest_framework.permissions import (SAFE_METHODS, IsAuthenticated,
                                         IsAuthenticatedOrReadOnly)
 
 from utils.mixins import MultipleFieldLookupMixin
@@ -28,7 +28,6 @@ class ThreadDetail(MultipleFieldLookupMixin, RetrieveUpdateDestroyAPIView):
 
     def check_object_permissions(self, request, obj):
         super(ThreadDetail, self).check_object_permissions(request, obj)
-        # Check for object permissions
-        if request.method.lower() in ['delete', 'put', 'patch'] and request.user != obj.author:
+        if request.method not in SAFE_METHODS and request.user != obj.author:
             self.permission_denied(request,
                                    message='User cannot edit this object.')
