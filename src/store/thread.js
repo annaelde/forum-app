@@ -26,7 +26,7 @@ const thread = {
             await request({
                 context,
                 method: 'post',
-                url: `boards/${board}/threads/create/`,
+                url: `boards/${board}/threads/`,
                 payload: {
                     author: context.rootState.user.data.username,
                     board: board,

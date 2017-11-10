@@ -1,4 +1,4 @@
-from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.generics import RetrieveUpdateDestroyAPIView, ListCreateAPIView
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 
 from utils.mixins import MultipleFieldLookupMixin
@@ -7,7 +7,7 @@ from .models import Post
 from .serializers import PostSerializer
 
 
-class ThreadList(ListAPIView):
+class ThreadList(ListCreateAPIView):
     serializer_class = PostSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
@@ -23,9 +23,3 @@ class ThreadDetail(MultipleFieldLookupMixin, RetrieveUpdateDestroyAPIView):
     lookup_fields = ['board__slug', 'key', 'slug']
     lookup_url_kwargs = ['board', 'key', 'thread']
     model = Post
-
-
-class ThreadCreate(CreateAPIView):
-    queryset = Post.objects.all()
-    serializer_class = PostSerializer
-    permission_classes = (IsAuthenticated,)
