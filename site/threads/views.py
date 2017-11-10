@@ -1,5 +1,7 @@
-from rest_framework.generics import RetrieveUpdateDestroyAPIView, ListCreateAPIView
-from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
+from rest_framework.generics import (ListCreateAPIView,
+                                     RetrieveUpdateDestroyAPIView)
+from rest_framework.permissions import (IsAuthenticated,
+                                        IsAuthenticatedOrReadOnly)
 
 from utils.mixins import MultipleFieldLookupMixin
 
@@ -23,3 +25,10 @@ class ThreadDetail(MultipleFieldLookupMixin, RetrieveUpdateDestroyAPIView):
     lookup_fields = ['board__slug', 'key', 'slug']
     lookup_url_kwargs = ['board', 'key', 'thread']
     model = Post
+
+    def check_object_permissions(self, request, obj):
+        super(ThreadDetail, self).check_object_permissions(request, obj)
+        # Check for object permissions
+        if request.method.lower() in ['delete', 'put', 'patch'] and request.user != obj.author:
+            self.permission_denied(request,
+                                   message='User cannot edit this object.')
