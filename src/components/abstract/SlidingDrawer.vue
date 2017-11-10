@@ -46,6 +46,7 @@ export default Vue.component('sliding-drawer', {
     },
     mounted() {
         this.maxHeight()
+        window.addEventListener('resize', this.maxHeight)
     },
     methods: {
         maxHeight: function() {
