@@ -1,6 +1,14 @@
 <template>
     <div class="controls">
         <div>
+            <button @click="$emit('toggle')" class="button">
+                <span class="icon">
+                    <i class="fa" v-bind:class="{'fa-plus' : !drawerOpen, 'fa-minus' : drawerOpen}">
+                        <span class="is-accessible" v-if="!drawerOpen">Open</span>
+                        <span class="is-accessible" v-else>Close</span>
+                    </i>
+                </span>
+            </button>
             <button class="button">
                 <span class="icon">
                     <i class="fa fa-bookmark">
@@ -12,14 +20,6 @@
                 <span class="icon">
                     <i class="fa fa-link">
                         <span class="is-accessible">Copy Link</span>
-                    </i>
-                </span>
-            </button>
-            <button @click="$emit('toggle')" class="button">
-                <span class="icon">
-                    <i class="fa" v-bind:class="{'fa-plus' : !drawerOpen, 'fa-minus' : drawerOpen}">
-                        <span class="is-accessible" v-if="!drawerOpen">Open</span>
-                        <span class="is-accessible" v-else>Close</span>
                     </i>
                 </span>
             </button>
@@ -65,6 +65,10 @@ export default Vue.component('thread-controls', {
 })
 </script>
 
-<style>
-
+<style lang="sass">
+.controls
+    width: 100%
+    display: flex
+    flex-direction: row
+    justify-content: space-between
 </style>
