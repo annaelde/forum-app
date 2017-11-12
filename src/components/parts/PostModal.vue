@@ -8,29 +8,29 @@
                     <button class="delete" aria-label="close" @click="$emit('close')"></button>
                 </header>
                 <section class="modal-card-body">
-                    <transition name="balloon">
-                        <error-message v-if="error" :response="error"></error-message>
-                    </transition>
                     <div class="field">
                         <label for="title" class="label">Title</label>
-                        <div class="control" :class="{'is-loading' : (state === 'loading')}">
+                        <div class="control">
                             <input class="input" id="title" v-model="title" type="text" value="">
                         </div>
                     </div>
                     <div class="field">
                         <label for="content" class="label">Content</label>
-                        <div class="control" :class="{'is-loading' : (state === 'loading')}">
+                        <div class="control">
                             <textarea class="textarea" id="content" v-model="content" type="text" placeholder=""></textarea>
                         </div>
                     </div>
                 </section>
                 <footer class="modal-card-foot">
-                    <button @click="post" class="button is-success">
+                    <button @click="post" class="button is-success" :class="{'is-loading' : loading}">
                         <span class="icon">
                             <i class="fa fa-bolt"></i>
                         </span>
                         <span>Post</span>
                     </button>
+                    <p v-if="error" class="help is-danger">
+                        {{ error.data.content.toString() }}
+                    </p>
                 </footer>
             </div>
         </div>
@@ -50,10 +50,16 @@ export default Vue.component('post-modal', {
         }
     },
     computed: {
-        handling: state => state === 'handling',
-        ...mapGetters({
+        loading: function() {
+            return this.state === 'loading' || this.state === 'updating'
+        },
+        handling: function() {
+            return this.state === 'handling'
+        },
+        ...mapGetters('thread', {
             state: 'GET_STATE',
-            error: 'GET_ERROR'
+            error: 'GET_ERROR',
+            thread: 'GET_THREAD'
         })
     },
     methods: {
@@ -61,12 +67,21 @@ export default Vue.component('post-modal', {
             await this.$store.dispatch('thread/createThread', {
                 board: this.board.slug,
                 title: this.title,
-                content: this.content
+                content: this.content,
+                chain: true
             })
 
+            // If no errors, go to the new thread
             if (!this.handling) {
                 this.$emit('close')
-                await this.$store.dispatch('board/loadThreads')
+                this.$router.push({
+                    name: 'thread',
+                    params: {
+                        board: this.board.slug,
+                        key: this.thread.key,
+                        slug: this.thread.slug
+                    }
+                })
             }
         }
     },
