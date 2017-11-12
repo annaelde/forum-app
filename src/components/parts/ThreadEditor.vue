@@ -67,7 +67,7 @@ export default Vue.component('thread-editor', {
             return this.state === 'handling'
         },
         ...mapGetters({
-            state: 'thread/state'
+            state: 'thread/GET_STATE'
         })
     },
     methods: {
