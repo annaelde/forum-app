@@ -22,7 +22,7 @@
                 </button>
             </div>
             <div class="control">
-                <button @click="closeEditor()" class="button is-light" :disabled=loading>
+                <button @click="closeEditor()" class="button is-light" :disabled="loading">
                     <span class="icon">
                         <i class="fa fa-times"></i>
                     </span>
