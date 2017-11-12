@@ -35,4 +35,4 @@ Additionally, this is a way to test my django-kit's configuration.
 
 A little preview of my progress so far:
 
-![forum-app screenshot, showing a post list.](https://raw.githubusercontent.com/annaelde/forum-app/9fc0b9cfe4dd013d12efe76f297a3b1280683e9c/screenshot.PNG)
+![forum-app screenshot, showing a post list.](https://raw.githubusercontent.com/annaelde/forum-app/master/screenshot.PNG)
