@@ -70,12 +70,11 @@ export default Vue.component('post-modal', {
             }
         }
     },
-    props: ['board'],
-    watch: {}
+    props: {
+        board: {
+            type: Object,
+            required: true
+        }
+    }
 })
 </script>
-
-
-<style lang="sass">
-
-</style>
