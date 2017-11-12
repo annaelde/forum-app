@@ -1,5 +1,5 @@
 <template>
-    <div class="controls">
+    <div>
         <div class="field">
             <div class="control">
                 <input type="text" class="title input" v-model="title">
@@ -113,7 +113,4 @@ export default Vue.component('thread-editor', {
 .help
     text-align: right
     width: 100%
-
-.controls
-    grid-area: controls
 </style>
