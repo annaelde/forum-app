@@ -21,7 +21,7 @@ const thread = {
                 root: true
             })
         },
-        async createThread(context, { board, title, content, chain = False }) {
+        async createThread(context, { board, title, content, chain = false }) {
             // Post thread
             await request({
                 context,
