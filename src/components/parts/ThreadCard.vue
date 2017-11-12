@@ -1,5 +1,5 @@
 <template>
-    <div class="box grid">
+    <div class="box" :class="{'grid' : !editMode}">
         <header v-if="!editMode" class="header">
             <router-link :to="`/~${board}/${thread.key}/${thread.slug}/`">
                 <h2 class="title">{{ thread.title }}</h2>
