@@ -21,7 +21,7 @@ const thread = {
                 root: true
             })
         },
-        async createThread(context, { board, title, content }) {
+        async createThread(context, { board, title, content, chain = False }) {
             // Post thread
             await request({
                 context,
@@ -33,7 +33,8 @@ const thread = {
                     title: title,
                     content: content
                 },
-                mutations: ['SET_THREAD']
+                mutations: ['SET_THREAD'],
+                chain
             })
         },
         async deleteThread(context, { board, key, slug }) {
@@ -58,7 +59,9 @@ const thread = {
         }
     },
     getters: {
-        GET_STATE: state => state.machine.state
+        GET_STATE: state => state.machine.state,
+        GET_ERROR: state => state.error,
+        GET_THREAD: state => state.data
     },
     mutations: {
         SET_THREAD(state, thread) {
