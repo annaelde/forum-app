@@ -19,10 +19,10 @@ Additionally, this is a way to test my django-kit's configuration.
     - Update Board
     - Delete Board
 - Threads
-    - Create Thread
+    - ~~Create Thread~~
     - ~~Retrieve Thread~~
-    - Update Thread
-    - Delete Thread
+    - ~~Update Thread~~
+    - ~~Delete Thread~~
 - Users
     - ~~Authenticate~~
     - ~~Deauthenticate~~
