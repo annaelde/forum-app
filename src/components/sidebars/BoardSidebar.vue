@@ -1,6 +1,8 @@
 <template>
     <section class="section column">
-        <h1 class="title">{{ board.name }}</h1>
+        <router-link :to="`/~${board.slug}`">
+            <h1 class="title">{{ board.name }}</h1>
+        </router-link>
         <h2 class="subtitle">{{ board.description }}</h2>
         <button v-if="authenticated" class="button is-primary is-medium">
             <span class="icon">
