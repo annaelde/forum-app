@@ -51,10 +51,7 @@ export default Vue.component('post-modal', {
     },
     computed: {
         loading: function() {
-            return this.state === 'loading' || this.state === 'updating'
-        },
-        handling: function() {
-            return this.state === 'handling'
+            return this.state === 'loading'
         },
         ...mapGetters('thread', {
             state: 'GET_STATE',
@@ -67,12 +64,11 @@ export default Vue.component('post-modal', {
             await this.$store.dispatch('thread/createThread', {
                 board: this.board.slug,
                 title: this.title,
-                content: this.content,
-                chain: true
+                content: this.content
             })
 
             // If no errors, go to the new thread
-            if (!this.handling) {
+            if (!this.error) {
                 this.$emit('close')
                 this.$router.push({
                     name: 'thread',
