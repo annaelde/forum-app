@@ -44,6 +44,17 @@ const thread = {
                 url: `boards/${board}/threads/${key}/${slug}/`,
                 mutations: ['SET_THREAD']
             })
+        },
+        async updateThread(context, { board, key, slug, title, content, chain = false }) {
+            // Delete thread
+            await request({
+                context,
+                method: 'patch',
+                payload: { title, content },
+                url: `boards/${board}/threads/${key}/${slug}/`,
+                mutations: ['SET_THREAD'],
+                chain
+            })
         }
     },
     getters: {
