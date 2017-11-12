@@ -60,8 +60,12 @@ export default Vue.component('thread-editor', {
         }
     },
     computed: {
-        handling: state => state === 'handling',
-        loading: state => state === 'loading',
+        loading: function() {
+            return this.state === 'loading' || this.state === 'updating'
+        },
+        handling: function() {
+            return this.state === 'handling'
+        },
         ...mapGetters({
             state: 'thread/state'
         })
