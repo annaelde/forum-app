@@ -11,6 +11,7 @@ Vue.use(Router)
 
 const routes = [
     {
+        name: 'forum',
         path: '/',
         components: {
             main: ForumView,
@@ -18,6 +19,7 @@ const routes = [
         }
     },
     {
+        name: 'board',
         path: '/~:board/',
         components: {
             main: BoardView,
@@ -25,6 +27,7 @@ const routes = [
         }
     },
     {
+        name: 'thread',
         path: '/~:board/:key/:slug/',
         components: {
             main: ThreadView,
