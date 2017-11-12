@@ -51,7 +51,7 @@ const user = {
                 context,
                 method: 'post',
                 url: 'auth/token/destroy/',
-                mutations: ['REMOVE_TOKEN']
+                mutations: ['REMOVE_TOKEN', 'SET_DATA']
             })
         }
     },
