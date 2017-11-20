@@ -34,6 +34,12 @@ const user = {
             if (token) {
                 context.commit('SET_TOKEN', { auth_token: token })
                 await context.dispatch('load')
+
+                // Delete the token if we get a 401
+                if (context.getters.GET_ERROR.status === 401) {
+                    context.commit('REMOVE_TOKEN')
+                    context.commit('SET_DATA')
+                }
             }
         },
         async load(context) {
@@ -77,7 +83,7 @@ const user = {
             removeToken()
             removeHeader('Authorization')
         },
-        SET_DATA(state, data) {
+        SET_DATA(state, data = {}) {
             state.data = data
         },
         SET_ERROR(state, message) {

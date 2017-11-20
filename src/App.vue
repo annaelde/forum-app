@@ -8,7 +8,7 @@
             </transition>
         </div>
 
-        <div v-if="!this.handling" class="view section">
+        <div v-if="!this.handling && this.ready" class="view section">
             <div class="columns">
                 <transition name="fade" mode="out-in" appear>
                     <router-view name="main" :key="this.$route.fullPath"></router-view>
@@ -43,7 +43,8 @@ export default {
     name: 'app',
     data: function() {
         return {
-            progress: 0
+            progress: 0,
+            ready: false
         }
     },
     computed: {
@@ -60,8 +61,9 @@ export default {
             tweenState(newState, oldState, this)
         }
     },
-    created() {
-        this.$store.dispatch('user/restore', getToken())
+    created: async function() {
+        await this.$store.dispatch('user/restore', getToken())
+        this.ready = true
     }
 }
 </script>
