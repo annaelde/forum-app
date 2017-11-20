@@ -4,6 +4,7 @@
             <div class="hero-body">
                 <h1 class="title">{{ thread.title }}</h1>
                 <h2 class="subtitle">Posted by {{ thread.author }} {{ thread.created | timeElapsed }}</h2>
+                <thread-controls :editAllowed="user === thread.author"></thread-controls>
             </div>
         </header>
         <section class="section">
@@ -13,14 +14,16 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 import axios from '../../libs/axios'
+import ThreadControls from '../parts/ThreadControls.vue'
 
 export default Vue.component('thread', {
-    computed: mapState({
-        board: state => state.board.data,
-        thread: state => state.thread.data,
-        error: state => state.error
+    computed: mapGetters({
+        thread: 'thread/GET_THREAD',
+        board: 'board/GET_DATA',
+        user: 'user/GET_USERNAME',
+        error: 'GET_ERROR'
     }),
     async created() {
         await this.$store.dispatch('board/loadBoard', { board: this.$route.params.board })
