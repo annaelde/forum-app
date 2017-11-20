@@ -18,7 +18,7 @@
         </div>
 
         <transition name="balloon">
-            <div v-if="this.handling" class="view">
+            <div v-if="this.handling" class="error">
                 <error-message :response="error"></error-message>
             </div>
         </transition>
@@ -76,6 +76,9 @@ $ratio: 1.777
 
 .progress-container
     min-height: calc(0.85em + 1.5rem)
+
+.error
+    margin: #{$ratio}rem
 
 .view
     padding: #{$ratio}rem
