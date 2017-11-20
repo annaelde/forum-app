@@ -39,6 +39,7 @@ const user = {
                 if (context.getters.GET_ERROR.status === 401) {
                     context.commit('REMOVE_TOKEN')
                     context.commit('SET_DATA')
+                    context.commit('SET_ERROR')
                 }
             }
         },
@@ -86,7 +87,7 @@ const user = {
         SET_DATA(state, data = {}) {
             state.data = data
         },
-        SET_ERROR(state, message) {
+        SET_ERROR(state, message = '') {
             state.error = message
         },
         SET_STATE(state, action) {
