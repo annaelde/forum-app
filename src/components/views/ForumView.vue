@@ -51,7 +51,10 @@ export default Vue.component('forum', {
     }),
     async created() {
         await this.$store.dispatch('forum/loadBoards')
-        await this.$store.dispatch('forum/loadStats')
+
+        if (!this.error) {
+            await this.$store.dispatch('forum/loadStats')
+        }
     }
 })
 </script>
