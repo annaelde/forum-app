@@ -8,19 +8,17 @@
             </transition>
         </div>
 
-        <div v-if="!this.handling && this.ready" class="view section">
-            <div class="columns">
-                <transition name="fade" mode="out-in" appear>
-                    <router-view name="main" :key="this.$route.fullPath"></router-view>
-                </transition>
-                <transition name="fade" mode="out-in" appear>
-                    <router-view name="sidebar" :key="this.$route.fullPath"></router-view>
-                </transition>
-            </div>
+        <div v-if="!this.handling && this.ready" class="view">
+            <transition name="fade" mode="out-in" appear>
+                <router-view name="main" :key="this.$route.fullPath"></router-view>
+            </transition>
+            <transition name="fade" mode="out-in" appear>
+                <router-view name="sidebar" :key="this.$route.fullPath"></router-view>
+            </transition>
         </div>
 
         <transition name="balloon">
-            <div v-if="this.handling" class="view section">
+            <div v-if="this.handling" class="view">
                 <error-message :response="error"></error-message>
             </div>
         </transition>
@@ -78,7 +76,24 @@ export default {
     min-height: calc(0.85em + 1.5rem)
 
 .view
+    padding: 1.777rem
     min-height: 100vh
+    display: grid
+    grid-template: auto / 1fr minmax(250px, 30%)
+    grid-template-areas: "main sidebar"
+    grid-column-gap: 1.777rem
+    grid-row-gap: 1.777rem
+
+.view .main
+    grid-area: main
+
+.view .sidebar
+    grid-area: sidebar
+
+@media screen and (max-width: 700px)
+    .view
+        grid-template: repeat(2, max-content) / 1fr
+        grid-template-areas: "sidebar" "main"
 
 input:-webkit-autofill 
     -webkit-box-shadow: 0 0 0px 1000px white inset

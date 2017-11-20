@@ -1,5 +1,5 @@
 <template>
-    <main class="section column is-three-quarters">
+    <main class="main">
         <div class="grid">
             <div v-for="board in boards" :key="board.name" class="card">
                 <header class="card-header">
@@ -51,16 +51,13 @@ export default Vue.component('forum', {
     }),
     async created() {
         await this.$store.dispatch('forum/loadBoards')
-
-        if (!this.error) {
-            await this.$store.dispatch('forum/loadStats')
-        }
+        if (!this.error) await this.$store.dispatch('forum/loadStats')
     }
 })
 </script>
 
 
-<style lang="sass">
+<style lang="sass" scoped>
 .grid
     display: flex
     flex-flow: row wrap

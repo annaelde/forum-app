@@ -1,5 +1,5 @@
 <template>
-    <section class="section column">
+    <div class="sidebar">
         <router-link :to="`/~${board.slug}`">
             <h1 class="title">{{ board.name }}</h1>
         </router-link>
@@ -11,7 +11,7 @@
             <span @click="showPostModal = true">Post a Thread</span>
         </button>
         <post-modal v-if="showPostModal" @close="showPostModal = false" :board="board"></post-modal>
-    </section>
+    </div>
 </template>
 
 <script>

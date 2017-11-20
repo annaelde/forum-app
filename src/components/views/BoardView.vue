@@ -1,5 +1,5 @@
 <template>
-    <main v-if="threads" class="section column is-three-quarters">
+    <main v-if="threads" class="main">
         <thread-card v-for="thread of threads" :board="board.slug" :thread="thread" :key="thread.id"></thread-card>
     </main>
 </template>

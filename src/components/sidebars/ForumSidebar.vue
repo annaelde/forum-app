@@ -1,5 +1,5 @@
 <template>
-    <section class="section column">
+    <div class="sidebar">
         <div class="content">
             <h1 class="title">Welcome to Forum</h1>
             <p>A new type of message board.</p>
@@ -34,7 +34,7 @@
                 </tr>
             </table>
         </div>
-    </section>
+    </div>
 </template>
 
 <script>

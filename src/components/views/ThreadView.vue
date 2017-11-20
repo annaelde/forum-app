@@ -1,11 +1,9 @@
 <template>
-    <article class="section column is-three-quarters">
+    <article class="main">
         <header class="hero is-primary is-round">
             <div class="hero-body">
-                <div class="container">
-                    <h1 class="title">{{ thread.title }}</h1>
-                    <h2 class="subtitle">Posted by {{ thread.author }} {{ thread.created | timeElapsed }}</h2>
-                </div>
+                <h1 class="title">{{ thread.title }}</h1>
+                <h2 class="subtitle">Posted by {{ thread.author }} {{ thread.created | timeElapsed }}</h2>
             </div>
         </header>
         <section class="section">
