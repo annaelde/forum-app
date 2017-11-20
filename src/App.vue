@@ -72,20 +72,27 @@ export default {
 @import "~bulmaswatch/united/_overrides.scss"
 @import "styles/main"
 
+$ratio: 1.777
+
 .progress-container
     min-height: calc(0.85em + 1.5rem)
 
 .view
-    padding: 1.777rem
+    padding: #{$ratio}rem
     min-height: 100vh
     display: grid
     grid-template: auto / 1fr minmax(250px, 30%)
     grid-template-areas: "main sidebar"
-    grid-column-gap: 1.777rem
-    grid-row-gap: 1.777rem
+    grid-column-gap: #{$ratio}rem
+    grid-row-gap: #{$ratio}rem
 
 .view .main
     grid-area: main
+
+.view .main .hero
+    margin-left: -#{$ratio}rem
+    padding-left: #{$ratio}rem
+    padding-right: #{$ratio}rem
 
 .view .sidebar
     grid-area: sidebar
@@ -95,9 +102,11 @@ export default {
         grid-template: repeat(2, max-content) / 1fr
         grid-template-areas: "sidebar" "main"
 
+    .view .main .hero
+        margin-right: -#{$ratio}rem
+
 input:-webkit-autofill 
     -webkit-box-shadow: 0 0 0px 1000px white inset
-
 </style>
 
 <style lang="scss">
