@@ -48,14 +48,14 @@
             </div>
         </div>
         <transition name="fade">
-            <login-modal v-if="showLogin" @close="showLogin = false"></login-modal>
+            <user-modal v-if="showLogin" @close="showLogin = false"></user-modal>
         </transition>
     </nav>
 </template>
 
 <script>
 import { mapState } from 'vuex'
-import LoginModal from '../parts/LoginModal.vue'
+import UserModal from '../parts/UserModal.vue'
 import SlidingDrawer from '../abstract/SlidingDrawer.vue'
 import { forEach, has } from 'lodash'
 
