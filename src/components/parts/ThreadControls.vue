@@ -1,7 +1,7 @@
 <template>
     <div class="controls">
         <div>
-            <button v-if="drawerOpen" @click="$emit('toggle')" class="button">
+            <button v-if="this.$route.name === 'board'" @click="$emit('toggle')" class="button">
                 <span class="icon">
                     <i class="fa" v-bind:class="{'fa-plus' : !drawerOpen, 'fa-minus' : drawerOpen}">
                         <span class="is-accessible" v-if="!drawerOpen">Open</span>
