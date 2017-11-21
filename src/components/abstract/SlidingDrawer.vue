@@ -26,6 +26,13 @@ export default Vue.component('sliding-drawer', {
         closedClasses: {
             type: String,
             required: false
+        },
+        // Used to control max-height when the container
+        // will be changing contents and size
+        refresh: {
+            type: Boolean,
+            default: false,
+            required: false
         }
     },
     computed: {
@@ -41,6 +48,14 @@ export default Vue.component('sliding-drawer', {
                 return this.closedClasses
             } else {
                 return this.classes
+            }
+        }
+    },
+    watch: {
+        refresh: function(value) {
+            if (this.refresh) {
+                Vue.nextTick(() => this.maxHeight())
+                this.$emit('refreshed')
             }
         }
     },

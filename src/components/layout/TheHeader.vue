@@ -23,7 +23,7 @@
             </button>
 
         </div>
-        <sliding-drawer :drawer-open="openDrawer" classes="navbar-menu is-active">
+        <sliding-drawer :drawer-open="openDrawer" :refresh="refresh" @refreshed="refresh = false" classes="navbar-menu is-active">
             <div class="navbar-start">
                 <a @click="showLogin = !showLogin" v-if="!auth" class="navbar-item is-primary is-hidden-tablet">Login</a>
                 <a class="navbar-item">Trending</a>
@@ -63,13 +63,19 @@ export default Vue.component('the-header', {
     data() {
         return {
             openDrawer: false,
-            showLogin: false
+            showLogin: false,
+            refresh: false
         }
     },
     computed: mapState({
         auth: state => state.user.token,
         user: state => state.user.data
     }),
+    watch: {
+        auth: function(value) {
+            this.refresh = true
+        }
+    },
     methods: {
         logout: function() {
             this.$store.dispatch('user/deauthenticate')
