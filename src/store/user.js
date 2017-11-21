@@ -60,6 +60,15 @@ const user = {
                 url: 'auth/token/destroy/',
                 mutations: ['REMOVE_TOKEN', 'SET_DATA']
             })
+        },
+        async register(context, payload) {
+            await request({
+                context,
+                method: 'post',
+                url: `auth/users/create/`,
+                payload,
+                mutations: ['SET_DATA']
+            })
         }
     },
     getters: {
