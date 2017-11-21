@@ -5,13 +5,15 @@
                 <input type="text" class="title input" v-model="title">
             </div>
         </div>
+        
         <h3 class="subtitle">Posted by {{ thread.author }} {{ thread.created | timeElapsed }}</h3>
+        
+        
         <div class="field">
             <div class="control">
                 <textarea class="textarea" v-model="content"></textarea>
             </div>
         </div>
-
         <div class="field is-grouped is-grouped-right">
             <div class="control">
                 <button @click="saveEdits()" class="button is-primary" :class="{'is-loading' : loading}">
@@ -88,18 +90,17 @@ export default Vue.component('thread-editor', {
                 key: this.thread.key,
                 slug: this.thread.slug,
                 title: this.title,
-                content: this.content,
-                chain: true
+                content: this.content
             })
 
             // Reload threads
-            if (!this.handling) {
+            if (!this.error) {
                 await this.$store.dispatch('board/loadThreads')
             }
 
             // Emit save
-            if (!this.handling) {
-                this.$emit('save')
+            if (!this.error) {
+                this.$emit('close')
             }
         },
         closeEditor() {
