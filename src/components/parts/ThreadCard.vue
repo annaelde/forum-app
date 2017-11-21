@@ -7,17 +7,13 @@
             <h3 class="subtitle">Posted by {{ thread.author }} {{ thread.created | timeElapsed }}</h3>
         </header>
 
-        <thread-controls v-if="!editMode" :editAllowed="editAllowed" :drawerOpen="drawerOpen" 
-        @toggle="drawerOpen = !drawerOpen" 
-        @delete="deleteThread()" 
-        @archive="archiveThread()"
-        @edit="editMode = true"></thread-controls>
+        <thread-controls v-if="!editMode" :editAllowed="editAllowed" :drawerOpen="drawerOpen" @toggle="drawerOpen = !drawerOpen" @delete="deleteThread()" @archive="archiveThread()" @edit="editThread()"></thread-controls>
 
-        <sliding-drawer v-if="!editMode" :drawer-open="drawerOpen" classes="content">
+        <thread-editor v-if="editMode" :board="board" :thread="thread" @close="updateThread()"></thread-editor>
+
+        <sliding-drawer v-if="!editMode" :drawer-open="drawerOpen" :refresh="refresh" @refreshed="refresh = false" classes="content">
             <article>{{ thread.content }}</article>
         </sliding-drawer>
-
-        <thread-editor v-if="editMode" :board="board" :thread="thread" @save="updateThread()" @close="editMode = false"></thread-editor>
     </div>
 </template>
 
@@ -40,7 +36,8 @@ export default Vue.component('thread-card', {
     data() {
         return {
             drawerOpen: false,
-            editMode: false
+            editMode: false,
+            refresh: false
         }
     },
     computed: {
@@ -52,6 +49,11 @@ export default Vue.component('thread-card', {
             username: 'user/GET_USERNAME',
             state: 'thread/GET_STATE'
         })
+    },
+    watch: {
+        editMode: function(val) {
+            if (!val) this.refresh = true
+        }
     },
     methods: {
         deleteThread: async function() {
@@ -68,9 +70,15 @@ export default Vue.component('thread-card', {
                 }
             }
         },
-        updateThread: async function() {
+        editThread: function() {
+            this.drawerOpen = false
+            this.editMode = true
+        },
+        updateThread: function() {
             this.editMode = false
-            this.drawerOpen = true
+            // We need to allow editMode = false to affect
+            // the sliding-drawer's v-if
+            Vue.nextTick(() => (this.drawerOpen = true))
         },
         archiveThread: async function() {}
     }
