@@ -52,8 +52,8 @@ export default Vue.component('sliding-drawer', {
         }
     },
     watch: {
-        refresh: function(value) {
-            if (this.refresh) {
+        refresh: function(val) {
+            if (val) {
                 Vue.nextTick(() => this.maxHeight())
                 this.$emit('refreshed')
             }
