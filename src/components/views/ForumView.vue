@@ -24,7 +24,7 @@
                         </span>
                         <span>Pin</span>
                     </router-link>
-                    <router-link :to="`~${board.slug}`" class="card-footer-item">
+                    <router-link :to="`_${board.slug}`" class="card-footer-item">
                         <span class="icon">
                             <i class="fa fa-sign-in" aria-hidden="true"></i>
                         </span>

@@ -1,7 +1,7 @@
 <template>
     <div class="box" :class="{'grid' : !editMode}">
         <header v-if="!editMode" class="header">
-            <router-link :to="`/~${board}/${thread.key}/${thread.slug}/`">
+            <router-link :to="`/_${board}/${thread.key}/${thread.slug}/`">
                 <h2 class="title">{{ thread.title }}</h2>
             </router-link>
             <h3 class="subtitle">Posted by {{ thread.author }} {{ thread.created | timeElapsed }}</h3>
