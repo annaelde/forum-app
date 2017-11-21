@@ -24,12 +24,12 @@
 
         </div>
         <sliding-drawer :drawer-open="openDrawer" :refresh="refresh" @refreshed="refresh = false" classes="navbar-menu is-active">
-            <div class="navbar-start">
+            <div class="navbar-start" key="everyone">
                 <a @click="showLogin = !showLogin" v-if="!auth" class="navbar-item is-primary is-hidden-tablet">Login</a>
                 <a class="navbar-item">Trending</a>
                 <a class="navbar-item">Browse</a>
             </div>
-            <div v-if="auth" class="navbar-end">
+            <div v-if="auth" class="navbar-end" key="user">
                 <a class="navbar-item">Profile</a>
                 <a class="navbar-item">Bookmarks</a>
                 <a class="navbar-item" @click="logout">Logout</a>
@@ -72,7 +72,7 @@ export default Vue.component('the-header', {
         user: state => state.user.data
     }),
     watch: {
-        auth: function(value) {
+        auth: function(val) {
             this.refresh = true
         }
     },
