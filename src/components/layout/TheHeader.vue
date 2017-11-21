@@ -42,7 +42,7 @@
                 <a class="navbar-item">Browse</a>
             </div>
             <div v-if="auth" class="navbar-end">
-                <a class="navbar-item">Profile</a>
+                <router-link :to='`/~${username}`' class="navbar-item">Profile</router-link>
                 <a class="navbar-item">Bookmarks</a>
                 <a class="navbar-item" @click="logout">Logout</a>
             </div>
@@ -54,7 +54,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 import UserModal from '../parts/UserModal.vue'
 import SlidingDrawer from '../abstract/SlidingDrawer.vue'
 import { forEach, has } from 'lodash'
@@ -67,9 +67,9 @@ export default Vue.component('the-header', {
             refresh: false
         }
     },
-    computed: mapState({
-        auth: state => state.user.token,
-        user: state => state.user.data
+    computed: mapGetters('user', {
+        auth: 'GET_AUTHENTICATION',
+        username: 'GET_USERNAME'
     }),
     watch: {
         auth: function(val) {
