@@ -26,6 +26,7 @@ app_patterns = [
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^boards/', include('boards.urls')),
     url(r'^forum/', include(forum_patterns)),
+    url(r'^users/', include('users.urls')),
     url(r'^auth/', include('djoser.urls')),
     url(r'^auth/', include('djoser.urls.authtoken'))
 ]
