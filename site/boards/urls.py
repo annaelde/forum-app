@@ -8,7 +8,7 @@ urlpatterns = [
     # ex: /api/boards/
     url(r'^$', board_list.as_view()),
     # ex: /api/boards/{board}/
-    url(r'^(?P<board>[a-zA-Z0-9]+?)/$', board_detail.as_view()),
+    url(r'^(?P<board>[\w]*)/$', board_detail.as_view()),
     # ex: /api/boards/{board}/threads/
-    url(r'^(?P<board>[a-zA-Z0-9]+?)/threads/', include(thread_patterns))
+    url(r'^(?P<board>[\w]*)/threads/', include(thread_patterns))
 ]
