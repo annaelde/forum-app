@@ -85,7 +85,7 @@ const user = {
         },
         GET_THREADS: state => {
             if (state.data) {
-                return state.data.threads
+                return state.data.posts
             } else {
                 return []
             }
