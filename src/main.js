@@ -3,8 +3,9 @@ import store from './store'
 import router from './router'
 import filters from './utils/filters'
 
-var app = new Vue({
+new Vue({
     router,
     store,
+    filters,
     render: createEle => createEle(App)
 }).$mount('#app')

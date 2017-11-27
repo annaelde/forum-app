@@ -1,9 +1,11 @@
-import moment from "moment"
+import moment from 'moment'
 
-Vue.filter('timeElapsed', timestamp => {
+export default {
+    timeElapsed: Vue.filter('timeElapsed', timestamp => {
         return moment(timestamp).fromNow()
-})
+    }),
 
-Vue.filter('readableDate', timestamp => {
-    return moment(timestamp).calendar()
-})
+    readableDate: Vue.filter('readableDate', timestamp => {
+        return moment(timestamp).calendar()
+    })
+}
