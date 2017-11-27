@@ -74,13 +74,20 @@ const user = {
     getters: {
         GET_STATE: state => state.machine.state,
         GET_ERROR: state => state.error,
-        GET_AUTHENTICATION: state => state.token ? true : false,
+        GET_AUTHENTICATION: state => (state.token ? true : false),
         GET_USER: state => state.data,
         GET_USERNAME: state => {
             if (state.data) {
                 return state.data.username
             } else {
                 return ''
+            }
+        },
+        GET_THREADS: state => {
+            if (state.data) {
+                return state.data.threads
+            } else {
+                return []
             }
         }
     },
