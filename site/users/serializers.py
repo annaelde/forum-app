@@ -2,22 +2,20 @@ from rest_framework.serializers import (DateTimeField, ModelSerializer,
                                         PrimaryKeyRelatedField)
 
 from threads.models import Post
-
+from threads.serializers import PostSerializer
 from .models import User
 
 
 class PublicUserSerializer(ModelSerializer):
-    posts = PrimaryKeyRelatedField(many=True,
-                                   queryset=Post.objects.all())
+    threads = PostSerializer(many=True)
 
     class Meta:
         model=User
-        fields=('username', 'date_joined', 'posts')
+        fields=('username', 'date_joined', 'threads')
 
 class PrivateUserSerializer(ModelSerializer):
-    posts = PrimaryKeyRelatedField(many=True,
-                                   queryset=Post.objects.all())
+    threads = PostSerializer(many=True)
 
     class Meta:
         model=User
-        fields=('username','email', 'date_joined', 'last_login', 'posts')
+        fields=('username','email', 'date_joined', 'last_login', 'threads')
