@@ -67,9 +67,7 @@ export default {
 </script>
 
 <style lang="sass">
-@import "~bulmaswatch/united/_variables.scss"
 @import "~bulma/bulma"
-@import "~bulmaswatch/united/_overrides.scss"
 @import "styles/main"
 
 $ratio: 1.777
