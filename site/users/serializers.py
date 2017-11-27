@@ -7,15 +7,15 @@ from .models import User
 
 
 class PublicUserSerializer(ModelSerializer):
-    threads = PostSerializer(many=True)
+    posts = PostSerializer(many=True)
 
     class Meta:
         model=User
-        fields=('username', 'date_joined', 'threads')
+        fields=('username', 'date_joined', 'posts')
 
 class PrivateUserSerializer(ModelSerializer):
-    threads = PostSerializer(many=True)
+    posts = PostSerializer(many=True)
 
     class Meta:
         model=User
-        fields=('username','email', 'date_joined', 'last_login', 'threads')
+        fields=('username','email', 'date_joined', 'last_login', 'posts')
