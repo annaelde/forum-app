@@ -26,7 +26,7 @@ Additionally, this is a way to test my django-kit's configuration.
 - Users
     - ~~Authenticate~~
     - ~~Deauthenticate~~
-    - Create Account
+    - ~~Create Account~~
     - ~~Retrieve Account~~
     - Update Account
     - Delete Account
