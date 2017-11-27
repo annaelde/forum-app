@@ -4,7 +4,10 @@
             <router-link :to="`/_${board}/${thread.key}/${thread.slug}/`">
                 <h2 class="title">{{ thread.title }}</h2>
             </router-link>
-            <h3 class="subtitle">Posted by {{ thread.author }} {{ thread.created | timeElapsed }}</h3>
+            <h3 class="subtitle">Posted by
+                <router-link :to="`/~${thread.author}`">{{ thread.author }}</router-link> 
+                {{ thread.created | timeElapsed }}
+            </h3>
         </header>
 
         <thread-controls v-if="!editMode" :editAllowed="editAllowed" :drawerOpen="drawerOpen" @toggle="drawerOpen = !drawerOpen" @delete="deleteThread()" @archive="archiveThread()" @edit="editThread()"></thread-controls>
