@@ -1,7 +1,7 @@
 <template>
     <transition name="slide-down">
         <div ref="drawer" :class="[ drawerOpen ? openedStyle : closedStyle ]" v-show="drawerOpen">
-            <slot></slot>
+            <slot/>
         </div>
     </transition>
 </template>
@@ -21,10 +21,12 @@ export default Vue.component('sliding-drawer', {
         },
         openedClasses: {
             type: String,
+            default: '',
             required: false
         },
         closedClasses: {
             type: String,
+            default: '',
             required: false
         },
         // Used to control max-height when the container

@@ -8,7 +8,7 @@
                     </p>
                     <a href="#" class="card-header-icon" aria-label="more options">
                         <span class="icon">
-                            <i class="fa fa-times" aria-hidden="true"></i>
+                            <i class="fa fa-times" aria-hidden="true" />
                         </span>
                     </a>
                 </header>
@@ -20,13 +20,13 @@
                 <footer class="card-footer">
                     <router-link to="" class="card-footer-item">
                         <span class="icon">
-                            <i class="fa fa-thumb-tack" aria-hidden="true"></i>
+                            <i class="fa fa-thumb-tack" aria-hidden="true" />
                         </span>
                         <span>Pin</span>
                     </router-link>
                     <router-link :to="`_${board.slug}`" class="card-footer-item">
                         <span class="icon">
-                            <i class="fa fa-sign-in" aria-hidden="true"></i>
+                            <i class="fa fa-sign-in" aria-hidden="true" />
                         </span>
                         <span>Visit</span>
                     </router-link>

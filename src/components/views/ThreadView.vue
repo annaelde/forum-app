@@ -4,7 +4,7 @@
             <div class="hero-body">
                 <h1 class="title">{{ thread.title }}</h1>
                 <h2 class="subtitle">Posted by {{ thread.author }} {{ thread.created | timeElapsed }}</h2>
-                <thread-controls :editAllowed="user === thread.author"></thread-controls>
+                <thread-controls :edit-allowed="user === thread.author" />
             </div>
         </header>
         <section class="section">
@@ -15,8 +15,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import axios from '../../libs/axios'
-import ThreadControls from '../parts/ThreadControls.vue'
+import '../parts/ThreadControls.vue'
 
 export default Vue.component('thread', {
     computed: mapGetters({

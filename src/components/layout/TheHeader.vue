@@ -1,24 +1,24 @@
 <template>
     <nav class="navbar is-radiusless" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
-            <router-link to='/' class="navbar-item">
+            <router-link to="/" class="navbar-item">
                 <span class="icon is-large">
-                    <i class="fa fa-hourglass-o fa-2x has-text-light"></i>
+                    <i class="fa fa-hourglass-o fa-2x" />
                 </span>
-                <h1 class="title has-text-light">Forum</h1>
+                <h1 class="title">Forum</h1>
             </router-link>
             <div v-if="!auth" class="navbar-item is-hidden-mobile">
                 <button @click="showLogin = !showLogin" class="button is-info">
                     <span class="icon">
-                        <i class="fa fa-sign-in"></i>
+                        <i class="fa fa-sign-in" />
                     </span>
                     <span>Login</span>
                 </button>
             </div>
-            <button v-bind:class="{'is-active' : openDrawer}" class="button navbar-burger is-large is-white has-text-grey-darker" @click="openDrawer = !openDrawer" data-target="navMenu">
-                <span></span>
-                <span></span>
-                <span></span>
+            <button :class="{'is-active' : openDrawer}" class="button navbar-burger is-large is-white has-text-grey-darker" @click="openDrawer = !openDrawer" data-target="navMenu">
+                <span/>
+                <span/>
+                <span/>
                 <div class="is-accessible">Open Navigation Drawer</div>
             </button>
 
@@ -42,22 +42,21 @@
                 <a class="navbar-item">Browse</a>
             </div>
             <div v-if="auth" class="navbar-end">
-                <router-link :to='`/~${username}`' class="navbar-item">Profile</router-link>
+                <router-link :to="`/~${username}`" class="navbar-item">Profile</router-link>
                 <a class="navbar-item">Bookmarks</a>
                 <a class="navbar-item" @click="logout">Logout</a>
             </div>
         </div>
         <transition name="fade">
-            <user-modal v-if="showLogin" @close="showLogin = false"></user-modal>
+            <user-modal v-if="showLogin" @close="showLogin = false" />
         </transition>
     </nav>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-import UserModal from '../parts/UserModal.vue'
-import SlidingDrawer from '../abstract/SlidingDrawer.vue'
-import { forEach, has } from 'lodash'
+import '../parts/UserModal.vue'
+import '../abstract/SlidingDrawer.vue'
 
 export default Vue.component('the-header', {
     data() {
@@ -72,7 +71,7 @@ export default Vue.component('the-header', {
         username: 'GET_USERNAME'
     }),
     watch: {
-        auth: function(val) {
+        auth: function() {
             this.refresh = true
         }
     },

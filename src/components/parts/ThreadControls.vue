@@ -3,7 +3,7 @@
         <div>
             <button v-if="this.$route.name !== 'thread'" @click="$emit('toggle')" class="button">
                 <span class="icon">
-                    <i class="fa" v-bind:class="{'fa-plus' : !drawerOpen, 'fa-minus' : drawerOpen}">
+                    <i class="fa" :class="{'fa-plus' : !drawerOpen, 'fa-minus' : drawerOpen}">
                         <span class="is-accessible" v-if="!drawerOpen">Open</span>
                         <span class="is-accessible" v-else>Close</span>
                     </i>
@@ -59,7 +59,8 @@ export default Vue.component('thread-controls', {
         },
         drawerOpen: {
             type: Boolean,
-            required: false
+            required: false,
+            default: true
         }
     }
 })

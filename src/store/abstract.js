@@ -1,3 +1,5 @@
+import StateMachine from '../utils/machine'
+
 // Abstract store to extend
 export const AbstractStore = {
     state: {

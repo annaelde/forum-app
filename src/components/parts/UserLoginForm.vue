@@ -2,18 +2,18 @@
     <div class="modal-card">
         <header class="modal-card-head">
             <p class="modal-card-title">Log into Forum</p>
-            <button class="delete" aria-label="close" @click="$emit('close')"></button>
+            <button class="delete" aria-label="close" @click="$emit('close')" />
         </header>
         <section class="modal-card-body">
             <transition name="balloon">
-                <error-message v-if="error" :response="error"></error-message>
+                <error-message v-if="error" :response="error" />
             </transition>
             <div class="field">
                 <label for="username" class="label">Username</label>
                 <div class="control has-icons-left" :class="{'is-loading' : loading}">
                     <input class="input" id="username" v-model="username" type="text" value="">
                     <span class="icon is-small is-left">
-                        <i class="fa fa-user"></i>
+                        <i class="fa fa-user" />
                     </span>
                 </div>
             </div>
@@ -22,7 +22,7 @@
                 <div class="control has-icons-left" :class="{'is-loading' : loading}">
                     <input class="input" id="password" v-model="password" type="password" value="">
                     <span class="icon is-small is-left">
-                        <i class="fa fa-key"></i>
+                        <i class="fa fa-key" />
                     </span>
                 </div>
             </div>
@@ -39,7 +39,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import ErrorMessage from './ErrorMessage.vue'
+import './ErrorMessage.vue'
 
 export default Vue.component('user-login-form', {
     data: function() {

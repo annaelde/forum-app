@@ -5,6 +5,7 @@ module.exports = {
     },
     extends: ['plugin:vue/recommended', 'eslint:recommended'],
     parserOptions: {
+        ecmaVersion: 8,
         ecmaFeatures: {
             jsx: false
         },
@@ -18,6 +19,7 @@ module.exports = {
         'linebreak-style': ['error', 'windows'],
         quotes: ['error', 'single'],
         semi: ['error', 'never'],
-        'vue/html-indent': ['error', 4]
+        'vue/html-indent': ['error', 4],
+        'vue/max-attributes-per-line': 'off'
     }
 }

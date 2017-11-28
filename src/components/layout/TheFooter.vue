@@ -17,8 +17,3 @@ export default Vue.component('the-footer', {
     })
 })
 </script>
-
-
-<style lang="sass">
-
-</style>

@@ -1,22 +1,16 @@
 <template>
     <transition name="fade">
         <div class="modal login is-active">
-            <div @click="$emit('close')" class="modal-background"></div>
-            
-            <user-login-form v-if="login" 
-            @register="login = false" 
-            @close="$emit('close')"></user-login-form>
-            
-            <user-register-form v-if="!login" 
-            @back="login = true" 
-            @close="$emit('close')"></user-register-form>
+            <div @click="$emit('close')" class="modal-background" />
+            <user-login-form v-if="login" @register="login = false" @close="$emit('close')" />
+            <user-register-form v-if="!login" @back="login = true" @close="$emit('close')" />
         </div>
     </transition>
 </template>
 
 <script>
-import UserLoginForm from './UserLoginForm.vue'
-import UserRegisterForm from './UserRegisterForm.vue'
+import './UserLoginForm.vue'
+import './UserRegisterForm.vue'
 
 export default Vue.component('user-modal', {
     data: function() {

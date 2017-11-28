@@ -1,4 +1,3 @@
-import Vuex from 'vuex'
 import StateMachine from '../utils/machine'
 import { request } from '../libs/axios'
 

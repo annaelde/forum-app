@@ -1,12 +1,12 @@
 <template>
     <div class="modal">
-        <div class="modal-background"></div>
+        <div class="modal-background" />
         <div class="modal-card">
             <header class="modal-card-head">
                 <p class="modal-card-title">
                     {{ title }}
                 </p>
-                <button class="delete" aria-label="close" @click="$emit('cancel')"></button>
+                <button class="delete" aria-label="close" @click="$emit('cancel')" />
             </header>
             <section class="modal-card-body">
                 {{ body }}

@@ -1,11 +1,11 @@
 <template>
     <main v-if="threads" class="main">
-        <thread-card v-for="thread of threads" :board="board.slug" :thread="thread" :key="thread.id"></thread-card>
+        <thread-card v-for="thread of threads" :board="board.slug" :thread="thread" :key="thread.id"/>
     </main>
 </template>
 
 <script>
-import ThreadCard from '../parts/ThreadCard.vue'
+import '../parts/ThreadCard.vue'
 import { mapState } from 'vuex'
 
 export default Vue.component('board', {

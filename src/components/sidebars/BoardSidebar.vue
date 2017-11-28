@@ -6,17 +6,17 @@
         <h2 class="subtitle">{{ board.description }}</h2>
         <button v-if="authenticated" class="button is-primary is-medium">
             <span class="icon">
-                <i class="fa fa-plus"></i>
+                <i class="fa fa-plus" />
             </span>
             <span @click="showPostModal = true">Post a Thread</span>
         </button>
-        <post-modal v-if="showPostModal" @close="showPostModal = false" :board="board"></post-modal>
+        <post-modal v-if="showPostModal" @close="showPostModal = false" :board="board" />
     </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
-import PostModal from '../parts/PostModal.vue'
+import '../parts/PostModal.vue'
 
 export default Vue.component('board-sidebar', {
     data: function() {
@@ -31,8 +31,3 @@ export default Vue.component('board-sidebar', {
     })
 })
 </script>
-
-
-<style lang="sass">
-
-</style>

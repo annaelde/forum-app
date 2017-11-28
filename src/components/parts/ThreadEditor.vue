@@ -5,20 +5,19 @@
                 <input type="text" class="title input" v-model="title">
             </div>
         </div>
-        
+
         <h3 class="subtitle">Posted by {{ thread.author }} {{ thread.created | timeElapsed }}</h3>
-        
-        
+
         <div class="field">
             <div class="control">
-                <textarea class="textarea" v-model="content"></textarea>
+                <textarea class="textarea" v-model="content" />
             </div>
         </div>
         <div class="field is-grouped is-grouped-right">
             <div class="control">
                 <button @click="saveEdits()" class="button is-primary" :class="{'is-loading' : loading}">
                     <span class="icon">
-                        <i class="fa fa-check"></i>
+                        <i class="fa fa-check" />
                     </span>
                     <span>Save</span>
                 </button>
@@ -26,7 +25,7 @@
             <div class="control">
                 <button @click="closeEditor()" class="button is-light" :disabled="loading">
                     <span class="icon">
-                        <i class="fa fa-times"></i>
+                        <i class="fa fa-times" />
                     </span>
                     <span>Close</span>
                 </button>

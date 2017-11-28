@@ -1,17 +1,12 @@
 <template>
     <main class="main">
-        <thread-card 
-        v-if="threads" 
-        v-for="thread in threads" 
-        :key="thread.name" 
-        :board="thread.board" 
-        :thread="thread"></thread-card>
+        <thread-card v-for="thread in threads" :key="thread.name" :board="thread.board" :thread="thread" />
         <div v-if="user && !threads">
             <p class="title">
                 This user hasn't posted any threads.
             </p>
         </div>
-        <div v-else>
+        <div v-if="!user">
             <p class="title">
                 Oh no, 404! This user doesn't exist.
             </p>
@@ -21,21 +16,12 @@
 
 <script>
 import { request } from '../../libs/axios'
-import ThreadCard from '../parts/ThreadCard.vue'
+import '../parts/ThreadCard.vue'
 
 export default Vue.component('profile-view', {
     data() {
         return {
             user: null
-        }
-    },
-    methods: {
-        setUser: async function() {
-            await request({
-                method: 'get',
-                url: `users/${this.$route.params.username}`,
-                callback: response => { this.user = response ? response.data : null }
-            })
         }
     },
     computed: {
@@ -45,6 +31,17 @@ export default Vue.component('profile-view', {
     },
     async created() {
         await this.setUser()
+    },
+    methods: {
+        setUser: async function() {
+            await request({
+                method: 'get',
+                url: `users/${this.$route.params.username}`,
+                callback: response => {
+                    this.user = response ? response.data : null
+                }
+            })
+        }
     }
 })
 </script>

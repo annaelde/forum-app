@@ -8,6 +8,6 @@ export function setToken(payload) {
     store.set('token', payload)
 }
 
-export function removeToken(payload){
+export function removeToken(){
     store.remove('token')
 }

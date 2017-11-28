@@ -1,11 +1,11 @@
 <template>
     <transition name="fade">
         <div class="modal compose is-active">
-            <div @click="$emit('close')" class="modal-background"></div>
+            <div @click="$emit('close')" class="modal-background" />
             <div class="modal-card">
                 <header class="modal-card-head">
                     <p class="modal-card-title">Post a Thread on {{ board.name }}</p>
-                    <button class="delete" aria-label="close" @click="$emit('close')"></button>
+                    <button class="delete" aria-label="close" @click="$emit('close')" />
                 </header>
                 <section class="modal-card-body">
                     <div class="field">
@@ -17,14 +17,14 @@
                     <div class="field">
                         <label for="content" class="label">Content</label>
                         <div class="control">
-                            <textarea class="textarea" id="content" v-model="content" type="text" placeholder=""></textarea>
+                            <textarea class="textarea" id="content" v-model="content" type="text" placeholder="" />
                         </div>
                     </div>
                 </section>
                 <footer class="modal-card-foot">
                     <button @click="post" class="button is-success" :class="{'is-loading' : loading}">
                         <span class="icon">
-                            <i class="fa fa-bolt"></i>
+                            <i class="fa fa-bolt" />
                         </span>
                         <span>Post</span>
                     </button>
@@ -39,10 +39,14 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import ErrorMessage from './ErrorMessage.vue'
-import axios from '../../libs/axios'
 
 export default Vue.component('post-modal', {
+    props: {
+        board: {
+            type: Object,
+            required: true
+        }
+    },
     data: function() {
         return {
             title: '',
@@ -79,12 +83,6 @@ export default Vue.component('post-modal', {
                     }
                 })
             }
-        }
-    },
-    props: {
-        board: {
-            type: Object,
-            required: true
         }
     }
 })

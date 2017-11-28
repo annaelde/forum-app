@@ -1,4 +1,3 @@
-import Vuex from 'vuex'
 import { request } from '../libs/axios'
 
 const board = {

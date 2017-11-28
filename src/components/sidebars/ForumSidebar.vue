@@ -8,7 +8,7 @@
                 <tr>
                     <td>
                         <span class="icon">
-                            <i class="fa fa-users"></i>
+                            <i class="fa fa-users" />
                         </span>
                         <span>Users</span>
                     </td>
@@ -17,7 +17,7 @@
                 <tr>
                     <td>
                         <span class="icon">
-                            <i class="fa fa-list-alt"></i>
+                            <i class="fa fa-list-alt" />
                         </span>
                         <span>Boards</span>
                     </td>
@@ -26,7 +26,7 @@
                 <tr>
                     <td>
                         <span class="icon">
-                            <i class="fa fa-bookmark"></i>
+                            <i class="fa fa-bookmark" />
                         </span>
                         <span>Threads</span>
                     </td>
@@ -47,8 +47,3 @@ export default Vue.component('forum-sidebar', {
     })
 })
 </script>
-
-
-<style lang="sass">
-
-</style>

@@ -1,4 +1,3 @@
-import Vuex from 'vuex'
 import StateMachine from '../utils/machine'
 import { request, setHeader, removeHeader } from '../libs/axios'
 import { setToken, removeToken } from '../libs/store'
@@ -17,7 +16,7 @@ const user = {
             await request({
                 context,
                 method: 'post',
-                url: `auth/token/create/`,
+                url: 'auth/token/create/',
                 payload: credentials,
                 mutations: ['SET_TOKEN'],
                 chain: true
@@ -65,7 +64,7 @@ const user = {
             await request({
                 context,
                 method: 'post',
-                url: `auth/users/create/`,
+                url: 'auth/users/create/',
                 payload,
                 mutations: ['SET_DATA']
             })

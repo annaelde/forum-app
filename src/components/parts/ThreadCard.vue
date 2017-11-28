@@ -5,14 +5,14 @@
                 <h2 class="title">{{ thread.title }}</h2>
             </router-link>
             <h3 class="subtitle">Posted by
-                <router-link :to="`/~${thread.author}`">{{ thread.author }}</router-link> 
+                <router-link :to="`/~${thread.author}`">{{ thread.author }}</router-link>
                 {{ thread.created | timeElapsed }}
             </h3>
         </header>
 
-        <thread-controls v-if="!editMode" :editAllowed="editAllowed" :drawerOpen="drawerOpen" @toggle="drawerOpen = !drawerOpen" @delete="deleteThread()" @archive="archiveThread()" @edit="editThread()"></thread-controls>
+        <thread-controls v-if="!editMode" :edit-allowed="editAllowed" :drawer-open="drawerOpen" @toggle="drawerOpen = !drawerOpen" @delete="deleteThread()" @archive="archiveThread()" @edit="editThread()" />
 
-        <thread-editor v-if="editMode" :board="board" :thread="thread" @close="updateThread()"></thread-editor>
+        <thread-editor v-if="editMode" :board="board" :thread="thread" @close="updateThread()" />
 
         <sliding-drawer v-if="!editMode" :drawer-open="drawerOpen" :refresh="refresh" @refreshed="refresh = false" classes="content">
             <article>{{ thread.content }}</article>
@@ -22,8 +22,8 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import ThreadEditor from './ThreadEditor.vue'
-import ThreadControls from './ThreadControls.vue'
+import './ThreadEditor.vue'
+import './ThreadControls.vue'
 
 export default Vue.component('thread-card', {
     props: {

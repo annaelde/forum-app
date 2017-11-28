@@ -16,7 +16,3 @@ export default Vue.component('profile-sidebar', {
     })
 })
 </script>
-
-<style>
-
-</style>

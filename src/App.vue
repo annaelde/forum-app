@@ -1,29 +1,29 @@
 <template>
     <div>
-        <the-header></the-header>
+        <the-header/>
 
         <div class="progress-container">
-            <transition name="fade-out">
-                <progress v-show="progress != 100" class="progress is-info is-small is-radiusless" :value="progress" max="100"></progress>
+            <transition name="fade-out" appear>
+                <progress v-show="progress != 100" class="progress is-info is-small is-radiusless" :value="progress" max="100" />
             </transition>
         </div>
 
-        <div v-if="!this.handling && this.ready" class="view">
+        <div v-if="!handling && ready" class="view">
             <transition name="fade" mode="out-in" appear>
-                <router-view name="main" :key="this.$route.fullPath"></router-view>
+                <router-view name="main" :key="this.$route.fullPath" />
             </transition>
             <transition name="fade" mode="out-in" appear>
-                <router-view name="sidebar" :key="this.$route.fullPath"></router-view>
+                <router-view name="sidebar" :key="this.$route.fullPath" />
             </transition>
         </div>
 
         <transition name="balloon">
-            <div v-if="this.handling" class="error">
-                <error-message :response="error"></error-message>
+            <div v-if="handling" class="error">
+                <error-message :response="error" />
             </div>
         </transition>
 
-        <the-footer></the-footer>
+        <the-footer/>
     </div>
 </template>
 
@@ -33,12 +33,12 @@ import { mapState } from 'vuex'
 import { tweenState } from './libs/tween'
 import { getToken } from './libs/store'
 
-import TheHeader from './components/layout/TheHeader.vue'
-import TheFooter from './components/layout/TheFooter.vue'
-import ErrorMessage from './components/parts/ErrorMessage.vue'
+import './components/layout/TheHeader.vue'
+import './components/layout/TheFooter.vue'
+import './components/parts/ErrorMessage.vue'
 
 export default {
-    name: 'app',
+    name: 'App',
     data: function() {
         return {
             progress: 0,

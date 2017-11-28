@@ -12,46 +12,43 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-
 export default Vue.component('error-message', {
-    props: [
-        'response'
-    ],
+    props: {
+        response: {
+            type: String,
+            required: true,
+            default: ''
+        }
+    },
     methods: {
         customMessage: function() {
-            var message = `Oops, there's been an error loading this page. Try loading it again.`
+            var message = 'Oops, there\'s been an error loading this page. Try loading it again.'
             switch(this.response.status)
             {
-                case 500: 
-                    message = `Forum couldn't process this request.`
-                    break
-                case 502: 
-                    message = `Forum couldn't connect to the server.` 
-                    break
-                case 503: 
-                    message = `The server is overloaded. Try connecting again.`
-                    break
-                case 400:
-                    message = `The server did not understand the request.`
-                    break
-                case 401:
-                    message = `This information you entered was not correct.`
-                    break                      
-                case 403: 
-                    message = `You don't have permission to access this. Are you logged in?`
-                    break                    
-                case 404: 
-                    message = `This page doesn't exist.`
-                    break
+            case 500: 
+                message = 'Forum couldn\'t process this request.'
+                break
+            case 502: 
+                message = 'Forum couldn\'t connect to the server.' 
+                break
+            case 503: 
+                message = 'The server is overloaded. Try connecting again.'
+                break
+            case 400:
+                message = 'The server did not understand the request.'
+                break
+            case 401:
+                message = 'This information you entered was not correct.'
+                break                      
+            case 403: 
+                message = 'You don\'t have permission to access this. Are you logged in?'
+                break                    
+            case 404: 
+                message = 'This page doesn\'t exist.'
+                break
             }
             return message
         }
     }
 })
 </script>
-
-
-<style lang="sass">
-
-</style>
