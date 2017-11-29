@@ -8,7 +8,7 @@
 import '../parts/ThreadCard.vue'
 import { mapState } from 'vuex'
 
-export default Vue.component('board', {
+export default Vue.component('board-view', {
     computed: mapState({
         board: state => state.board.data,
         threads: state => state.board.threads,

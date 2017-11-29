@@ -39,7 +39,7 @@
 <script>
 import { mapGetters } from 'vuex'
 
-export default Vue.component('forum', {
+export default Vue.component('forum-view', {
     data() {
         return {
             collapsed: true

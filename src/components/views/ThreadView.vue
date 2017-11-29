@@ -17,7 +17,7 @@
 import { mapGetters } from 'vuex'
 import '../parts/ThreadControls.vue'
 
-export default Vue.component('thread', {
+export default Vue.component('thread-view', {
     computed: mapGetters({
         thread: 'thread/GET_THREAD',
         board: 'board/GET_DATA',
