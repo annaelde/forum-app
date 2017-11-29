@@ -15,9 +15,9 @@
 export default Vue.component('error-message', {
     props: {
         response: {
-            type: String,
+            type: Object,
             required: true,
-            default: ''
+            default: () => { return { status: 200 } }
         }
     },
     methods: {
@@ -25,6 +25,9 @@ export default Vue.component('error-message', {
             var message = 'Oops, there\'s been an error loading this page. Try loading it again.'
             switch(this.response.status)
             {
+            case 200:
+                message = 'No problems here.'
+                break
             case 500: 
                 message = 'Forum couldn\'t process this request.'
                 break
