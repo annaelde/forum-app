@@ -2,23 +2,14 @@
     <div>
         <the-header/>
 
-        <div class="progress-container">
-            <transition name="fade-out" appear>
-                <progress v-show="progress != 100" class="progress is-info is-small is-radiusless" :value="progress" max="100" />
-            </transition>
-        </div>
+        <progress-bar :progress="progress" />
 
-        <div v-if="!handling && ready" class="view">
-            <transition name="fade" mode="out-in" appear>
-                <router-view name="main" :key="this.$route.fullPath" />
-            </transition>
-            <transition name="fade" mode="out-in" appear>
-                <router-view name="sidebar" :key="this.$route.fullPath" />
-            </transition>
-        </div>
+        <transition name="fade" mode="out-in" appear>
+            <router-view v-if="!error" />
+        </transition>
 
         <transition name="balloon">
-            <div v-if="handling" class="error">
+            <div v-if="error" class="error">
                 <error-message :response="error" />
             </div>
         </transition>
@@ -35,6 +26,7 @@ import { getToken } from './libs/store'
 
 import './components/layout/TheHeader.vue'
 import './components/layout/TheFooter.vue'
+import './components/parts/ProgressBar.vue'
 import './components/parts/ErrorMessage.vue'
 
 export default {
@@ -46,9 +38,6 @@ export default {
         }
     },
     computed: {
-        handling: function() {
-            return this.state === 'handling'
-        },
         ...mapState({
             error: state => state.error,
             state: state => state.machine.state
@@ -56,7 +45,9 @@ export default {
     },
     watch: {
         state: function(newState, oldState) {
-            tweenState(newState, oldState, this)
+            tweenState(newState, oldState, value => {
+                this.progress = parseFloat(value)
+            })
         }
     },
     created: async function() {

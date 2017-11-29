@@ -1,13 +1,9 @@
 import Router from 'vue-router'
 
-import ForumView from '../components/views/ForumView.vue'
-import BoardView from '../components/views/BoardView.vue'
-import ThreadView from '../components/views/ThreadView.vue'
-import ProfileView from '../components/views/ProfileView.vue'
-
-import ForumSidebar from '../components/sidebars/ForumSidebar.vue'
-import BoardSidebar from '../components/sidebars/BoardSidebar.vue'
-import ProfileSidebar from '../components/sidebars/ProfileSidebar.vue'
+import Forum from '../components/containers/Forum.vue'
+import Board from '../components/containers/Board.vue'
+import Thread from '../components/containers/Thread.vue'
+import Profile from '../components/containers/Profile.vue'
 
 Vue.use(Router)
 
@@ -15,34 +11,22 @@ const routes = [
     {
         name: 'forum',
         path: '/',
-        components: {
-            main: ForumView,
-            sidebar: ForumSidebar
-        }
+        component: Forum
     },
     {
         name: 'board',
         path: '/_:board/',
-        components: {
-            main: BoardView,
-            sidebar: BoardSidebar
-        }
+        component: Board
     },
     {
         name: 'thread',
         path: '/_:board/:key/:slug/',
-        components: {
-            main: ThreadView,
-            sidebar: BoardSidebar
-        }
+        component: Thread
     },
     {
         name: 'profile',
         path: '/~:username',
-        components: {
-            main: ProfileView,
-            sidebar: ProfileSidebar
-        }
+        component: Profile
     }
 ]
 
