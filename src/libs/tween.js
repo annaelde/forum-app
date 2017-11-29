@@ -1,6 +1,6 @@
 import TWEEN from '@tweenjs/tween.js'
 
-export const tweenState = function(newState, oldState, view) {
+export const tweenState = function(newState, oldState, callback) {
     var newValue = 0
     var oldValue = 0
 
@@ -22,7 +22,7 @@ export const tweenState = function(newState, oldState, view) {
         .easing(TWEEN.Easing.Quadratic.Out)
         .to({ x: newValue }, 500)
         .onUpdate(function(object) {
-            view.progress = object.x.toFixed(0)
+            callback(object.x.toFixed(0))
         })
         .start()
     animate()
