@@ -77,7 +77,9 @@ export default Vue.component('sliding-drawer', {
                 el.className = this.openedStyle
             }
 
-            el.style.setProperty('--slide-down-height', el.clientHeight + 'px')
+            if (el.clientHeight != 0) {
+                el.style.setProperty('--slide-down-height', el.clientHeight + 'px')
+            }
 
             if (!this.drawerOpen) {
                 el.style.display = 'none'
