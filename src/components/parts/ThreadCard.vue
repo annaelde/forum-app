@@ -56,6 +56,9 @@ export default Vue.component('thread-card', {
     watch: {
         editMode: function(val) {
             if (!val) this.refresh = true
+        },
+        thread: function() {
+            this.refresh = true
         }
     },
     methods: {
