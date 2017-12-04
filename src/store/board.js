@@ -43,7 +43,7 @@ const board = {
             state.available.push(data)
         },
         SET_THREADS(state, threads) {
-            state.current.threads = threads
+            Vue.set(state.current, 'threads', threads)
         }
     },
     getters: {
