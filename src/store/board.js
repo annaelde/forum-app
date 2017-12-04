@@ -4,11 +4,14 @@ const board = {
     namespaced: true,
     state: {
         available: [],
-        current: {}
+        current: {
+            slug: '',
+            threads: []
+        }
     },
     actions: {
         async loadBoard(context, { board, chain = false }) {
-            // Get board data displayed in sidebar
+            // Load new board data if it's not fresh
             let data = context.getters.GET_BOARD(board)
             if (!data || data.freshness - Date.now() < 24 * 360000) {
                 await request({
@@ -21,6 +24,7 @@ const board = {
                 })
             }
 
+            // Set current board
             context.commit('SET_CURRENT', board)
         },
         async loadThreads(context, { params = false, chain = false } = {}) {
