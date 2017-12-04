@@ -15,19 +15,25 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 import '../parts/PostModal.vue'
 
 export default Vue.component('board-sidebar', {
+    props: {
+        board: {
+            type: Object,
+            required: true,
+            default: () => {}
+        },
+        authenticated: {
+            type: Boolean,
+            required: true,
+            default: false
+        }
+    },
     data: function() {
         return {
             showPostModal: false
         }
-    },
-    computed: mapState({
-        authenticated: state => state.user.token,
-        board: state => state.board.data,
-        error: state => state.board.error
-    })
+    }
 })
 </script>
