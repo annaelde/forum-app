@@ -30,6 +30,15 @@ Additionally, this is a way to test my django-kit's configuration.
     - ~~Retrieve Account~~
     - Update Account
     - Delete Account
+- Bookmarks
+    - Create Bookmark
+    - Retrieve Bookmark
+    - Delete Bookmark
+- Comments
+    - Create Comment
+    - Retrieve Comment
+    - Delete Comment
+    - Update Comment
 
 # Screenshot
 
