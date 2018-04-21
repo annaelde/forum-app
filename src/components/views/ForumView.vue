@@ -1,43 +1,14 @@
 <template>
     <main class="main">
         <div class="grid">
-            <div v-for="board in boards" :key="board.name" class="card">
-                <header class="card-header">
-                    <p class="card-header-title">
-                        {{ board.name }}
-                    </p>
-                    <a href="#" class="card-header-icon" aria-label="more options">
-                        <span class="icon">
-                            <i class="fa fa-times" aria-hidden="true" />
-                        </span>
-                    </a>
-                </header>
-                <div class="card-content">
-                    <div class="content">
-                        {{ board.description }}
-                    </div>
-                </div>
-                <footer class="card-footer">
-                    <router-link to="" class="card-footer-item">
-                        <span class="icon">
-                            <i class="fa fa-thumb-tack" aria-hidden="true" />
-                        </span>
-                        <span>Pin</span>
-                    </router-link>
-                    <router-link :to="`_${board.slug}`" class="card-footer-item">
-                        <span class="icon">
-                            <i class="fa fa-sign-in" aria-hidden="true" />
-                        </span>
-                        <span>Visit</span>
-                    </router-link>
-                </footer>
-            </div>
+            <board-card v-for="board in boards" :key="board.name" :board="board" />
         </div>
     </main>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
+import '../parts/BoardCard.vue'
 
 export default Vue.component('forum-view', {
     data() {
@@ -57,7 +28,7 @@ export default Vue.component('forum-view', {
 </script>
 
 
-<style lang="sass" scoped>
+<style lang="sass">
 .grid
     display: flex
     flex-flow: row wrap
