@@ -1,6 +1,6 @@
 <template>
     <div class="sidebar">
-        <router-link :to="`/~${board.slug}`">
+        <router-link :to="`/_${board.slug}`">
             <h1 class="title">{{ board.name }}</h1>
         </router-link>
         <h2 class="subtitle">{{ board.description }}</h2>
