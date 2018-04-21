@@ -1,7 +1,7 @@
 <template>
     <main class="main">
         <thread-card v-for="thread in threads" :key="thread.name" :board="thread.board" :thread="thread" />
-        <div v-if="user && !threads">
+        <div v-if="user && threads.length == 0">
             <p class="title">
                 This user hasn't posted any threads.
             </p>
@@ -15,32 +15,19 @@
 </template>
 
 <script>
-import { request } from '../../libs/axios'
 import '../parts/ThreadCard.vue'
 
 export default Vue.component('profile-view', {
-    data() {
-        return {
-            user: null
-        }
-    },
-    computed: {
-        threads: function() {
-            return this.user ? this.user.posts : false
-        }
-    },
-    async created() {
-        await this.setUser()
-    },
-    methods: {
-        setUser: async function() {
-            await request({
-                method: 'get',
-                url: `users/${this.$route.params.username}`,
-                callback: response => {
-                    this.user = response ? response.data : null
-                }
-            })
+    props: {
+        threads: {
+            type: Array,
+            required: false,
+            default: () => []
+        },
+        user: {
+            type: Object,
+            required: false,
+            default: () => {}
         }
     }
 })
