@@ -14,28 +14,25 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 import '../parts/ThreadControls.vue'
 
 export default Vue.component('thread-view', {
-    computed: mapGetters({
-        thread: 'thread/GET_THREAD',
-        board: 'board/GET_DATA',
-        user: 'user/GET_USERNAME',
-        error: 'GET_ERROR'
-    }),
-    async created() {
-        await this.$store.dispatch('board/loadBoard', { board: this.$route.params.board })
-        await this.$store.dispatch('thread/loadThread', {
-            board: this.$route.params.board,
-            key: this.$route.params.key,
-            slug: this.$route.params.slug
-        })
+    props: {
+        thread: {
+            required: true,
+            type: Object,
+            default: () => ({
+                title: '',
+                author: '',
+                created: 0,
+                content: ''
+            })
+        },
+        user: {
+            required: true,
+            type: String,
+            default: ''
+        }
     }
 })
 </script>
-
-
-<style lang="sass"
-
-</style>
