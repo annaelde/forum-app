@@ -11,11 +11,11 @@ class PublicUserSerializer(ModelSerializer):
 
     class Meta:
         model=User
-        fields=('username', 'date_joined', 'posts')
+        fields=('username', 'date_joined', 'posts', 'bio')
 
 class PrivateUserSerializer(ModelSerializer):
     posts = PostSerializer(many=True)
 
     class Meta:
         model=User
-        fields=('username','email', 'date_joined', 'last_login', 'posts')
+        fields=('username','email', 'date_joined', 'last_login', 'posts', 'bio')

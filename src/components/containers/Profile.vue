@@ -29,7 +29,7 @@ export default Vue.component('profile', {
         setUser: async function() {
             await request({
                 method: 'get',
-                url: `users/${this.$route.params.username}`,
+                url: `users/${this.$route.params.username}/`,
                 callback: response => {
                     this.user = response ? response.data : null
                     this.ready = true
