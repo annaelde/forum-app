@@ -2,7 +2,7 @@
   "name": "forum-app",
   "description": "A Vue.js project",
   "version": "1.0.0",
-  "author": "annaelde <elde.av@gmail.com>",
+  "author": "annaelde <anna@elde.codes>",
   "private": true,
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack --watch --hot",
