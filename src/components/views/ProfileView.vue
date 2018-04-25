@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import '../parts/ThreadCard.vue'
+import '../parts/ThreadCard'
 
 export default Vue.component('profile-view', {
     props: {

@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import '../views/ForumView.vue'
-import '../sidebars/ForumSidebar.vue'
+import '../views/ForumView'
+import '../sidebars/ForumSidebar'
 
 export default Vue.component('forum', {})
 </script>

@@ -25,12 +25,12 @@ class UserDetail(RetrieveUpdateDestroyAPIView):
 
     def check_object_permissions(self, request, obj):
         super(UserDetail, self).check_object_permissions(request, obj)
-        if request.method not in SAFE_METHODS and request.user != obj.username:
+        if request.method not in SAFE_METHODS and request.user.username != obj.username:
             self.permission_denied(request,
                                    message='User cannot edit this object.')
 
     def get_serializer_class(self):
-        if self.request.user == self.kwargs['username']:
+        if self.request.user.username == self.kwargs['username']:
             return PrivateUserSerializer
         else:
             return PublicUserSerializer

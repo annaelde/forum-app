@@ -22,8 +22,8 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import './ThreadEditor.vue'
-import './ThreadControls.vue'
+import './ThreadEditor'
+import './ThreadControls'
 
 export default Vue.component('thread-card', {
     props: {

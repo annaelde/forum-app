@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import '../parts/PostModal.vue'
+import '../parts/PostModal'
 
 export default Vue.component('board-sidebar', {
     props: {

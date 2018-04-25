@@ -1,4 +1,4 @@
-import store from 'store'
+import store from '@npm/store'
 
 export function getToken() {
     return store.get('token')

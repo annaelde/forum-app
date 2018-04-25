@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import '../parts/ThreadControls.vue'
+import '../parts/ThreadControls'
 
 export default Vue.component('thread-view', {
     props: {

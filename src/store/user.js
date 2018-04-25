@@ -82,6 +82,7 @@ const user = {
                 return ''
             }
         },
+        GET_TOKEN: state => state.token,
         GET_THREADS: state => {
             if (state.data) {
                 return state.data.posts

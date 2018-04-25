@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import '../views/BoardView.vue'
-import '../sidebars/BoardSidebar.vue'
+import '../views/BoardView'
+import '../sidebars/BoardSidebar'
 import { mapGetters } from 'vuex'
 
 export default Vue.component('board', {

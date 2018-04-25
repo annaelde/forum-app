@@ -1,9 +1,9 @@
 import Router from 'vue-router'
 
-import Forum from '../components/containers/Forum.vue'
-import Board from '../components/containers/Board.vue'
-import Thread from '../components/containers/Thread.vue'
-import Profile from '../components/containers/Profile.vue'
+import Forum from '../components/containers/Forum'
+import Board from '../components/containers/Board'
+import Thread from '../components/containers/Thread'
+import Profile from '../components/containers/Profile'
 
 Vue.use(Router)
 

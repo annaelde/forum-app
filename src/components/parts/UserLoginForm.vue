@@ -39,7 +39,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import './ErrorMessage.vue'
+import './ErrorMessage'
 
 export default Vue.component('user-login-form', {
     data: function() {

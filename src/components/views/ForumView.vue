@@ -8,7 +8,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import '../parts/BoardCard.vue'
+import '../parts/BoardCard'
 
 export default Vue.component('forum-view', {
     data() {

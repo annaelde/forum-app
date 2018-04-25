@@ -49,7 +49,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import './ErrorMessage.vue'
+import './ErrorMessage'
 
 export default Vue.component('user-register-form', {
     data: function() {

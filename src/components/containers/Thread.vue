@@ -7,8 +7,8 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import '../views/ThreadView.vue'
-import '../sidebars/BoardSidebar.vue'
+import '../views/ThreadView'
+import '../sidebars/BoardSidebar'
 
 export default Vue.component('thread', {
     data() {

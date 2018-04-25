@@ -9,8 +9,8 @@
 </template>
 
 <script>
-import './UserLoginForm.vue'
-import './UserRegisterForm.vue'
+import './UserLoginForm'
+import './UserRegisterForm'
 
 export default Vue.component('user-modal', {
     data: function() {

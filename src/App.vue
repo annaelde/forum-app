@@ -24,10 +24,10 @@ import { mapState } from 'vuex'
 import { tweenState } from './libs/tween'
 import { getToken } from './libs/store'
 
-import './components/layout/TheHeader.vue'
-import './components/layout/TheFooter.vue'
-import './components/parts/ProgressBar.vue'
-import './components/parts/ErrorMessage.vue'
+import './components/layout/TheHeader'
+import './components/layout/TheFooter'
+import './components/parts/ProgressBar'
+import './components/parts/ErrorMessage'
 
 export default {
     name: 'App',

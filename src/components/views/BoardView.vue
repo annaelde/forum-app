@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import '../parts/ThreadCard.vue'
+import '../parts/ThreadCard'
 
 export default Vue.component('board-view', {
     props: {

@@ -55,8 +55,8 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import '../parts/UserModal.vue'
-import '../abstract/SlidingDrawer.vue'
+import '../parts/UserModal'
+import '../abstract/SlidingDrawer'
 
 export default Vue.component('the-header', {
     data() {
