@@ -2,7 +2,7 @@
     <div class="view">
         <profile-view v-if="ready" :user="user" :threads="threads" />
         <profile-sidebar v-if="ready" :user="user" :is-me="user.username === me">
-            <profile-controls @editBio="edit = true" />
+            <profile-controls @editBio="edit = !edit" />
             <profile-bio @save="setBio" @cancel="edit = false" :bio="user.bio" :edit="edit" />
         </profile-sidebar>
     </div>

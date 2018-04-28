@@ -1,13 +1,13 @@
 <template>
     <div>
-        <div class="field">
+        <div class="title field">
             <div class="control">
                 <input type="text" class="title input" v-model="title">
             </div>
         </div>
-
         <h3 class="subtitle">Posted by {{ thread.author }} {{ thread.created | timeElapsed }}</h3>
 
+        <thread-controls class="controls" :disabled="true" :edit-allowed="true"/>
         <div class="field">
             <div class="control">
                 <textarea class="textarea" v-model="content" />
@@ -94,7 +94,14 @@ export default Vue.component('thread-editor', {
 
             // Reload threads
             if (!this.error) {
-                await this.$store.dispatch('board/loadThreads')
+                if (this.$route.params.board) {
+                    await this.$store.dispatch('board/loadThreads')
+                } else if (this.$route.params.user) {
+                    // We need to handle thread updates on the profile,
+                    // and also any other component that uses a thread
+                    // list, so we'll have to basically break the usage
+                    // of the store out of this component
+                }
             }
 
             // Emit save
@@ -117,4 +124,19 @@ export default Vue.component('thread-editor', {
 .help
     text-align: right
     width: 100%
+
+.title.input
+    padding: 0
+    border-width: 0 0 1px 0
+    margin: 0 0 -1px 0
+    height: 2.3rem
+    box-shadow: none
+
+.subtitle
+    margin-bottom: 0
+
+.controls
+    margin-top: 16px
+    margin-bottom: 16px
+
 </style>

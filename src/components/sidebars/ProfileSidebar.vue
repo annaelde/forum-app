@@ -3,7 +3,6 @@
         <div v-if="user" class="content">
             <h1 class="title">{{ user.username }}</h1>
             <h2 class="subtitle is-5">Joined on {{ user.date_joined | readableDate }}</h2>
-            <hr>
             <slot />
         </div>
     </div>

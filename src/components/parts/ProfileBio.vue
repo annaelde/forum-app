@@ -1,11 +1,11 @@
 <template>
     <div v-if="!edit">
-        <p>{{ bio }}</p>
+        <p class="can-edit">{{ bio }}</p>
     </div>
     <div v-else>
         <div class="field">
             <div class="control">
-                <textarea v-if="edit" v-model="bioPayload" class="textarea" />
+                <textarea v-if="edit" v-model="bioPayload" class="textarea" maxlength="256" />
             </div>
         </div>
         <div class="field is-grouped">
@@ -15,7 +15,7 @@
                 </button>
             </span>
             <span class="control">
-                <button class="button" :disabled="loading" @click="$emit('cancel')">
+                <button class="button" :disabled="loading" @click="cancel()">
                     Cancel
                 </button>
             </span>
@@ -48,6 +48,11 @@ export default Vue.component('profile-bio', {
             this.loading = true
             this.$emit('save', this.bioPayload, this.complete, this.error)
         },
+        cancel: function() {
+            // Reset the bio to the original
+            this.bioPayload = this.bio
+            this.$emit('cancel')
+        },
         complete: function() {
             this.loading = false
         },
@@ -57,7 +62,3 @@ export default Vue.component('profile-bio', {
     }
 })
 </script>
-
-<style>
-
-</style>

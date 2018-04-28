@@ -14,8 +14,8 @@
 
         <thread-editor v-if="editMode" :board="board" :thread="thread" @close="updateThread()" />
 
-        <sliding-drawer v-if="!editMode" :drawer-open="drawerOpen" :refresh="refresh" @refreshed="refresh = false" classes="content">
-            <article>{{ thread.content }}</article>
+        <sliding-drawer :hidden="editMode" :drawer-open="drawerOpen" :refresh="refresh" @refreshed="refresh = false" classes="content">
+            <article class="can-edit can-break">{{ thread.content }}</article>
         </sliding-drawer>
     </div>
 </template>
@@ -77,14 +77,12 @@ export default Vue.component('thread-card', {
             }
         },
         editThread: function() {
-            this.drawerOpen = false
+            this.drawerOpen = true
             this.editMode = true
         },
         updateThread: function() {
             this.editMode = false
-            // We need to allow editMode = false to affect
-            // the sliding-drawer's v-if
-            Vue.nextTick(() => (this.drawerOpen = true))
+            this.drawerOpen = true
         },
         archiveThread: async function() {}
     }
@@ -107,5 +105,4 @@ export default Vue.component('thread-card', {
 
 .box.grid .content
     grid-area: content
-
 </style>

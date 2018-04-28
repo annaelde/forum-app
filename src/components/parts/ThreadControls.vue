@@ -1,7 +1,7 @@
 <template>
     <div class="controls">
         <div>
-            <button v-if="this.$route.name !== 'thread'" @click="$emit('toggle')" class="button">
+            <button :disabled="disabled" v-if="this.$route.name !== 'thread'" @click="$emit('toggle')" class="button">
                 <span class="icon">
                     <i class="fa" :class="{'fa-plus' : !drawerOpen, 'fa-minus' : drawerOpen}">
                         <span class="is-accessible" v-if="!drawerOpen">Open</span>
@@ -9,14 +9,14 @@
                     </i>
                 </span>
             </button>
-            <button class="button">
+            <button :disabled="disabled" class="button">
                 <span class="icon">
                     <i class="fa fa-bookmark">
                         <span class="is-accessible">Bookmark</span>
                     </i>
                 </span>
             </button>
-            <button class="button">
+            <button :disabled="disabled" class="button">
                 <span class="icon">
                     <i class="fa fa-link">
                         <span class="is-accessible">Copy Link</span>
@@ -25,21 +25,21 @@
             </button>
         </div>
         <div v-if="editAllowed">
-            <button @click="$emit('edit')" class="button">
+            <button :disabled="disabled" @click="$emit('edit')" class="button">
                 <span class="icon">
                     <i class="fa fa-pencil">
                         <span class="is-accessible">Edit</span>
                     </i>
                 </span>
             </button>
-            <button @click="$emit('archive')" class="button">
+            <button :disabled="disabled" @click="$emit('archive')" class="button">
                 <span class="icon">
                     <i class="fa fa-archive">
                         <span class="is-accessible">Archive</span>
                     </i>
                 </span>
             </button>
-            <button @click="$emit('delete')" class="button">
+            <button :disabled="disabled" @click="$emit('delete')" class="button">
                 <span class="icon">
                     <i class="fa fa-trash">
                         <span class="is-accessible">Delete</span>
@@ -55,12 +55,18 @@ export default Vue.component('thread-controls', {
     props: {
         editAllowed: {
             type: Boolean,
-            required: true
+            required: false,
+            default: false
         },
         drawerOpen: {
             type: Boolean,
             required: false,
             default: true
+        },
+        disabled: {
+            type: Boolean,
+            required: false,
+            default: false
         }
     }
 })
