@@ -128,6 +128,7 @@ export default Vue.component('thread-editor', {
 .title.input
     padding: 0
     border-width: 0 0 1px 0
+    border-bottom-style: dashed;
     margin: 0 0 -1px 0
     height: 2.3rem
     box-shadow: none
@@ -139,4 +140,7 @@ export default Vue.component('thread-editor', {
     margin-top: 16px
     margin-bottom: 16px
 
+.textarea
+    border-style: dashed;
+    box-shadow: none;
 </style>
