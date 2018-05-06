@@ -1,21 +1,29 @@
 from rest_framework.serializers import (DateTimeField, ModelSerializer,
-                                        PrimaryKeyRelatedField)
+                                        PrimaryKeyRelatedField, SerializerMethodField)
 
 from threads.models import Post
 from threads.serializers import PostSerializer
 from .models import User
 
 
-class PublicUserSerializer(ModelSerializer):
+class BaseUserSerializer(ModelSerializer):
     posts = PostSerializer(many=True)
+    avatar = SerializerMethodField()
+
+    def get_avatar(self, profile):
+        return profile.avatar.url
 
     class Meta:
-        model=User
-        fields=('username', 'date_joined', 'posts', 'bio')
+        model = User
 
-class PrivateUserSerializer(ModelSerializer):
-    posts = PostSerializer(many=True)
+class PublicUserSerializer(BaseUserSerializer):
 
-    class Meta:
-        model=User
-        fields=('username','email', 'date_joined', 'last_login', 'posts', 'bio')
+    class Meta(BaseUserSerializer.Meta):
+        fields = ('username', 'avatar', 'date_joined', 'posts', 'bio')
+
+
+class PrivateUserSerializer(BaseUserSerializer):
+
+    class Meta(BaseUserSerializer.Meta):
+        fields = ('username', 'avatar', 'email',
+                  'date_joined', 'last_login', 'posts', 'bio')

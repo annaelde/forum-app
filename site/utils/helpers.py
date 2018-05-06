@@ -10,6 +10,9 @@ from django.core.files.base import ContentFile
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.template.defaultfilters import slugify
 
+from PIL import Image
+
+
 def crop_thumbnail(original: Image, target_width: float, target_height: float) -> Image:
     """
     Resizes and crops a thumbnail to the desired measurements
@@ -22,15 +25,18 @@ def crop_thumbnail(original: Image, target_width: float, target_height: float) -
         crop_height = target_height / scale
         crop_width = original.width
         margin = (original.height - crop_height) / 2
-        original = original.crop(roundTuple(0, margin, crop_width, margin + crop_height,))
+        original = original.crop(roundTuple(
+            0, margin, crop_width, margin + crop_height,))
     elif target_ratio < original_ratio:
         scale = target_height / original.height
         crop_height = original.height
         crop_width = target_width / scale
         margin = (original.width - crop_width) / 2
-        original = original.crop(roundTuple(margin, 0, margin + crop_width, crop_height,))
-        
+        original = original.crop(roundTuple(
+            margin, 0, margin + crop_width, crop_height,))
+
     return original.resize((target_width, target_height,), Image.ANTIALIAS)
+
 
 def create_thumbnail(instance: object, height: float, width: float):
     """
