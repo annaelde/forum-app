@@ -58,8 +58,7 @@ export default {
 </script>
 
 <style lang="sass">
-@import "~bulma/bulma"
-@import "styles/main"
+@import "~styles/main"
 
 $ratio: 1.777
 

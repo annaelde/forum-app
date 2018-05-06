@@ -9,8 +9,7 @@ module.exports = {
         filename: 'build.js'
     },
     module: {
-        rules: [
-            {
+        rules: [{
                 test: /\.vue$/,
                 loader: 'vue-loader',
                 options: {
@@ -27,7 +26,14 @@ module.exports = {
             {
                 test: /\.js$/,
                 exclude: /node_modules/,
-                use: [{ loader: 'babel-loader' }, { loader: 'ifdef-loader', options: { DEVELOPMENT: process.env.NODE_ENV === 'development' } }]
+                use: [{
+                    loader: 'babel-loader'
+                }, {
+                    loader: 'ifdef-loader',
+                    options: {
+                        DEVELOPMENT: process.env.NODE_ENV === 'development'
+                    }
+                }]
             },
             {
                 test: /\.(png|jpg|gif|svg)$/,
@@ -43,20 +49,21 @@ module.exports = {
         ]
     },
     resolve: {
-        extensions: ['*', '.js', '.vue', '.json'],
+        extensions: ['*', '.js', '.vue', '.json', '.sass'],
         modules: [path.join(__dirname, 'src'), 'node_modules'],
         alias: {
             vue$: 'vue/dist/vue.esm.js',
-            '@abstract':  path.resolve('./src/components/abstract'),
-            '@containers':  path.resolve('./src/components/containers'),
-            '@layout':  path.resolve('./src/components/layout'),
-            '@parts':  path.resolve('./src/components/parts'),
-            '@sidebars':  path.resolve('./src/components/sidebars'),
-            '@views':  path.resolve('./src/components/views'),
+            '@abstract': path.resolve('./src/components/abstract'),
+            '@containers': path.resolve('./src/components/containers'),
+            '@layout': path.resolve('./src/components/layout'),
+            '@parts': path.resolve('./src/components/parts'),
+            '@sidebars': path.resolve('./src/components/sidebars'),
+            '@views': path.resolve('./src/components/views'),
             '@libs': path.resolve('./src/libs'),
             '@store': path.resolve('./src/store'),
-            '@utils': path.resolve('./src/utils'), 
-            '@npm': path.resolve('node_modules')
+            '@utils': path.resolve('./src/utils'),
+            '@npm': path.resolve('node_modules'),
+            'styles': path.resolve('./src/styles')
         }
     },
     devServer: {
