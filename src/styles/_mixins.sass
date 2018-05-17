@@ -1,0 +1,45 @@
+=icon-base($svg)
+    background-image: url($svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 1em;
+    content: '';
+    display: inline;
+    font-size: 1em;
+    height: 1em;
+    padding: .6em;
+    width: 1em;
+
+=break($device)
+	@if $device == huge
+		@media #{$huge_device}
+			@content;
+	@else if $device == large
+		@media #{$large_device}
+			@content;
+	@else if $device == medium
+		@media #{$medium_device}
+			@content;
+	@else if $device == small
+		@media #{$small_device}
+			@content;
+	@else if $device == tiny
+		@media #{$tiny_device}
+			@content;
+
+=tweak($device, $amount)
+	@if $device == huge
+		@media screen and (min-width: ($huge_width + calc-em($amount)))
+			@content;
+	@else if $device == large
+		@media screen and (max-width: ($large_width + calc-em($amount)))
+			@content;
+	@else if $device == medium
+		@media screen and (max-width: ($medium_width + calc-em($amount)))
+			@content;
+	@else if $device == small
+		@media screen and (max-width: ($small_width + calc-em($amount)))
+			@content;
+	@else if $device == tiny
+		@media screen and (max-width: ($tiny_width + calc-em($amount)))
+			@content;

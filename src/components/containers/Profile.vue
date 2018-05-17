@@ -2,8 +2,7 @@
     <div class="view">
         <profile-view v-if="ready" :user="user" :threads="threads" />
         <profile-sidebar v-if="ready" :user="user" :is-me="user.username === me">
-            <profile-controls @editBio="edit = !edit" />
-            <profile-bio @save="setBio" @cancel="edit = false" :bio="user.bio" :edit="edit" />
+            <profile-bio @save="setBio" @cancel="edit = false" :bio="user.bio" :edit="edit" :is-me="user.username === me"/>
         </profile-sidebar>
     </div>
 </template>
@@ -15,13 +14,15 @@ import '@parts/ProfileControls'
 import '@views/ProfileView'
 import '@parts/ProfileBio'
 import '@sidebars/ProfileSidebar'
+import '@abstract/FileUpload'
 
 export default Vue.component('profile', {
     data() {
         return {
             user: null,
             edit: false,
-            ready: false
+            ready: false,
+            avatar: false
         }
     },
     computed: {
@@ -61,6 +62,23 @@ export default Vue.component('profile', {
                     callError()
                 }
             })
+        },
+        pickAvatar: async function(e) {
+            if (!this.avatar) {
+                this.avatar = true
+            } else if (e) {
+                await request({
+                    method: 'patch',
+                    url: `users/${this.$route.params.username}`,
+                    payload: { avatar: e[0] },
+                    complete: () => {
+                        this.avatar = false
+                    },
+                    error: () => {
+                        this.avatar = false
+                    }
+                })
+            }
         }
     }
 })

@@ -1,11 +1,15 @@
 <template>
-    <div v-if="!edit">
-        <p class="can-edit">{{ bio }}</p>
+    <div v-if="!edit" @click="toggle()" @keyup.enter="toggle()" tabindex="0">
+        <div class="can-edit" :class="{ 'show-icon': isMe }">
+            <p class="content">
+                {{ bio }}
+            </p>
+        </div>
     </div>
     <div v-else>
         <div class="field">
             <div class="control">
-                <textarea v-if="edit" v-model="bioPayload" class="textarea" maxlength="256" />
+                <textarea v-if="edit" v-model="payload" class="textarea" maxlength="256" />
             </div>
         </div>
         <div class="field is-grouped">
@@ -31,29 +35,34 @@ export default Vue.component('profile-bio', {
             required: false,
             default: ''
         },
-        edit: {
+        isMe: {
             type: Boolean,
-            required: true,
-            default: false
+            required: true
         }
     },
     data() {
         return {
-            bioPayload: this.bio,
+            payload: this.bio,
+            edit: false,
             loading: false
         }
     },
     methods: {
+        toggle: function() {
+            if (this.isMe) this.edit = true
+        },
         submit: function() {
             this.loading = true
-            this.$emit('save', this.bioPayload, this.complete, this.error)
+            this.$emit('save', this.payload, this.complete, this.error)
         },
         cancel: function() {
             // Reset the bio to the original
-            this.bioPayload = this.bio
+            this.edit = false
+            this.payload = this.bio
             this.$emit('cancel')
         },
         complete: function() {
+            this.edit = false
             this.loading = false
         },
         error: function() {

@@ -6,7 +6,7 @@
             </span>
             <span>Edit Bio</span>
         </button>
-        <button class="control-bar__button button">
+        <button class="control-bar__button button" @click="$emit('pickAvatar')">
             <span class="icon is-small">
                 <i class="fa fa-camera-retro" />
             </span>
