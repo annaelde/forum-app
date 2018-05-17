@@ -1,5 +1,6 @@
-var path = require('path')
-var webpack = require('webpack')
+const path = require('path')
+const webpack = require('webpack')
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 module.exports = {
     entry: ['babel-polyfill', './src/main.js'],
@@ -9,19 +10,10 @@ module.exports = {
         filename: 'build.js'
     },
     module: {
-        rules: [{
+        rules: [
+            {
                 test: /\.vue$/,
-                loader: 'vue-loader',
-                options: {
-                    loaders: {
-                        // Since sass-loader (weirdly) has SCSS as its default parse mode, we map
-                        // the "scss" and "sass" values for the lang attribute to the right configs here.
-                        // other preprocessors should work out of the box, no loader config like this necessary.
-                        scss: 'vue-style-loader!css-loader!sass-loader',
-                        sass: 'vue-style-loader!css-loader!sass-loader?indentedSyntax'
-                    }
-                    // other vue-loader options go here
-                }
+                loader: 'vue-loader'
             },
             {
                 test: /\.js$/,
@@ -41,6 +33,45 @@ module.exports = {
                 options: {
                     name: '[name].[ext]?[hash]'
                 }
+            },
+            {
+                test: /\.scss$/,
+                use: [
+                    'vue-style-loader',
+                    'css-loader',
+                    'sass-loader'
+                ]
+            },
+            {
+                test: /\.(sass)$/,
+                use: [
+                    'vue-style-loader',
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            url: false
+                        }
+                    },
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            ident: 'postcss',
+                            plugins: [
+                                require('postcss-base64')({
+                                    pattern: /<svg.*<\/svg>/i,
+                                    prepend: 'data:image/svg+xml;base64,'
+                                })
+                            ]
+                        }
+                    },
+                    {
+                        loader: 'sass-loader',
+                        options: {
+                            url: false,
+                            indentedSyntax: true
+                        }
+                    }
+                ]
             },
             {
                 test: /\.(eot|svg|ttf|woff(2)?)(\?v=\d+\.\d+\.\d+)?/,
@@ -99,6 +130,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 module.exports.plugins = (module.exports.plugins || []).concat([
+    new VueLoaderPlugin(),
     new webpack.ProvidePlugin({
         Vue: ['vue/dist/vue.esm.js', 'default']
     })
