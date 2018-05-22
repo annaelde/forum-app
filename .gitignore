@@ -21,3 +21,4 @@ assets/static/admin
 assets/static/rest_framework
 requests.http
 assets/media/avatars
+site/settings/prod.json

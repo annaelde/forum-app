@@ -1,0 +1,10 @@
+{
+    "FILENAME": "dev.json",
+    "SECRET_KEY": "apqknfi-3q=jf+3h^5y&i14wr$g8=k+32%cjtm^#%2i+i#651e",
+    "DATABASE_CONFIG": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "forum",
+        "USER" : "anna",
+        "PASSWORD" : "default"
+    }
+}
