@@ -1,11 +1,10 @@
 <template>
     <div>
         <the-header/>
-
-        <progress-bar :progress="progress" />
+        <progress-bar :progress="progress" :error="!!error" />
 
         <transition name="fade" mode="out-in" appear>
-            <router-view v-if="!error" />
+            <router-view v-if="!error" @progress="update" />
         </transition>
 
         <transition name="balloon">
@@ -13,15 +12,13 @@
                 <error-message :response="error" />
             </div>
         </transition>
-
         <the-footer/>
     </div>
 </template>
 
 <script>
+import TWEEN from '@tweenjs/tween.js'
 import { mapState } from 'vuex'
-
-import { tweenState } from './libs/tween'
 import { getToken } from './libs/store'
 
 import './components/layout/TheHeader'
@@ -40,19 +37,28 @@ export default {
     computed: {
         ...mapState({
             error: state => state.error,
-            state: state => state.machine.state
         })
-    },
-    watch: {
-        state: function(newState, oldState) {
-            tweenState(newState, oldState, value => {
-                this.progress = parseFloat(value)
-            })
-        }
     },
     created: async function() {
         await this.$store.dispatch('user/restore', getToken())
         this.ready = true
+    },
+    methods: {
+        update: function(value) {
+            function animate() {
+                if (TWEEN.update()) {
+                    requestAnimationFrame(animate)
+                }
+            }
+            new TWEEN.Tween({ x: this.progress })
+                .easing(TWEEN.Easing.Quadratic.Out)
+                .to({ x: value }, 500)
+                .onUpdate(object => {
+                    this.progress = parseFloat(object.x.toFixed(0))
+                })
+                .start()
+            animate()
+        }
     }
 }
 </script>

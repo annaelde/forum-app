@@ -1,7 +1,7 @@
 <template>
     <div class="progress-container">
         <transition name="fade-out" appear>
-            <progress v-show="progress != 100" class="progress is-info is-small is-radiusless" :value="progress" max="100" />
+            <progress v-show="progress !== 100 || error" :value="progress" :class="{'is-info': !error, 'is-error': error }" class="progress is-small is-radiusless" max="100" />
         </transition>
     </div>
 </template>
@@ -11,6 +11,10 @@ export default Vue.component('progress-bar', {
     props: {
         progress: {
             type: Number,
+            required: true
+        },
+        error: {
+            type: Boolean,
             required: true
         }
     }
