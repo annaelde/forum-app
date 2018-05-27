@@ -36,6 +36,10 @@ export default Vue.component('profile-sidebar', {
 
 <style lang="sass" scoped>
 @import "~styles/main"
+
+.sidebar
+    max-width: 400px
+
 .avatar
     height: 128px
     width: 128px
