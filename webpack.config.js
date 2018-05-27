@@ -111,7 +111,9 @@ module.exports = {
     },
     devServer: {
         contentBase: assetPath,
-        historyApiFallback: true,
+        historyApiFallback: {
+            index: 'index.html'
+        },
         overlay: true
     },
     performance: {
