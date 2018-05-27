@@ -11,16 +11,24 @@ const http = {
             setTimeout(() => {
                 // The endpoint will be in the first capture group, with
                 // params in the second
-                let regex = /(boards)\/$|(boards)\/(\w*)\/(threads)|(boards)\/(\w*)|(users)\/(\w*)|(forum)/
+                let regex = /(boards)\/$|(boards)\/(\w*)\/(threads)\/(\w*)\/(\S*)\/|(boards)\/(\w*)\/(threads)|(boards)\/(\w*)|(users)\/(\w*)|(forum)/
                 let result = endpoint.match(regex)
+                console.log(endpoint)
                 let matches = result.slice(1, result.length)
                 matches = matches.filter(match => match)
+                console.log(matches)
                 switch (matches[0]) {
                     case 'users':
                         resolve(getUser({ username: matches[1] }))
                         break
                     case 'boards':
-                        if (matches[1] && matches[2]) {
+                        if (matches[1] && matches[2] && matches[3]) {
+                            try {
+                                resolve(getThread({ slug: matches[4] }))
+                            } catch(e) {
+                                throw Error(e)
+                            }
+                        } else if (matches[1] && matches[2]) {
                             try {
                                 resolve(getThreads({ slug: matches[1] }))
                             } catch(e) {
@@ -75,6 +83,12 @@ function getBoard({ slug }) {
 function getBoards() {
     return {
         data: boards
+    }
+}
+
+function getThread({ slug }) {
+    return {
+        data: threads.find(thread => thread.slug === slug)
     }
 }
 
