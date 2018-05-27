@@ -2,12 +2,20 @@ const path = require('path')
 const webpack = require('webpack')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
+const appDir = 'src/'
+const assetDir = 'assets/'
+const buildDir = path.join(assetDir, 'dist/')
+
+const assetPath = path.resolve(__dirname, assetDir)
+const appPath = path.resolve(__dirname, appDir)
+const buildPath = path.resolve(__dirname, buildDir)
+
 module.exports = {
-    entry: ['babel-polyfill', './src/main.js'],
+    entry: ['babel-polyfill', path.join(appPath, '/main.js')],
     output: {
-        path: path.resolve(__dirname, './assets/dist'),
-        publicPath: '/assets/dist/',
-        filename: 'build.js'
+        path: buildPath,
+        publicPath: assetDir,
+        filename: 'dist/build.js'
     },
     module: {
         rules: [
@@ -23,7 +31,10 @@ module.exports = {
                 }, {
                     loader: 'ifdef-loader',
                     options: {
-                        DEVELOPMENT: process.env.NODE_ENV === 'development'
+                        'ifdef-verbose': true,
+                        DEVELOPMENT: process.env.NODE_ENV === 'development',
+                        MOCK: process.env.SERVER_ENV === 'mock',
+                        DJANGO: process.env.SERVER_ENV === 'django'
                     }
                 }]
             },
@@ -81,25 +92,26 @@ module.exports = {
     },
     resolve: {
         extensions: ['*', '.js', '.vue', '.json', '.sass'],
-        modules: [path.join(__dirname, 'src'), 'node_modules'],
+        modules: [appPath, 'node_modules'],
         alias: {
             vue$: 'vue/dist/vue.esm.js',
-            '@abstract': path.resolve('./src/components/abstract'),
-            '@containers': path.resolve('./src/components/containers'),
-            '@layout': path.resolve('./src/components/layout'),
-            '@parts': path.resolve('./src/components/parts'),
-            '@sidebars': path.resolve('./src/components/sidebars'),
-            '@views': path.resolve('./src/components/views'),
-            '@libs': path.resolve('./src/libs'),
-            '@store': path.resolve('./src/store'),
-            '@utils': path.resolve('./src/utils'),
-            '@npm': path.resolve('node_modules'),
-            'styles': path.resolve('./src/styles')
+            '@mock': path.join(appPath, 'mock'),
+            '@abstract': path.join(appPath, 'components/abstract'),
+            '@containers': path.join(appPath, 'components/containers'),
+            '@layout': path.join(appPath, 'components/layout'),
+            '@parts': path.join(appPath, 'components/parts'),
+            '@sidebars': path.join(appPath, 'components/sidebars'),
+            '@views': path.join(appPath, 'components/views'),
+            '@libs': path.join(appPath, 'libs'),
+            '@store': path.join(appPath, 'store'),
+            '@utils': path.join(appPath, 'utils'),
+            '@npm': path.resolve(__dirname, 'node_modules'),
+            'styles': path.join(appPath, 'styles')
         }
     },
     devServer: {
+        contentBase: assetPath,
         historyApiFallback: true,
-        noInfo: true,
         overlay: true
     },
     performance: {
@@ -110,17 +122,14 @@ module.exports = {
 
 if (process.env.NODE_ENV === 'production') {
     module.exports.devtool = '#source-map'
+    module.exports.optimization = {
+        minimize: true
+    }
     // http://vue-loader.vuejs.org/en/workflow/production.html
     module.exports.plugins = (module.exports.plugins || []).concat([
         new webpack.DefinePlugin({
             'process.env': {
                 NODE_ENV: '"production"'
-            }
-        }),
-        new webpack.optimize.UglifyJsPlugin({
-            sourceMap: true,
-            compress: {
-                warnings: false
             }
         }),
         new webpack.LoaderOptionsPlugin({
