@@ -6,6 +6,7 @@
   "private": true,
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack --watch --hot --mode=development",
+    "mock": "cross-env NODE_ENV=development SERVER_ENV=mock webpack-dev-server --watch --hot --mode=development",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules --mode=production"
   },
   "dependencies": {
@@ -14,6 +15,7 @@
     "bulma": "^0.7.1",
     "font-awesome": "^4.7.0",
     "lodash": "*",
+    "lorem-ipsum": "^1.0.4",
     "moment": "^2.22.1",
     "store": "^2.0.12",
     "vue": "^2.5.16",
