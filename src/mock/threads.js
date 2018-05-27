@@ -5,7 +5,7 @@ const threads = [{
     title: 'Mock Thread 1',
     content: '',
     author: 'testUser1',
-    board: '',
+    board: 'computers',
     slug: 'mock-thread-1',
     key: 'ae498'
 }, {
@@ -13,7 +13,7 @@ const threads = [{
     title: 'Mock Thread 2',
     content: '',
     author: 'testUser2',
-    board: '',
+    board: 'news',
     slug: 'mock-thread-2',
     key: 'ae498'
 }, {
@@ -21,7 +21,7 @@ const threads = [{
     title: 'Mock Thread 3',
     content: '',
     author: 'testUser3',
-    board: '',
+    board: 'comics',
     slug: 'mock-thread-3',
     key: 'ae498'
 }, {
@@ -29,7 +29,7 @@ const threads = [{
     title: 'Mock Thread 4',
     content: '',
     author: 'testUser4',
-    board: '',
+    board: 'flowers',
     slug: 'mock-thread-4',
     key: 'ae498'
 }, {
@@ -37,7 +37,7 @@ const threads = [{
     title: 'Mock Thread 5',
     content: '',
     author: 'testUser5',
-    board: '',
+    board: 'flowers',
     slug: 'mock-thread-5',
     key: 'ae498'
 }]
