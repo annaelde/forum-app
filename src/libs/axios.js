@@ -1,12 +1,16 @@
 import axios from 'axios'
 import { forEach } from 'lodash'
-
+/// #if MOCK
+import mock from '@mock/server'
+export const http = mock
+/// #else
 export const http = axios.create({
     /// #if DEVELOPMENT
     baseURL: 'http://localhost:8000/api/',
     withCredentials: true
     /// #endif
 })
+/// #endif
 
 export function setHeader(key, value) {
     http.defaults.headers.common[key] = value
