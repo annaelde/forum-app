@@ -9,14 +9,12 @@ const http = {
     get: (endpoint, payload) => {
         return new Promise(resolve => {
             setTimeout(() => {
-                console.log(endpoint)
                 // The endpoint will be in the first capture group, with
                 // params in the second
                 let regex = /(boards)\/$|(boards)\/(\w*)\/(threads)|(boards)\/(\w*)|(users)\/(\w*)|(forum)/
                 let result = endpoint.match(regex)
                 let matches = result.slice(1, result.length)
                 matches = matches.filter(match => match)
-                console.log(matches)
                 switch (matches[0]) {
                     case 'users':
                         resolve(getUser({ username: matches[1] }))
@@ -57,7 +55,8 @@ const http = {
 
 function getUser({ username }) {
     let user = users.find(user => user.username === username)
-    user.threads = cloneDeep(threads).filter(thread => thread.author === username)
+    user.posts = cloneDeep(threads)
+    user.posts.forEach(thread => thread.author = username)
     return {
         data: user
     }
@@ -81,7 +80,6 @@ function getBoards() {
 
 function getThreads({ slug }) {
     let list = cloneDeep(threads)
-    console.log(list)
     list.forEach(item => item.board = slug)
     return { 
         data: list
