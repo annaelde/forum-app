@@ -25,10 +25,10 @@ export default Vue.component('forum', {
         error: 'GET_ERROR'
     }),
     async created() {
-        this.$emit('progress', 30)
+        this.$emit('progress', 0)
         await this.$store.dispatch('forum/loadBoards')
             .then(() => {
-                this.$emit('progress', 60)
+                this.$emit('progress', 50)
                 this.ready.view = true
             })
         if (!this.error) await this.$store.dispatch('forum/loadStats')

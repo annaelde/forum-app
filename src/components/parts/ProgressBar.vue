@@ -1,6 +1,6 @@
 <template>
     <div class="progress-container">
-        <transition name="fade-out" appear>
+        <transition name="fade" appear>
             <progress v-show="progress !== 100 || error" :value="progress" :class="{'is-info': !error, 'is-error': error }" class="progress is-small is-radiusless" max="100" />
         </transition>
     </div>

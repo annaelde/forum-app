@@ -35,7 +35,10 @@ export default Vue.component('profile', {
         })
     },
     async created() {
-        await this.setUser()
+        this.$emit('progress', 0)        
+        await this.setUser().then(() => {
+            this.$emit('progress', 100)            
+        })
     },
     methods: {
         setUser: async function() {

@@ -1,7 +1,7 @@
 <template>
     <div class="view">
-        <board-view :threads="threads" :board="board.slug" />
-        <board-sidebar :board="board" :authenticated="authenticated" />
+        <board-view v-if="ready.view" :threads="threads" :board="board.slug" />
+        <board-sidebar v-if="ready.sidebar" :board="board" :authenticated="authenticated" />
     </div>
 </template>
 
@@ -11,18 +11,38 @@ import '../sidebars/BoardSidebar'
 import { mapGetters } from 'vuex'
 
 export default Vue.component('board', {
+    data: function() {
+        return {
+            ready: {
+                view: false,
+                sidebar: false
+            }
+        }
+    },
     computed: mapGetters({
         board: 'board/GET_CURRENT',
         threads: 'board/GET_THREADS',
         authenticated: 'user/GET_AUTHENTICATION'
     }),
     async created() {
-        await this.$store.dispatch('board/loadBoard', { board: this.$route.params.board, chain: true })
-        await this.$store.dispatch('board/loadThreads')
+        this.$emit('progress', 0)
+        await this.$store
+            .dispatch('board/loadBoard', {
+                board: this.$route.params.board,
+                chain: true
+            })
+            .then(() => {
+                this.$emit('progress', 50)
+                this.ready.view = true
+            })
+        if (!this.error)
+            await this.$store.dispatch('board/loadThreads').then(() => {
+                this.$emit('progress', 100)
+                this.ready.sidebar = true
+            })
     }
 })
 </script>
 
 <style>
-
 </style>

@@ -36,7 +36,7 @@ export default {
     },
     computed: {
         ...mapState({
-            error: state => state.error,
+            error: state => state.error
         })
     },
     created: async function() {
@@ -50,14 +50,20 @@ export default {
                     requestAnimationFrame(animate)
                 }
             }
-            new TWEEN.Tween({ x: this.progress })
-                .easing(TWEEN.Easing.Quadratic.Out)
-                .to({ x: value }, 500)
-                .onUpdate(object => {
-                    this.progress = parseFloat(object.x.toFixed(0))
-                })
-                .start()
-            animate()
+
+            if (value === 0) {
+                // don't tween back to zero
+                this.progress = 0
+            } else {
+                new TWEEN.Tween({ x: this.progress })
+                    .easing(TWEEN.Easing.Quadratic.Out)
+                    .to({ x: value }, 500)
+                    .onUpdate(object => {
+                        this.progress = parseFloat(object.x.toFixed(0))
+                    })
+                    .start()
+                animate()
+            }
         }
     }
 }
