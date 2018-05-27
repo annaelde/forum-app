@@ -35,11 +35,12 @@ export default Vue.component('board', {
                 this.$emit('progress', 50)
                 this.ready.view = true
             })
-        if (!this.error)
+        if (!this.error) {
             await this.$store.dispatch('board/loadThreads').then(() => {
                 this.$emit('progress', 100)
                 this.ready.sidebar = true
             })
+        }
     }
 })
 </script>
