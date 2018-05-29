@@ -28,6 +28,9 @@ const forum = {
                 mutations: ['SET_STATS'],
                 root: true
             })
+        },
+        async removeBoard(context, { slug }) {
+            context.commit('REMOVE_BOARD', slug)
         }
     },
     getters: {
@@ -40,6 +43,9 @@ const forum = {
         },
         SET_STATS(state, stats) {
             state.stats = stats
+        },
+        REMOVE_BOARD(state, slug) { 
+            state.boards = state.boards.filter(board => board.slug !== slug)
         }
     }
 }

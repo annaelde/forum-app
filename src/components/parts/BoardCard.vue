@@ -4,7 +4,7 @@
             <p class="card-header-title">
                 {{ board.name }}
             </p>
-            <a href="#" class="card-header-icon" aria-label="more options">
+            <a class="card-header-icon" aria-label="more options" @click="$emit('remove', board.slug)">
                 <span class="icon">
                     <i class="fa fa-times" aria-hidden="true" />
                 </span>

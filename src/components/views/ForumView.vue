@@ -1,7 +1,7 @@
 <template>
     <main class="main">
         <div class="grid">
-            <board-card v-for="board in boards" :key="board.name" :board="board" />
+            <board-card v-for="board in boards" :key="board.name" :board="board" @remove="removeBoard" />
         </div>
     </main>
 </template>
@@ -14,6 +14,11 @@ export default Vue.component('forum-view', {
         boards: {
             type: Array,
             required: true
+        }
+    },
+    methods: {
+        removeBoard: function(boardName) {
+            this.$emit('remove', boardName)
         }
     }
 })

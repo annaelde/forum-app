@@ -1,6 +1,6 @@
 <template>
     <div class="view">
-        <forum-view v-if="ready.view" :boards="boards" />
+        <forum-view v-if="ready.view" :boards="boards" @remove="removeBoard" />
         <forum-sidebar v-if="ready.sidebar" :stats="stats" />
     </div>
 </template>
@@ -36,6 +36,11 @@ export default Vue.component('forum', {
                 this.$emit('progress', 100)
                 this.ready.sidebar = true
             })
+        }
+    },
+    methods: {
+        removeBoard: function (slug) {
+            this.$store.dispatch('forum/removeBoard', { slug })
         }
     }
 })
