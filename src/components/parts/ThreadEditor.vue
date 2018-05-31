@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="title field">
+        <div class="field">
             <div class="control">
                 <input type="text" class="title input" v-model="title">
             </div>
@@ -134,6 +134,7 @@ export default Vue.component('thread-editor', {
     box-shadow: none
 
 .subtitle
+    margin-top: -0.75rem
     margin-bottom: 0
 
 .controls
