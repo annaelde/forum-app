@@ -20,5 +20,6 @@ __pycache__/
 assets/static/admin
 assets/static/rest_framework
 requests.http
-assets/media/avatars
+assets/media/avatars/*
+!assets/media/avatars/avatar.jpg
 site/settings/prod.json
