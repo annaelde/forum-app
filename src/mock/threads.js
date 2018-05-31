@@ -37,8 +37,16 @@ const threads = [{
     title: 'Mock Thread 5',
     content: '',
     author: 'testUser5',
-    board: 'flowers',
+    board: 'computers',
     slug: 'mock-thread-5',
+    key: 'ae498'
+}, {
+    created: '2018-05-27T17:22:17+00:00',
+    title: 'Mock Thread 6',
+    content: '',
+    author: 'mockUser',
+    board: 'news',
+    slug: 'mock-thread-6',
     key: 'ae498'
 }]
 
