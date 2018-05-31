@@ -30,7 +30,7 @@
                 <a class="navbar-item">Browse</a>
             </div>
             <div v-if="auth" class="navbar-end" key="user">
-                <a class="navbar-item">Profile</a>
+                <router-link :to="`/~${username}`" class="navbar-item">Profile</router-link>
                 <a class="navbar-item">Bookmarks</a>
                 <a class="navbar-item" @click="logout">Logout</a>
             </div>
