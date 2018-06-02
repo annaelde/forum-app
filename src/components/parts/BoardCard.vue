@@ -4,7 +4,7 @@
             <p class="card-header-title">
                 {{ board.name }}
             </p>
-            <a class="card-header-icon" aria-label="more options" @click="$emit('remove', board.slug)">
+            <a v-show="auth" class="card-header-icon" aria-label="more options" @click="$emit('remove', board.slug)">
                 <span class="icon">
                     <i class="fa fa-times" aria-hidden="true" />
                 </span>
@@ -16,7 +16,7 @@
             </div>
         </div>
         <footer class="card-footer">
-            <router-link to="" class="card-footer-item">
+            <router-link v-show="auth && mode !== 'forum'" to="" class="card-footer-item">
                 <span class="icon">
                     <i class="fa fa-thumb-tack" aria-hidden="true" />
                 </span>
@@ -43,6 +43,16 @@ export default Vue.component('board-card', {
                 description: '',
                 slug: ''
             })
+        },
+        auth: {
+            type: Boolean,
+            required: false,
+            default: false
+        },
+        mode: {
+            type: String,
+            required: false,
+            default: 'forum'
         }
     }
 })

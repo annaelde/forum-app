@@ -1,6 +1,6 @@
 <template>
     <div class="view">
-        <forum-view v-if="ready.view" :boards="boards" @remove="removeBoard" />
+        <forum-view v-if="ready.view" :auth="auth" :boards="boards" @remove="removeBoard" />
         <forum-sidebar v-if="ready.sidebar" :stats="stats" />
     </div>
 </template>
@@ -22,6 +22,7 @@ export default Vue.component('forum', {
     computed: mapGetters({
         boards: 'forum/GET_BOARDS',
         stats: 'forum/GET_STATS',
+        auth: 'user/GET_AUTHENTICATION',
         error: 'GET_ERROR'
     }),
     async created() {
