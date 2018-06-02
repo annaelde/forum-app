@@ -5,9 +5,9 @@ import threads from './threads'
 import boards from './boards'
 import stats from './stats'
 import cloneDeep from '@npm/lodash/cloneDeep'
+import slugify from '@npm/slugify'
+import randomString from '@npm/random-string'
 
-// The only state we'll store for this mock server 😉
-let userState = false
 const http = {
     defaults: {
         headers: {
@@ -15,20 +15,20 @@ const http = {
         }
     },
     post: (endpoint, payload) => {
-        return serve(endpoint, payload)
+        return serve(endpoint, payload, 'post')
     },
     get: (endpoint, payload) => {
-        return serve(endpoint, payload)
+        return serve(endpoint, payload, 'get')
     },
-    patch: () => {
-        return new Promise(resolve => setTimeout(() => resolve({ data: ''}), 1000))
+    patch: (endpoint, payload) => {
+        return serve(endpoint, payload, 'patch')
     },
-    delete: () => {
-        return new Promise(resolve => setTimeout(() => resolve({ data: ''}), 1000))
+    delete: (endpoint, payload) => {
+        return serve(endpoint, payload, 'delete')
     }
 }
 
-function serve(endpoint, payload) {
+function serve(endpoint, payload, method = 'get') {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
             // Capture the URL path, so we can return the appropriate response
@@ -46,7 +46,7 @@ function serve(endpoint, payload) {
                     }))
                     break
                 case 'boards':
-                    if (matches[1] && matches[2] && matches[3]) {
+                    if (matches[1] && matches[2] && matches[3]  && method === 'get') {
                         try {
                             resolve(getThread({
                                 slug: matches[4]
@@ -54,11 +54,28 @@ function serve(endpoint, payload) {
                         } catch (e) {
                             reject(e)
                         }
-                    } else if (matches[1] && matches[2]) {
+                    }  else if (matches[1] && matches[2] && matches[3]  && method === 'patch') {
+                        try {
+                            resolve(updateThread({ 
+                                ...payload, 
+                                board: matches[1], 
+                                key: matches[3], 
+                                slug: matches[4] 
+                            }))
+                        } catch (e) {
+                            reject(e)
+                        }
+                    } else if (matches[1] && matches[2] && method === 'get') {
                         try {
                             resolve(getThreads({
                                 slug: matches[1]
                             }))
+                        } catch (e) {
+                            reject(e)
+                        }
+                    } else if (matches[1] && matches[2] && method === 'post') {
+                        try {
+                            resolve(createThread(payload))
                         } catch (e) {
                             reject(e)
                         }
@@ -113,7 +130,7 @@ function serve(endpoint, payload) {
                     }
                     break
             }
-        }, 1000)
+        }, 400)
     })
 }
 
@@ -158,6 +175,43 @@ function getThread({
     }
 }
 
+function createThread({
+    author,
+    board,
+    title,
+    content
+}) {
+    let thread = {
+        author,
+        board,
+        title,
+        content,
+        created: '2018-05-27T17:22:17+00:00',
+        slug: slugify(title),
+        key: randomString({
+            length: 5
+        })
+    }
+    threads.push(thread)
+    return { 
+        data: thread
+    }
+}
+
+function updateThread({
+    key,
+    slug,
+    title,
+    content
+}) {
+    let thread = threads.find(thread => thread.key === key && thread.slug === slug)
+    thread.content = content
+    thread.title = title
+    return {
+        data: thread
+    }
+}
+
 function getThreads({
     slug
 }) {
@@ -179,13 +233,20 @@ function login({
     password
 }) {
     if (username === 'mockUser' && password === 'pass') {
-        userState = true
         return {
             data: {
                 auth_token: '012345'
             }
         }
-    } else {
+    } else if (users.find(user => user.username === username && user.password === password))
+    {
+        return {
+            data: {
+                auth_token: '012345'
+            }
+        }
+    } 
+    else {
         throw Error({
             response: 'Not Authorized'
         })
@@ -193,14 +254,22 @@ function login({
 }
 
 function logout() {
-    userState = false
     return {
         response: 'Success',
         data: ''
     }
 }
 
-function createUser() {}
+function createUser(payload) {
+    let user = { ...payload, 
+        data_joined: '2018-05-27T22:35:17+00:00', 
+        avatar: '/media/avatars/avatar.jpg'
+    }
+    users.push(user)
+    return {
+        data: user
+    }
+}
 
 function getProfile() {
     return {
