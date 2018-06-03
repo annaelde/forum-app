@@ -33,7 +33,7 @@ module.exports = {
                     options: {
                         'ifdef-verbose': true,
                         MOCK: process.env.SERVER_ENV === 'mock',
-                        PRODUCTION: process.env.SERVER_ENV === 'production',
+                        PRODUCTION: process.env.NODE_ENV === 'production',
                         DEVELOPMENT: process.env.NODE_ENV === 'development',
                         DJANGO: process.env.SERVER_ENV === 'django'
                     }
