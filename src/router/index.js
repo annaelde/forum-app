@@ -32,6 +32,9 @@ const routes = [
 
 const router = new Router({
     mode: 'history',
+    ///#if PRODUCTION
+    base: '/forum-app/',
+    ///#endif
     routes,
     scrollBehavior(to, from, savedPosition) {
         return savedPosition ? savedPosition : { x: 0, y: 0 }
