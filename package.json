@@ -8,7 +8,8 @@
     "dev": "cross-env NODE_ENV=development webpack --watch --hot --mode=development",
     "mock": "cross-env NODE_ENV=development SERVER_ENV=mock webpack-dev-server --watch --hot --mode=development",
     "gh-pages": "cross-env SERVER_ENV=mock NODE_ENV=production webpack --progress --hide-modules --mode=production",
-    "deploy": "npm run gh-pages && git commit -am \"deploying\" && git subtree push --prefix assets origin gh-pages",
+    "deploy:push": "git subtree push --prefix assets origin gh-pages",
+    "deploy:full": "npm run gh-pages && git commit -am \"deploying\" && npm run deploy:push",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules --mode=production"
   },
   "dependencies": {
