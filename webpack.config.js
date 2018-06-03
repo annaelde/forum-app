@@ -15,7 +15,7 @@ module.exports = {
     output: {
         path: buildPath,
         publicPath: assetDir,
-        filename: 'dist/build.js'
+        filename: 'build.js'
     },
     module: {
         rules: [

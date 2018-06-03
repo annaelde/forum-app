@@ -7,6 +7,7 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack --watch --hot --mode=development",
     "mock": "cross-env NODE_ENV=development SERVER_ENV=mock webpack-dev-server --watch --hot --mode=development",
+    "gh-pages": "cross-env NODE_ENV=production SERVER_ENV=mock webpack --progress --hide-modules --mode=production",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules --mode=production"
   },
   "dependencies": {
