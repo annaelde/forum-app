@@ -32,8 +32,8 @@ module.exports = {
                     loader: 'ifdef-loader',
                     options: {
                         'ifdef-verbose': true,
-                        DEVELOPMENT: process.env.NODE_ENV === 'development',
                         MOCK: process.env.SERVER_ENV === 'mock',
+                        DEVELOPMENT: process.env.NODE_ENV === 'development',
                         DJANGO: process.env.SERVER_ENV === 'django'
                     }
                 }]
@@ -134,9 +134,7 @@ if (process.env.NODE_ENV === 'production') {
                 NODE_ENV: '"production"'
             }
         }),
-        new webpack.LoaderOptionsPlugin({
-            minimize: true
-        })
+        new webpack.LoaderOptionsPlugin()
     ])
 }
 
