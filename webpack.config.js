@@ -111,7 +111,8 @@ module.exports = {
         }
     },
     devServer: {
-        contentBase: assetPath,
+        publicPath: '/dist/',
+        contentBase: path.join(__dirname, 'assets'),
         historyApiFallback: {
             index: 'index.html'
         },
