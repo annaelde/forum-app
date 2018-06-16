@@ -2,7 +2,7 @@ import loremIpsum from '@npm/lorem-ipsum'
 
 const threads = [{
     created: '2018-05-27T17:22:17+00:00',
-    title: 'Mock Thread 1',
+    title: 'Community feedback thread: Part 1',
     content: '',
     author: 'testUser1',
     board: 'computers',
@@ -10,7 +10,7 @@ const threads = [{
     key: 'ae498'
 }, {
     created: '2018-05-27T17:22:17+00:00',
-    title: 'Mock Thread 2',
+    title: 'What do you think about this?',
     content: '',
     author: 'testUser2',
     board: 'news',
@@ -18,7 +18,7 @@ const threads = [{
     key: 'ae498'
 }, {
     created: '2018-05-27T17:22:17+00:00',
-    title: 'Mock Thread 3',
+    title: 'Post your BEST links here',
     content: '',
     author: 'testUser3',
     board: 'comics',
@@ -26,7 +26,7 @@ const threads = [{
     key: 'ae498'
 }, {
     created: '2018-05-27T17:22:17+00:00',
-    title: 'Mock Thread 4',
+    title: 'Expert Here: Ask Me Whatever!',
     content: '',
     author: 'testUser4',
     board: 'flowers',
@@ -34,7 +34,7 @@ const threads = [{
     key: 'ae498'
 }, {
     created: '2018-05-27T17:22:17+00:00',
-    title: 'Mock Thread 5',
+    title: '[Serious Thread] Post Your Experiences',
     content: '',
     author: 'testUser5',
     board: 'computers',
@@ -42,7 +42,7 @@ const threads = [{
     key: 'ae498'
 }, {
     created: '2018-05-27T17:22:17+00:00',
-    title: 'Mock Thread 6',
+    title: 'I can\'t believe they finally did it..',
     content: '',
     author: 'mockUser',
     board: 'news',
@@ -51,8 +51,8 @@ const threads = [{
 }]
 
 threads.forEach(thread => thread.content = loremIpsum({
-    count: 256,
-    units: 'words'
+    count: 2,
+    units: 'paragraphs'
 }))
 
 export default threads

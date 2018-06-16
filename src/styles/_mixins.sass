@@ -43,3 +43,8 @@
 	@else if $device == tiny
 		@media screen and (max-width: ($tiny_width + calc-em($amount)))
 			@content;
+
+$ratio: (1: 1, 2: 1.2, 3: 1.44, 4: 1.728, 5: 2.074, 6: 2.488, 7: 2.986)
+
+=ratio($level)
+    map-get($ratio, $level)

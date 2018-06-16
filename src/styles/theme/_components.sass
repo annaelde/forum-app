@@ -1,0 +1,86 @@
+.navbar
+    background: transparent
+    
+    .navbar-menu &-item
+        display: relative
+        transform: scale(1)
+        transition: .3s transform
+
+        &::after
+            border: 1px solid #17BEBB;
+            content: "";
+            height: 1px;
+            width: 0;
+            transition: .3s width;
+            position: absolute;
+            left: calc(50% - (100% - 2em) / 2);
+            opacity: 0;
+            bottom: 1.2em;
+
+        &:hover
+            color: $dark
+            background: transparent
+            transform: scale(1.2)
+
+            &::after
+                width: calc(100% - 2em);
+                opacity: 1;
+
+    &-brand 
+        .icon
+            transition: .3s color, .3s transform
+
+        &:hover .icon
+            color: $yellow
+            transform: rotate(180deg)
+
+.footer
+    background: transparent
+    color: $light
+
+.card
+    background: transparent
+    border-radius: 1em
+    
+    & &-header
+        background: $blue
+        border:
+            top-left-radius: 1em
+            top-right-radius: 1em
+
+        &-title
+            color: $light
+
+        &-icon
+            color: $light
+            backface-visibility: hidden
+            filter: blur(0)
+            font-smoothing: subpixel-antialiased            
+            line-height: 1            
+            transform: translateZ(0)
+
+            &:hover
+                color: $light
+                animation: size-up .3s ease-in infinite alternate
+
+    & &-content
+        background: $light
+
+    & &-footer
+        // background: linear-gradient(135deg, $yellow 0%, $red 100%)     
+        background: $red       
+        border:
+            bottom-left-radius: 1em
+            bottom-right-radius: 1em
+
+        &-item
+            background: $yellow
+            border:
+                bottom-left-radius: 1em
+                bottom-right-radius: 1em
+            color: $light
+            transition: all .3s        
+
+            &:hover
+                background: transparent
+                color: $light

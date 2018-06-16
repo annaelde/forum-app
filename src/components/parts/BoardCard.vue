@@ -1,9 +1,9 @@
 <template>
     <div class="card">
         <header class="card-header">
-            <p class="card-header-title">
+            <h2 class="card-header-title">
                 {{ board.name }}
-            </p>
+            </h2>
             <a v-show="auth" class="card-header-icon" aria-label="more options" @click="$emit('remove', board.slug)">
                 <span class="icon">
                     <i class="fa fa-times" aria-hidden="true" />
