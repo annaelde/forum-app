@@ -28,12 +28,24 @@
 
     &-brand .navbar-item:first-child
         .icon
+            position: relative
             transition: .3s color, .3s transform
+        .icon::after
+            background: $yellow
+            content: ""
+            height: 1px
+            opacity: 0
+            position: absolute
+            top: 50%
+            width: 1px
 
-        &:hover .icon
-            color: $yellow
-            transform: rotate(180deg)
-
+        &:hover 
+            .icon
+                color: $yellow
+                transform: rotate(180deg)
+            .icon::after
+                opacity: 1
+                animation: 2s move-down infinite
 .footer
     background: transparent
     color: $light
