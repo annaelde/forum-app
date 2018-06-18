@@ -1,5 +1,5 @@
 <template>
-    <div class="card">
+    <router-link :to="`_${board.slug}`" class="card">
         <header class="card-header">
             <h2 class="card-header-title">
                 {{ board.name }}
@@ -16,20 +16,26 @@
             </div>
         </div>
         <footer class="card-footer">
-            <router-link v-show="auth && mode !== 'forum'" to="" class="card-footer-item">
+            <div class="card-footer-item">
                 <span class="icon">
-                    <i class="fa fa-thumb-tack" aria-hidden="true" />
+                    <i class="fa fa-users" aria-hidden="true"/>
                 </span>
-                <span>Pin</span>
-            </router-link>
-            <router-link :to="`_${board.slug}`" class="card-footer-item">
+                <span>{{ board.userCount | shortCount }}</span>
+            </div>
+            <div class="card-footer-item">
                 <span class="icon">
-                    <i class="fa fa-sign-in" aria-hidden="true" />
+                    <i class="fa fa-hashtag" aria-hidden="true"/>
                 </span>
-                <span>Visit</span>
-            </router-link>
+                <span>{{ board.threadCount | shortCount }}</span>
+            </div>
+            <div class="card-footer-item">
+                <span class="icon">
+                    <i class="fa fa-comment-o" aria-hidden="true"/>
+                </span>
+                <span>{{ board.commentCount | shortCount }}</span>
+            </div>
         </footer>
-    </div>
+    </router-link>
 </template>
 
 <script>

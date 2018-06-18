@@ -54,7 +54,13 @@
 .card
     background: transparent
     border-radius: 1em
-    
+    transition: .1s all
+    +shadow(1)
+
+    &:hover
+        transform: translateY(-3px)
+        +shadow(2)
+
     & &-header
         background: $blue
         border:
@@ -80,20 +86,21 @@
         background: $light
 
     & &-footer
-        // background: linear-gradient(135deg, $yellow 0%, $red 100%)     
-        background: $red       
         border:
             bottom-left-radius: 1em
             bottom-right-radius: 1em
+            style: none
 
         &-item
             background: $yellow
-            border:
-                bottom-left-radius: 1em
-                bottom-right-radius: 1em
+            border-style: none
             color: $light
-            transition: all .3s        
+            transition: all .3s
 
-            &:hover
-                background: transparent
-                color: $light
+            &:first-child
+                border:
+                    bottom-left-radius: 1em
+
+            &:last-child
+                border:
+                    bottom-right-radius: 1em
